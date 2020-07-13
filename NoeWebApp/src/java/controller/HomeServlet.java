@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ADZOH-VINYO DIANA
  */
 @WebServlet(name = "Home", urlPatterns = {"/home"})
-public class Home extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
