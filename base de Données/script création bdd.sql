@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`session` (
   `attribute` VARCHAR(45) NULL,
   `compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idsession`, `compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_session_compteUtilisateur_idx` (`compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_session_compteUtilisateur`
     FOREIGN KEY (`compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`compteUtilisateur` (`idcompteUtilisateur`)
@@ -67,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contact` (
   `session_idsession` INT NOT NULL,
   `session_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idcontact`, `session_idsession`, `session_compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_contact_session1_idx` (`session_idsession` ASC, `session_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
+  
   CONSTRAINT `fk_contact_session1`
     FOREIGN KEY (`session_idsession` , `session_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`session` (`idsession` , `compteUtilisateur_idcompteUtilisateur`)
@@ -106,7 +105,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Salarié` (
   `role` VARCHAR(45) NULL,
   `compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idSalarié`, `compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_Salarié_compteUtilisateur1_idx` (`compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_Salarié_compteUtilisateur1`
     FOREIGN KEY (`compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`compteUtilisateur` (`idcompteUtilisateur`)
@@ -128,7 +126,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`equipe` (
   `Salarié_idSalarié` INT NOT NULL,
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idequipe`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_equipe_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_equipe_Salarié1`
     FOREIGN KEY (`Salarié_idSalarié` , `Salarié_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`Salarié` (`idSalarié` , `compteUtilisateur_idcompteUtilisateur`)
@@ -164,8 +161,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`projet` (
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   `alerte_idalerte` INT NOT NULL,
   PRIMARY KEY (`idprojet`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`, `alerte_idalerte`),
-  INDEX `fk_projet_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
-  INDEX `fk_projet_alerte1_idx` (`alerte_idalerte` ASC) VISIBLE,
   CONSTRAINT `fk_projet_Salarié1`
     FOREIGN KEY (`Salarié_idSalarié` , `Salarié_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`Salarié` (`idSalarié` , `compteUtilisateur_idcompteUtilisateur`)
@@ -189,7 +184,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Sentinelle` (
   `Salarié_idSalarié` INT NOT NULL,
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idsentinelle`),
-  INDEX `fk_sentinelle_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_sentinelle_Salarié1`
     FOREIGN KEY (`Salarié_idSalarié` , `Salarié_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`Salarié` (`idSalarié` , `compteUtilisateur_idcompteUtilisateur`)
@@ -219,8 +213,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`LotDeSemence` (
   `quantiteEnNbDeCaiseses` INT NULL,
   `semence_idsemence` INT NOT NULL,
   PRIMARY KEY (`idLotDeSemence`, `semence_idsemence`),
-  INDEX `fk_LotDeSemence_semence1_idx` (`semence_idsemence` ASC) VISIBLE,
-  CONSTRAINT `fk_LotDeSemence_semence1`
+ CONSTRAINT `fk_LotDeSemence_semence1`
     FOREIGN KEY (`semence_idsemence`)
     REFERENCES `mydb`.`semence` (`idsemence`)
     ON DELETE NO ACTION
@@ -239,7 +232,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SiteDeStokage` (
   `localisation` VARCHAR(45) NULL,
   `LotDeSemence_idLotDeSemence` INT NOT NULL,
   PRIMARY KEY (`idSiteDeStokage`),
-  INDEX `fk_SiteDeStokage_LotDeSemence1_idx` (`LotDeSemence_idLotDeSemence` ASC) VISIBLE,
   CONSTRAINT `fk_SiteDeStokage_LotDeSemence1`
     FOREIGN KEY (`LotDeSemence_idLotDeSemence`)
     REFERENCES `mydb`.`LotDeSemence` (`idLotDeSemence`)
@@ -258,9 +250,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SiteDeStokage_has_Salarié` (
   `Salarié_idSalarié` INT NOT NULL,
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`SiteDeStokage_idSiteDeStokage`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_SiteDeStokage_has_Salarié_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
-  INDEX `fk_SiteDeStokage_has_Salarié_SiteDeStokage1_idx` (`SiteDeStokage_idSiteDeStokage` ASC) VISIBLE,
-  CONSTRAINT `fk_SiteDeStokage_has_Salarié_SiteDeStokage1`
+ CONSTRAINT `fk_SiteDeStokage_has_Salarié_SiteDeStokage1`
     FOREIGN KEY (`SiteDeStokage_idSiteDeStokage`)
     REFERENCES `mydb`.`SiteDeStokage` (`idSiteDeStokage`)
     ON DELETE NO ACTION
@@ -284,8 +274,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`espece` (
   `semence_idsemence` INT NOT NULL,
   `alerte_idalerte` INT NOT NULL,
   PRIMARY KEY (`idespece`, `semence_idsemence`, `alerte_idalerte`),
-  INDEX `fk_espece_semence1_idx` (`semence_idsemence` ASC) VISIBLE,
-  INDEX `fk_espece_alerte1_idx` (`alerte_idalerte` ASC) VISIBLE,
+  
   CONSTRAINT `fk_espece_semence1`
     FOREIGN KEY (`semence_idsemence`)
     REFERENCES `mydb`.`semence` (`idsemence`)
@@ -322,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`regne` (
   `regnecol` VARCHAR(45) NULL,
   `embranchement_idembranchement` INT NOT NULL,
   PRIMARY KEY (`idregne`, `embranchement_idembranchement`),
-  INDEX `fk_regne_embranchement1_idx` (`embranchement_idembranchement` ASC) VISIBLE,
+  
   CONSTRAINT `fk_regne_embranchement1`
     FOREIGN KEY (`embranchement_idembranchement`)
     REFERENCES `mydb`.`embranchement` (`idembranchement`)
@@ -343,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ordre` (
   `regne_idregne` INT NOT NULL,
   `regne_embranchement_idembranchement` INT NOT NULL,
   PRIMARY KEY (`idordre`, `regne_idregne`, `regne_embranchement_idembranchement`),
-  INDEX `fk_ordre_regne1_idx` (`regne_idregne` ASC, `regne_embranchement_idembranchement` ASC) VISIBLE,
+  
   CONSTRAINT `fk_ordre_regne1`
     FOREIGN KEY (`regne_idregne` , `regne_embranchement_idembranchement`)
     REFERENCES `mydb`.`regne` (`idregne` , `embranchement_idembranchement`)
@@ -364,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`classe` (
   `ordre_regne_idregne` INT NOT NULL,
   `ordre_regne_embranchement_idembranchement` INT NOT NULL,
   PRIMARY KEY (`idclasse`, `ordre_idordre`, `ordre_regne_idregne`, `ordre_regne_embranchement_idembranchement`),
-  INDEX `fk_classe_ordre1_idx` (`ordre_idordre` ASC, `ordre_regne_idregne` ASC, `ordre_regne_embranchement_idembranchement` ASC) VISIBLE,
+  
   CONSTRAINT `fk_classe_ordre1`
     FOREIGN KEY (`ordre_idordre` , `ordre_regne_idregne` , `ordre_regne_embranchement_idembranchement`)
     REFERENCES `mydb`.`ordre` (`idordre` , `regne_idregne` , `regne_embranchement_idembranchement`)
@@ -387,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Famille` (
   `classe_ordre_regne_idregne` INT NOT NULL,
   `classe_ordre_regne_embranchement_idembranchement` INT NOT NULL,
   PRIMARY KEY (`idFamille`, `classe_idclasse`, `classe_ordre_idordre`, `classe_ordre_regne_idregne`, `classe_ordre_regne_embranchement_idembranchement`),
-  INDEX `fk_Famille_classe1_idx` (`classe_idclasse` ASC, `classe_ordre_idordre` ASC, `classe_ordre_regne_idregne` ASC, `classe_ordre_regne_embranchement_idembranchement` ASC) VISIBLE,
+  
   CONSTRAINT `fk_Famille_classe1`
     FOREIGN KEY (`classe_idclasse` , `classe_ordre_idordre` , `classe_ordre_regne_idregne` , `classe_ordre_regne_embranchement_idembranchement`)
     REFERENCES `mydb`.`classe` (`idclasse` , `ordre_idordre` , `ordre_regne_idregne` , `ordre_regne_embranchement_idembranchement`)
@@ -413,9 +402,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`taxinomie` (
   `espece_semence_idsemence` INT NOT NULL,
   `espece_alerte_idalerte` INT NOT NULL,
   PRIMARY KEY (`idtaxinomie`, `Famille_idFamille`, `Famille_classe_idclasse`, `Famille_classe_ordre_idordre`, `Famille_classe_ordre_regne_idregne`, `Famille_classe_ordre_regne_embranchement_idembranchement`, `espece_idespece`, `espece_semence_idsemence`, `espece_alerte_idalerte`),
-  INDEX `fk_taxinomie_Famille1_idx` (`Famille_idFamille` ASC, `Famille_classe_idclasse` ASC, `Famille_classe_ordre_idordre` ASC, `Famille_classe_ordre_regne_idregne` ASC, `Famille_classe_ordre_regne_embranchement_idembranchement` ASC) VISIBLE,
-  INDEX `fk_taxinomie_espece1_idx` (`espece_idespece` ASC, `espece_semence_idsemence` ASC, `espece_alerte_idalerte` ASC) VISIBLE,
-  CONSTRAINT `fk_taxinomie_Famille1`
+ 
+ CONSTRAINT `fk_taxinomie_Famille1`
     FOREIGN KEY (`Famille_idFamille` , `Famille_classe_idclasse` , `Famille_classe_ordre_idordre` , `Famille_classe_ordre_regne_idregne` , `Famille_classe_ordre_regne_embranchement_idembranchement`)
     REFERENCES `mydb`.`Famille` (`idFamille` , `classe_idclasse` , `classe_ordre_idordre` , `classe_ordre_regne_idregne` , `classe_ordre_regne_embranchement_idembranchement`)
     ON DELETE NO ACTION
