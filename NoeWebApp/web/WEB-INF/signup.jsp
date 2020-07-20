@@ -39,7 +39,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
 					<li><a href="/association-arche/contact">Contact</a></li>
-					<li><a class="btn" href="/association-arche/signin">Connexion / Déconnexion</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -106,7 +106,8 @@
 										</label>                        
 									</div>
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit"><a href="confirmationInsc.html">Enregistrer</a></button>
+										<button class="btn btn-action" type="submit">
+                                                                                    <a href="confirmationinscription.jsp">Enregistrer</a></button>
 									</div>
 								</div>
 							</form>
