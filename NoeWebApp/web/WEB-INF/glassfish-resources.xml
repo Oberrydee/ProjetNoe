@@ -10,9 +10,6 @@
         <property name="URL" value="jdbc:mysql://localhost:3306/mydb?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-<<<<<<< HEAD
     <jdbc-resource enabled="true" jndi-name="java:app/archeDB" object-type="user" pool-name="mysql_mydb_rootPool"/>
-=======
-    <jdbc-resource enabled="true" jndi-name="java:app/myDB" object-type="user" pool-name="mysql_mydb_rootPool"/>
->>>>>>> projet_noe_branch_diana
+
 </resources>

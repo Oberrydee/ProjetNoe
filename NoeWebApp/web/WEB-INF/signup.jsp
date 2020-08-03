@@ -71,43 +71,51 @@
 						<div class="panel-body">
 							<h3 class="thin text-center">Créer un nouveau compte</h3>							<hr>
 
-							<form>
+							<form action="/association-arche/signup" method="post">
 								<div class="top-margin">
 									<label>Nom</label>
-									<input type="text" class="form-control">
+									<input type="text" id="fnom" name="nom" class="form-control" value="${nom}">
 								</div>
 								<div class="top-margin">
 									<label>Prénom</label>
-									<input type="text" class="form-control">
+									<input type="text" id="fprenom" name="prenom" class="form-control"value="${prenom}">
+								</div>
+								<div class="top-margin">
+									<label>Téléphone</label>
+									<input type="text" id="ftel" name="tel" class="form-control" value="${tel}">
 								</div>
 								<div class="top-margin">
 									<label>Adresse e-mail <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+                                                                        <input type="email" id="femail" name="email" class="form-control" value="${email}">
 								</div>
 
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Mot de passe <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
+                                                                                <input type="password" id="fpassword" name="password" class="form-control">
 									</div>
 									<div class="col-sm-6">
 										<label>Confirmer mot de passe <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
+                                                                                <input type="password" id="fconf_password" name="conf_password" class="form-control">
 									</div>
 								</div>
+                                                            
+                                                            <div>
+                                                                <p style="color: red">${textError}</p>
+                                                            </div>
 
 								<hr>
 
 								<div class="row">
 									<div class="col-lg-8">
-										<label class="checkbox">
-											<input type="checkbox"> 
+										<label class="checkbox" >
+											<input type="checkbox" name="termes_et_conditions" value="termes_et_conditions"> 
 											J'ai bien lu les <a href="page_terms.html">termes de conditions</a>
 										</label>                        
 									</div>
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">
-                                                                                    <a href="confirmationinscription.jsp">Enregistrer</a></button>
+                                                                            <input type="submit" value="Enregistrer">
+                                                                            
 									</div>
 								</div>
 							</form>
