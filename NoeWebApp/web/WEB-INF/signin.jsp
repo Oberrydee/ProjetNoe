@@ -86,7 +86,7 @@
 										<b><a href="">Mot de passe oublié?</a></b>
 									</div>
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit"><a href="interface.html">Connexion</a></button>
+										<button class="btn btn-action" type="submit"><a href="session-accueil">Connexion</a></button>
 									</div>
 								</div>
 							</form>
