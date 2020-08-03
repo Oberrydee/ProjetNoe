@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`session` (
   `attribute` VARCHAR(45) NULL,
   `compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idsession`, `compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_session_compteUtilisateur_idx` (`compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_session_compteUtilisateur`
     FOREIGN KEY (`compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`compteUtilisateur` (`idcompteUtilisateur`)
@@ -67,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contact` (
   `session_idsession` INT NOT NULL,
   `session_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idcontact`, `session_idsession`, `session_compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_contact_session1_idx` (`session_idsession` ASC, `session_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_contact_session1`
     FOREIGN KEY (`session_idsession` , `session_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`session` (`idsession` , `compteUtilisateur_idcompteUtilisateur`)
@@ -118,8 +116,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Salarié` (
   `compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   ` Role_id Role` INT NOT NULL,
   PRIMARY KEY (`idSalarié`, `compteUtilisateur_idcompteUtilisateur`, ` Role_id Role`),
-  INDEX `fk_Salarié_compteUtilisateur1_idx` (`compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
-  INDEX `fk_Salarié_ Role1_idx` (` Role_id Role` ASC) VISIBLE,
   CONSTRAINT `fk_Salarié_compteUtilisateur1`
     FOREIGN KEY (`compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`compteUtilisateur` (`idcompteUtilisateur`)
@@ -146,7 +142,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`equipe` (
   `Salarié_idSalarié` INT NOT NULL,
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idequipe`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_equipe_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_equipe_Salarié1`
     FOREIGN KEY (`Salarié_idSalarié` , `Salarié_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`Salarié` (`idSalarié` , `compteUtilisateur_idcompteUtilisateur`)
@@ -188,7 +183,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`variété` (
   `nom` VARCHAR(45) NULL,
   `forme_idforme` INT NOT NULL,
   PRIMARY KEY (`idvariété`),
-  INDEX `fk_variété_forme1_idx` (`forme_idforme` ASC) VISIBLE,
   CONSTRAINT `fk_variété_forme1`
     FOREIGN KEY (`forme_idforme`)
     REFERENCES `mydb`.`forme` (`idforme`)
@@ -207,7 +201,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`espèce(Taxinomie)` (
   `nom` VARCHAR(45) NULL,
   `variété_idvariété` INT NOT NULL,
   PRIMARY KEY (`idespèce(Taxinomie)`),
-  INDEX `fk_espèce(Taxinomie)_variété1_idx` (`variété_idvariété` ASC) VISIBLE,
   CONSTRAINT `fk_espèce(Taxinomie)_variété1`
     FOREIGN KEY (`variété_idvariété`)
     REFERENCES `mydb`.`variété` (`idvariété`)
@@ -226,7 +219,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`série` (
   `nom` VARCHAR(45) NULL,
   `espèce(Taxinomie)_idespèce(Taxinomie)` INT NOT NULL,
   PRIMARY KEY (`idsérie`),
-  INDEX `fk_série_espèce(Taxinomie)1_idx` (`espèce(Taxinomie)_idespèce(Taxinomie)` ASC) VISIBLE,
   CONSTRAINT `fk_série_espèce(Taxinomie)1`
     FOREIGN KEY (`espèce(Taxinomie)_idespèce(Taxinomie)`)
     REFERENCES `mydb`.`espèce(Taxinomie)` (`idespèce(Taxinomie)`)
@@ -245,7 +237,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`section` (
   `nom` VARCHAR(45) NULL,
   `série_idsérie` INT NOT NULL,
   PRIMARY KEY (`idsection`),
-  INDEX `fk_section_série1_idx` (`série_idsérie` ASC) VISIBLE,
   CONSTRAINT `fk_section_série1`
     FOREIGN KEY (`série_idsérie`)
     REFERENCES `mydb`.`série` (`idsérie`)
@@ -264,7 +255,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`genre` (
   `nom` VARCHAR(45) NULL,
   `section_idsection` INT NOT NULL,
   PRIMARY KEY (`idgenre`),
-  INDEX `fk_genre_section1_idx` (`section_idsection` ASC) VISIBLE,
   CONSTRAINT `fk_genre_section1`
     FOREIGN KEY (`section_idsection`)
     REFERENCES `mydb`.`section` (`idsection`)
@@ -283,7 +273,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tribu` (
   `nom` VARCHAR(45) NULL,
   `genre_idgenre` INT NOT NULL,
   PRIMARY KEY (`idtribu`),
-  INDEX `fk_tribu_genre1_idx` (`genre_idgenre` ASC) VISIBLE,
   CONSTRAINT `fk_tribu_genre1`
     FOREIGN KEY (`genre_idgenre`)
     REFERENCES `mydb`.`genre` (`idgenre`)
@@ -302,7 +291,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Famille` (
   `nom` VARCHAR(45) NULL,
   `tribu_idtribu` INT NOT NULL,
   PRIMARY KEY (`idFamille`),
-  INDEX `fk_Famille_tribu1_idx` (`tribu_idtribu` ASC) VISIBLE,
   CONSTRAINT `fk_Famille_tribu1`
     FOREIGN KEY (`tribu_idtribu`)
     REFERENCES `mydb`.`tribu` (`idtribu`)
@@ -321,7 +309,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ordre` (
   `nom` VARCHAR(45) NULL,
   `Famille_idFamille` INT NOT NULL,
   PRIMARY KEY (`idordre`),
-  INDEX `fk_ordre_Famille1_idx` (`Famille_idFamille` ASC) VISIBLE,
   CONSTRAINT `fk_ordre_Famille1`
     FOREIGN KEY (`Famille_idFamille`)
     REFERENCES `mydb`.`Famille` (`idFamille`)
@@ -340,7 +327,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`classe` (
   `nom` VARCHAR(45) NULL,
   `ordre_idordre` INT NOT NULL,
   PRIMARY KEY (`idclasse`),
-  INDEX `fk_classe_ordre1_idx` (`ordre_idordre` ASC) VISIBLE,
   CONSTRAINT `fk_classe_ordre1`
     FOREIGN KEY (`ordre_idordre`)
     REFERENCES `mydb`.`ordre` (`idordre`)
@@ -362,7 +348,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`regne` (
   `phylum` VARCHAR(45) NOT NULL,
   `classe_idclasse` INT NOT NULL,
   PRIMARY KEY (`idregne`),
-  INDEX `fk_regne_classe1_idx` (`classe_idclasse` ASC) VISIBLE,
   CONSTRAINT `fk_regne_classe1`
     FOREIGN KEY (`classe_idclasse`)
     REFERENCES `mydb`.`classe` (`idclasse`)
@@ -383,8 +368,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`espece` (
   `alerte_idalerte` INT NOT NULL,
   `regne_idregne` INT NOT NULL,
   PRIMARY KEY (`idespece`, `semence_idsemence`, `alerte_idalerte`),
-  INDEX `fk_espece_semence1_idx` (`semence_idsemence` ASC) VISIBLE,
-  INDEX `fk_espece_regne1_idx` (`regne_idregne` ASC) VISIBLE,
   CONSTRAINT `fk_espece_semence1`
     FOREIGN KEY (`semence_idsemence`)
     REFERENCES `mydb`.`semence` (`idsemence`)
@@ -410,7 +393,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`alerte` (
   `espece_semence_idsemence` INT NOT NULL,
   `espece_alerte_idalerte` INT NOT NULL,
   PRIMARY KEY (`idalerte`, `espece_idespece`, `espece_semence_idsemence`, `espece_alerte_idalerte`),
-  INDEX `fk_alerte_espece1_idx` (`espece_idespece` ASC, `espece_semence_idsemence` ASC, `espece_alerte_idalerte` ASC) VISIBLE,
   CONSTRAINT `fk_alerte_espece1`
     FOREIGN KEY (`espece_idespece` , `espece_semence_idsemence` , `espece_alerte_idalerte`)
     REFERENCES `mydb`.`espece` (`idespece` , `semence_idsemence` , `alerte_idalerte`)
@@ -447,9 +429,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`projet` (
   `alerte_idalerte` INT NOT NULL,
   `etat_idetat` INT NOT NULL,
   PRIMARY KEY (`idprojet`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`, `alerte_idalerte`, `etat_idetat`),
-  INDEX `fk_projet_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
-  INDEX `fk_projet_alerte1_idx` (`alerte_idalerte` ASC) VISIBLE,
-  INDEX `fk_projet_etat1_idx` (`etat_idetat` ASC) VISIBLE,
   CONSTRAINT `fk_projet_Salarié1`
     FOREIGN KEY (`Salarié_idSalarié` , `Salarié_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`Salarié` (`idSalarié` , `compteUtilisateur_idcompteUtilisateur`)
@@ -478,7 +457,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Sentinelle` (
   `Salarié_idSalarié` INT NOT NULL,
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`idsentinelle`),
-  INDEX `fk_sentinelle_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
   CONSTRAINT `fk_sentinelle_Salarié1`
     FOREIGN KEY (`Salarié_idSalarié` , `Salarié_compteUtilisateur_idcompteUtilisateur`)
     REFERENCES `mydb`.`Salarié` (`idSalarié` , `compteUtilisateur_idcompteUtilisateur`)
@@ -497,7 +475,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`LotDeSemence` (
   `quantiteEnNbDeCaiseses` INT NULL,
   `semence_idsemence` INT NOT NULL,
   PRIMARY KEY (`idLotDeSemence`, `semence_idsemence`),
-  INDEX `fk_LotDeSemence_semence1_idx` (`semence_idsemence` ASC) VISIBLE,
   CONSTRAINT `fk_LotDeSemence_semence1`
     FOREIGN KEY (`semence_idsemence`)
     REFERENCES `mydb`.`semence` (`idsemence`)
@@ -517,7 +494,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SiteDeStokage` (
   `localisation` VARCHAR(45) NULL,
   `LotDeSemence_idLotDeSemence` INT NOT NULL,
   PRIMARY KEY (`idSiteDeStokage`),
-  INDEX `fk_SiteDeStokage_LotDeSemence1_idx` (`LotDeSemence_idLotDeSemence` ASC) VISIBLE,
   CONSTRAINT `fk_SiteDeStokage_LotDeSemence1`
     FOREIGN KEY (`LotDeSemence_idLotDeSemence`)
     REFERENCES `mydb`.`LotDeSemence` (`idLotDeSemence`)
@@ -536,8 +512,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SiteDeStokage_has_Salarié` (
   `Salarié_idSalarié` INT NOT NULL,
   `Salarié_compteUtilisateur_idcompteUtilisateur` INT NOT NULL,
   PRIMARY KEY (`SiteDeStokage_idSiteDeStokage`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`),
-  INDEX `fk_SiteDeStokage_has_Salarié_Salarié1_idx` (`Salarié_idSalarié` ASC, `Salarié_compteUtilisateur_idcompteUtilisateur` ASC) VISIBLE,
-  INDEX `fk_SiteDeStokage_has_Salarié_SiteDeStokage1_idx` (`SiteDeStokage_idSiteDeStokage` ASC) VISIBLE,
   CONSTRAINT `fk_SiteDeStokage_has_Salarié_SiteDeStokage1`
     FOREIGN KEY (`SiteDeStokage_idSiteDeStokage`)
     REFERENCES `mydb`.`SiteDeStokage` (`idSiteDeStokage`)
@@ -572,8 +546,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.` Role_has_Droit` (
   ` Role_id Role` INT NOT NULL,
   `Droit_idDroit` INT NOT NULL,
   PRIMARY KEY (` Role_id Role`, `Droit_idDroit`),
-  INDEX `fk_ Role_has_Droit_Droit1_idx` (`Droit_idDroit` ASC) VISIBLE,
-  INDEX `fk_ Role_has_Droit_ Role1_idx` (` Role_id Role` ASC) VISIBLE,
   CONSTRAINT `fk_ Role_has_Droit_ Role1`
     FOREIGN KEY (` Role_id Role`)
     REFERENCES `mydb`.` Role` (`id Role`)
@@ -587,16 +559,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.` Role_has_Droit` (
 ENGINE = InnoDB;
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 -- -----------------------------------------------------
 -- Data for table `mydb`.`compteUtilisateur`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`compteUtilisateur` (`idcompteUtilisateur`, `nomUtilisateur`, `mdp`, `emailPerso`, `numéroTelephone`) VALUES (1, 'tony', 'test1234', 'tony@test.fr', '0123456789');
+INSERT INTO `mydb`.`compteUtilisateur` (`idcompteUtilisateur`, `nomUtilisateur`, 
+	`mdp`, `emailPerso`, `numéroTelephone`) VALUES (1, 'tony', 'test1234', 'tony@test.fr', '0123456789');
 
 COMMIT;
 
@@ -606,7 +575,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`session` (`idsession`, `attribute`, `compteUtilisateur_idcompteUtilisateur`) VALUES (1, 'incony', DEFAULT);
+INSERT INTO `mydb`.`session` (`idsession`, `attribute`, `compteUtilisateur_idcompteUtilisateur`) 
+	VALUES (1, 'incony', 1);
 
 COMMIT;
 
@@ -616,7 +586,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`contact` (`idcontact`, `nom`, `prénom`, `email`, `numéroTelephone`, `message`, `newsletter`, `session_idsession`, `session_compteUtilisateur_idcompteUtilisateur`) VALUES (1, 'kozram', 'tony', 'tony@test.fr', '0123456789', 'bonjour je vous envois un test', '0', DEFAULT, DEFAULT);
+INSERT INTO `mydb`.`contact` (`idcontact`, `nom`, `prénom`, `email`,
+	`numéroTelephone`, `message`, `newsletter`, `session_idsession`, 
+	`session_compteUtilisateur_idcompteUtilisateur`) 
+		VALUES (1, 'kozram', 'tony', 'tony@test.fr', '0123456789', 
+		'bonjour je vous envois un test', '0', 1, 1);
 
 COMMIT;
 
@@ -626,7 +600,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.` Role` (`id Role`, `nomRole`) VALUES (1, 'stagiaire');
+INSERT INTO `mydb`.` Role` (`id Role`, `nomRole`) VALUES (NULL, 'stagiaire');
 
 COMMIT;
 
@@ -636,7 +610,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`Salarié` (`idSalarié`, `emailPro`, `site`, `droits`, `numeroBatiment`, `rue`, `ville`, `codePostal`, `nom`, `prénom`, `compteUtilisateur_idcompteUtilisateur`, ` Role_id Role`) VALUES (1, 'tonynoe@noe.fr', 'lile', 'inconue', '1', '15', 'villetest', 92123, 'kozram', 'tony', Tkozram, 1);
+INSERT INTO `mydb`.`Salarié` (`idSalarié`, `emailPro`, 
+`site`, `droits`, `numeroBatiment`, `rue`, `ville`, 
+`codePostal`, `nom`, `prénom`, `compteUtilisateur_idcompteUtilisateur`, ` Role_id Role`) 
+VALUES (1, 'tonynoe@noe.fr', 'lile', 'inconue', '1', '15', 'villetest', 92123, 
+'kozram', 'tony', 1, 1);
 
 COMMIT;
 
@@ -646,7 +624,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`equipe` (`idequipe`, `nom`, `nombreDeMembre`, `membres`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`) VALUES (1, 'equipe1', '5', '1', 1, 1);
+INSERT INTO `mydb`.`equipe` (`idequipe`, `nom`, `nombreDeMembre`, `membres`, `Salarié_idSalarié`, 
+`Salarié_compteUtilisateur_idcompteUtilisateur`) VALUES (NULL, 'equipe1', '5', '1', 1, 1);
 
 COMMIT;
 
@@ -656,7 +635,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`semence` (`idsemence`) VALUES (1);
+INSERT INTO `mydb`.`semence` (`idsemence`) VALUES (NULL);
 
 COMMIT;
 
@@ -666,7 +645,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`forme` (`idforme`, `nom`) VALUES (1, 'forme1');
+INSERT INTO `mydb`.`forme` (`idforme`, `nom`) VALUES (NULL, 'forme1');
 
 COMMIT;
 
@@ -676,7 +655,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`variété` (`idvariété`, `nom`, `forme_idforme`) VALUES (1, 'variété1', DEFAULT);
+INSERT INTO `mydb`.`variété` (`idvariété`, `nom`, `forme_idforme`) VALUES (NULL, 'variété1', 1);
 
 COMMIT;
 
@@ -686,7 +665,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`espèce(Taxinomie)` (`idespèce(Taxinomie)`, `nom`, `variété_idvariété`) VALUES (1, 'espèce1', DEFAULT);
+INSERT INTO `mydb`.`espèce(Taxinomie)` (`idespèce(Taxinomie)`, `nom`, `variété_idvariété`) 
+VALUES (NULL, 'espèce1', 1);
 
 COMMIT;
 
@@ -696,7 +676,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`série` (`idsérie`, `nom`, `espèce(Taxinomie)_idespèce(Taxinomie)`) VALUES (1, 'série', 1);
+INSERT INTO `mydb`.`série` (`idsérie`, `nom`, `espèce(Taxinomie)_idespèce(Taxinomie)`) 
+VALUES (NULL, 'série', 1);
 
 COMMIT;
 
@@ -706,7 +687,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`section` (`idsection`, `nom`, `série_idsérie`) VALUES (1, 'section1', DEFAULT);
+INSERT INTO `mydb`.`section` (`idsection`, `nom`, `série_idsérie`) VALUES (NULL, 'section1', 1);
 
 COMMIT;
 
@@ -716,7 +697,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`genre` (`idgenre`, `nom`, `section_idsection`) VALUES (1, 'genre1', DEFAULT);
+INSERT INTO `mydb`.`genre` (`idgenre`, `nom`, `section_idsection`) VALUES (NULL, 'genre1', 1);
 
 COMMIT;
 
@@ -726,7 +707,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`tribu` (`idtribu`, `nom`, `genre_idgenre`) VALUES (1, 'tribu1', DEFAULT);
+INSERT INTO `mydb`.`tribu` (`idtribu`, `nom`, `genre_idgenre`) VALUES (NULL, 'tribu1', 1);
 
 COMMIT;
 
@@ -736,7 +717,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`Famille` (`idFamille`, `nom`, `tribu_idtribu`) VALUES (1, 'famille1', DEFAULT);
+INSERT INTO `mydb`.`Famille` (`idFamille`, `nom`, `tribu_idtribu`) VALUES (NULL, 'famille1', 1);
 
 COMMIT;
 
@@ -746,7 +727,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`ordre` (`idordre`, `nom`, `Famille_idFamille`) VALUES (1, 'ordre', DEFAULT);
+INSERT INTO `mydb`.`ordre` (`idordre`, `nom`, `Famille_idFamille`) VALUES (NULL, 'ordre', 1);
 
 COMMIT;
 
@@ -756,7 +737,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`classe` (`idclasse`, `nom`, `ordre_idordre`) VALUES (1, 'classe1', DEFAULT);
+INSERT INTO `mydb`.`classe` (`idclasse`, `nom`, `ordre_idordre`) VALUES (NULL, 'classe1', 1);
 
 COMMIT;
 
@@ -766,7 +747,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`regne` (`idregne`, `nom`, `embranchement`, `division`, `phylum`, `classe_idclasse`) VALUES (1, 'régne1', '1', '1', '1', 1);
+INSERT INTO `mydb`.`regne` (`idregne`, `nom`, `embranchement`, `division`, `phylum`, `classe_idclasse`) 
+VALUES (NULL, 'régne1', '1', '1', '1', 1);
 
 COMMIT;
 
@@ -776,7 +758,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`espece` (`idespece`, `nom`, `semence_idsemence`, `alerte_idalerte`, `regne_idregne`) VALUES (1, 'pandaRoux', , DEFAULT, DEFAULT);
+INSERT INTO `mydb`.`espece` (`idespece`, `nom`, `semence_idsemence`, `alerte_idalerte`, `regne_idregne`) 
+VALUES (NULL, 'pandaRoux', 1, 1, 1);
 
 COMMIT;
 
@@ -786,7 +769,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`alerte` (`idalerte`, `urgence`, `espece_idespece`, `espece_semence_idsemence`, `espece_alerte_idalerte`) VALUES (1, faible, 1, 1, 1);
+INSERT INTO `mydb`.`alerte` (`idalerte`, `urgence`, `espece_idespece`, `espece_semence_idsemence`, 
+`espece_alerte_idalerte`) VALUES (NULL, 0, 1, 1, 1);
 
 COMMIT;
 
@@ -796,9 +780,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`etat` (`idetat`, `description`) VALUES (1, 'en court');
-INSERT INTO `mydb`.`etat` (`idetat`, `description`) VALUES (2, 'annuler');
-INSERT INTO `mydb`.`etat` (`idetat`, `description`) VALUES (3, 'clos');
+INSERT INTO `mydb`.`etat` (`idetat`, `description`) VALUES (NULL, 'en court');
+INSERT INTO `mydb`.`etat` (`idetat`, `description`) VALUES (NULL, 'annuler');
+INSERT INTO `mydb`.`etat` (`idetat`, `description`) VALUES (NULL, 'clos');
 
 COMMIT;
 
@@ -808,7 +792,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`projet` (`idprojet`, `nom`, `dateDebut`, `status`, `duréeEnMois`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`, `alerte_idalerte`, `etat_idetat`) VALUES (1, 'projet1', '24/07/2020', 'encour', '6', 1, 1, DEFAULT, DEFAULT);
+INSERT INTO `mydb`.`projet` (`idprojet`, `nom`, `dateDebut`, `status`, `duréeEnMois`, 
+`Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`, `alerte_idalerte`, `etat_idetat`) 
+VALUES (NULL, 'projet1',NULL, 'encour', '6', 1, 1, 1, 1);
 
 COMMIT;
 
@@ -818,7 +804,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`Sentinelle` (`idsentinelle`, `Salarié_idSalarié`, `Salarié_compteUtilisateur_idcompteUtilisateur`) VALUES (1, 1, 1);
+INSERT INTO `mydb`.`Sentinelle` (`idsentinelle`, `Salarié_idSalarié`, 
+`Salarié_compteUtilisateur_idcompteUtilisateur`) VALUES (NULL, 1, 1);
 
 COMMIT;
 
@@ -828,7 +815,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`LotDeSemence` (`idLotDeSemence`, `quantiteEnNbDeCaiseses`, `semence_idsemence`) VALUES (1, 2, DEFAULT);
+INSERT INTO `mydb`.`LotDeSemence` (`idLotDeSemence`, `quantiteEnNbDeCaiseses`, `semence_idsemence`) 
+VALUES (NULL, 2, 1);
 
 COMMIT;
 
@@ -838,7 +826,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`SiteDeStokage` (`idSiteDeStokage`, `salle`, `localisation`, `LotDeSemence_idLotDeSemence`) VALUES (1, 1, 'batiment', 1);
+INSERT INTO `mydb`.`SiteDeStokage` (`idSiteDeStokage`, `salle`, `localisation`, 
+`LotDeSemence_idLotDeSemence`) VALUES (NULL, 1, 'batiment', 1);
 
 COMMIT;
 
@@ -848,9 +837,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`Droit` (`idDroit`, `nomDroit`) VALUES (1, 'consultation');
-INSERT INTO `mydb`.`Droit` (`idDroit`, `nomDroit`) VALUES (2, 'modification ');
-INSERT INTO `mydb`.`Droit` (`idDroit`, `nomDroit`) VALUES (2, 'sup');
+INSERT INTO `mydb`.`Droit` (`idDroit`, `nomDroit`) VALUES (NULL, 'consultation');
+INSERT INTO `mydb`.`Droit` (`idDroit`, `nomDroit`) VALUES (NULL, 'modification ');
+INSERT INTO `mydb`.`Droit` (`idDroit`, `nomDroit`) VALUES (NULL, 'sup');
 
 COMMIT;
 
+alter table `compteutilisateur` add COLUMN nom varchar(20); 
+alter table `compteutilisateur` add COLUMN prenom varchar(20) ; 
+
+INSERT INTO `semence` (`idsemence`) VALUES ('2'), ('3');
+
+commit; 
