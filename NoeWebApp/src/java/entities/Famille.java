@@ -7,12 +7,14 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,51 +33,38 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Famille.findAll", query = "SELECT f FROM Famille f")
-    , @NamedQuery(name = "Famille.findByIdFamille", query = "SELECT f FROM Famille f WHERE f.famillePK.idFamille = :idFamille")
-    , @NamedQuery(name = "Famille.findByNom", query = "SELECT f FROM Famille f WHERE f.nom = :nom")
-    , @NamedQuery(name = "Famille.findByFamillecol", query = "SELECT f FROM Famille f WHERE f.famillecol = :famillecol")
-    , @NamedQuery(name = "Famille.findByClasseIdclasse", query = "SELECT f FROM Famille f WHERE f.famillePK.classeIdclasse = :classeIdclasse")
-    , @NamedQuery(name = "Famille.findByClasseOrdreIdordre", query = "SELECT f FROM Famille f WHERE f.famillePK.classeOrdreIdordre = :classeOrdreIdordre")
-    , @NamedQuery(name = "Famille.findByClasseOrdreRegneIdregne", query = "SELECT f FROM Famille f WHERE f.famillePK.classeOrdreRegneIdregne = :classeOrdreRegneIdregne")
-    , @NamedQuery(name = "Famille.findByClasseOrdreRegneEmbranchementIdembranchement", query = "SELECT f FROM Famille f WHERE f.famillePK.classeOrdreRegneEmbranchementIdembranchement = :classeOrdreRegneEmbranchementIdembranchement")})
+    , @NamedQuery(name = "Famille.findByIdFamille", query = "SELECT f FROM Famille f WHERE f.idFamille = :idFamille")
+    , @NamedQuery(name = "Famille.findByNom", query = "SELECT f FROM Famille f WHERE f.nom = :nom")})
 public class Famille implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FamillePK famillePK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idFamille")
+    private Integer idFamille;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @Size(max = 45)
-    @Column(name = "Famillecol")
-    private String famillecol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "famille")
-    private List<Taxinomie> taxinomieList;
-    @JoinColumns({
-        @JoinColumn(name = "classe_idclasse", referencedColumnName = "idclasse", insertable = false, updatable = false)
-        , @JoinColumn(name = "classe_ordre_idordre", referencedColumnName = "ordre_idordre", insertable = false, updatable = false)
-        , @JoinColumn(name = "classe_ordre_regne_idregne", referencedColumnName = "ordre_regne_idregne", insertable = false, updatable = false)
-        , @JoinColumn(name = "classe_ordre_regne_embranchement_idembranchement", referencedColumnName = "ordre_regne_embranchement_idembranchement", insertable = false, updatable = false)})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familleidFamille")
+    private List<Ordre> ordreList;
+    @JoinColumn(name = "tribu_idtribu", referencedColumnName = "idtribu")
     @ManyToOne(optional = false)
-    private Classe classe;
+    private Tribu tribuIdtribu;
 
     public Famille() {
     }
 
-    public Famille(FamillePK famillePK) {
-        this.famillePK = famillePK;
+    public Famille(Integer idFamille) {
+        this.idFamille = idFamille;
     }
 
-    public Famille(int idFamille, int classeIdclasse, int classeOrdreIdordre, int classeOrdreRegneIdregne, int classeOrdreRegneEmbranchementIdembranchement) {
-        this.famillePK = new FamillePK(idFamille, classeIdclasse, classeOrdreIdordre, classeOrdreRegneIdregne, classeOrdreRegneEmbranchementIdembranchement);
+    public Integer getIdFamille() {
+        return idFamille;
     }
 
-    public FamillePK getFamillePK() {
-        return famillePK;
-    }
-
-    public void setFamillePK(FamillePK famillePK) {
-        this.famillePK = famillePK;
+    public void setIdFamille(Integer idFamille) {
+        this.idFamille = idFamille;
     }
 
     public String getNom() {
@@ -86,35 +75,27 @@ public class Famille implements Serializable {
         this.nom = nom;
     }
 
-    public String getFamillecol() {
-        return famillecol;
-    }
-
-    public void setFamillecol(String famillecol) {
-        this.famillecol = famillecol;
-    }
-
     @XmlTransient
-    public List<Taxinomie> getTaxinomieList() {
-        return taxinomieList;
+    public List<Ordre> getOrdreList() {
+        return ordreList;
     }
 
-    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
-        this.taxinomieList = taxinomieList;
+    public void setOrdreList(List<Ordre> ordreList) {
+        this.ordreList = ordreList;
     }
 
-    public Classe getClasse() {
-        return classe;
+    public Tribu getTribuIdtribu() {
+        return tribuIdtribu;
     }
 
-    public void setClasse(Classe classe) {
-        this.classe = classe;
+    public void setTribuIdtribu(Tribu tribuIdtribu) {
+        this.tribuIdtribu = tribuIdtribu;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (famillePK != null ? famillePK.hashCode() : 0);
+        hash += (idFamille != null ? idFamille.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +106,7 @@ public class Famille implements Serializable {
             return false;
         }
         Famille other = (Famille) object;
-        if ((this.famillePK == null && other.famillePK != null) || (this.famillePK != null && !this.famillePK.equals(other.famillePK))) {
+        if ((this.idFamille == null && other.idFamille != null) || (this.idFamille != null && !this.idFamille.equals(other.idFamille))) {
             return false;
         }
         return true;
@@ -133,7 +114,7 @@ public class Famille implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Famille[ famillePK=" + famillePK + " ]";
+        return "entities.Famille[ idFamille=" + idFamille + " ]";
     }
     
 }

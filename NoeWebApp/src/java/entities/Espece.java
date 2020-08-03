@@ -42,14 +42,14 @@ public class Espece implements Serializable {
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "espece")
-    private List<Taxinomie> taxinomieList;
-    @JoinColumn(name = "alerte_idalerte", referencedColumnName = "idalerte", insertable = false, updatable = false)
+    @JoinColumn(name = "regne_idregne", referencedColumnName = "idregne")
     @ManyToOne(optional = false)
-    private Alerte alerte;
+    private Regne regneIdregne;
     @JoinColumn(name = "semence_idsemence", referencedColumnName = "idsemence", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Semence semence;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "espece")
+    private List<Alerte> alerteList;
 
     public Espece() {
     }
@@ -78,21 +78,12 @@ public class Espece implements Serializable {
         this.nom = nom;
     }
 
-    @XmlTransient
-    public List<Taxinomie> getTaxinomieList() {
-        return taxinomieList;
+    public Regne getRegneIdregne() {
+        return regneIdregne;
     }
 
-    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
-        this.taxinomieList = taxinomieList;
-    }
-
-    public Alerte getAlerte() {
-        return alerte;
-    }
-
-    public void setAlerte(Alerte alerte) {
-        this.alerte = alerte;
+    public void setRegneIdregne(Regne regneIdregne) {
+        this.regneIdregne = regneIdregne;
     }
 
     public Semence getSemence() {
@@ -101,6 +92,15 @@ public class Espece implements Serializable {
 
     public void setSemence(Semence semence) {
         this.semence = semence;
+    }
+
+    @XmlTransient
+    public List<Alerte> getAlerteList() {
+        return alerteList;
+    }
+
+    public void setAlerteList(List<Alerte> alerteList) {
+        this.alerteList = alerteList;
     }
 
     @Override

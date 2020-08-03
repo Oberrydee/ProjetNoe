@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Projet.findByDur\u00e9eEnMois", query = "SELECT p FROM Projet p WHERE p.dur\u00e9eEnMois = :dur\u00e9eEnMois")
     , @NamedQuery(name = "Projet.findBySalari\u00e9idSalari\u00e9", query = "SELECT p FROM Projet p WHERE p.projetPK.salari\u00e9idSalari\u00e9 = :salari\u00e9idSalari\u00e9")
     , @NamedQuery(name = "Projet.findBySalari\u00e9compteUtilisateuridcompteUtilisateur", query = "SELECT p FROM Projet p WHERE p.projetPK.salari\u00e9compteUtilisateuridcompteUtilisateur = :salari\u00e9compteUtilisateuridcompteUtilisateur")
-    , @NamedQuery(name = "Projet.findByAlerteIdalerte", query = "SELECT p FROM Projet p WHERE p.projetPK.alerteIdalerte = :alerteIdalerte")})
+    , @NamedQuery(name = "Projet.findByAlerteIdalerte", query = "SELECT p FROM Projet p WHERE p.projetPK.alerteIdalerte = :alerteIdalerte")
+    , @NamedQuery(name = "Projet.findByEtatIdetat", query = "SELECT p FROM Projet p WHERE p.projetPK.etatIdetat = :etatIdetat")})
 public class Projet implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,6 +64,9 @@ public class Projet implements Serializable {
     @JoinColumn(name = "alerte_idalerte", referencedColumnName = "idalerte", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Alerte alerte;
+    @JoinColumn(name = "etat_idetat", referencedColumnName = "idetat", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Etat etat;
 
     public Projet() {
     }
@@ -71,8 +75,8 @@ public class Projet implements Serializable {
         this.projetPK = projetPK;
     }
 
-    public Projet(int idprojet, int salariéidSalarié, int salariécompteUtilisateuridcompteUtilisateur, int alerteIdalerte) {
-        this.projetPK = new ProjetPK(idprojet, salariéidSalarié, salariécompteUtilisateuridcompteUtilisateur, alerteIdalerte);
+    public Projet(int idprojet, int salariéidSalarié, int salariécompteUtilisateuridcompteUtilisateur, int alerteIdalerte, int etatIdetat) {
+        this.projetPK = new ProjetPK(idprojet, salariéidSalarié, salariécompteUtilisateuridcompteUtilisateur, alerteIdalerte, etatIdetat);
     }
 
     public ProjetPK getProjetPK() {
@@ -129,6 +133,14 @@ public class Projet implements Serializable {
 
     public void setAlerte(Alerte alerte) {
         this.alerte = alerte;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
     }
 
     @Override

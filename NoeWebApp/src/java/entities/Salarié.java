@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Salari\u00e9.findByCodePostal", query = "SELECT s FROM Salari\u00e9 s WHERE s.codePostal = :codePostal")
     , @NamedQuery(name = "Salari\u00e9.findByNom", query = "SELECT s FROM Salari\u00e9 s WHERE s.nom = :nom")
     , @NamedQuery(name = "Salari\u00e9.findByPr\u00e9nom", query = "SELECT s FROM Salari\u00e9 s WHERE s.pr\u00e9nom = :pr\u00e9nom")
-    , @NamedQuery(name = "Salari\u00e9.findByRole", query = "SELECT s FROM Salari\u00e9 s WHERE s.role = :role")
-    , @NamedQuery(name = "Salari\u00e9.findByCompteUtilisateuridcompteUtilisateur", query = "SELECT s FROM Salari\u00e9 s WHERE s.salari\u00e9PK.compteUtilisateuridcompteUtilisateur = :compteUtilisateuridcompteUtilisateur")})
+    , @NamedQuery(name = "Salari\u00e9.findByCompteUtilisateuridcompteUtilisateur", query = "SELECT s FROM Salari\u00e9 s WHERE s.salari\u00e9PK.compteUtilisateuridcompteUtilisateur = :compteUtilisateuridcompteUtilisateur")
+    , @NamedQuery(name = "Salari\u00e9.findByRoleidRole", query = "SELECT s FROM Salari\u00e9 s WHERE s.salari\u00e9PK.roleidRole = :roleidRole")})
 public class Salarié implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -75,9 +75,6 @@ public class Salarié implements Serializable {
     @Size(max = 45)
     @Column(name = "pr\u00e9nom")
     private String prénom;
-    @Size(max = 45)
-    @Column(name = "role")
-    private String role;
     @JoinTable(name = "sitedestokage_has_salari\u00e9", joinColumns = {
         @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
         , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur")}, inverseJoinColumns = {
@@ -85,11 +82,14 @@ public class Salarié implements Serializable {
     @ManyToMany
     private List<Sitedestokage> sitedestokageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
-    private List<Sentinelle> sentinelleList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
     private List<Projet> projetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
+    private List<Sentinelle> sentinelleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
     private List<Equipe> equipeList;
+    @JoinColumn(name = " Role_id Role", referencedColumnName = "id Role", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Role role;
     @JoinColumn(name = "compteUtilisateur_idcompteUtilisateur", referencedColumnName = "idcompteUtilisateur", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Compteutilisateur compteutilisateur;
@@ -101,8 +101,8 @@ public class Salarié implements Serializable {
         this.salariéPK = salariéPK;
     }
 
-    public Salarié(int idSalarié, int compteUtilisateuridcompteUtilisateur) {
-        this.salariéPK = new SalariéPK(idSalarié, compteUtilisateuridcompteUtilisateur);
+    public Salarié(int idSalarié, int compteUtilisateuridcompteUtilisateur, int roleidRole) {
+        this.salariéPK = new SalariéPK(idSalarié, compteUtilisateuridcompteUtilisateur, roleidRole);
     }
 
     public SalariéPK getSalariéPK() {
@@ -185,14 +185,6 @@ public class Salarié implements Serializable {
         this.prénom = prénom;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @XmlTransient
     public List<Sitedestokage> getSitedestokageList() {
         return sitedestokageList;
@@ -200,15 +192,6 @@ public class Salarié implements Serializable {
 
     public void setSitedestokageList(List<Sitedestokage> sitedestokageList) {
         this.sitedestokageList = sitedestokageList;
-    }
-
-    @XmlTransient
-    public List<Sentinelle> getSentinelleList() {
-        return sentinelleList;
-    }
-
-    public void setSentinelleList(List<Sentinelle> sentinelleList) {
-        this.sentinelleList = sentinelleList;
     }
 
     @XmlTransient
@@ -221,12 +204,29 @@ public class Salarié implements Serializable {
     }
 
     @XmlTransient
+    public List<Sentinelle> getSentinelleList() {
+        return sentinelleList;
+    }
+
+    public void setSentinelleList(List<Sentinelle> sentinelleList) {
+        this.sentinelleList = sentinelleList;
+    }
+
+    @XmlTransient
     public List<Equipe> getEquipeList() {
         return equipeList;
     }
 
     public void setEquipeList(List<Equipe> equipeList) {
         this.equipeList = equipeList;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Compteutilisateur getCompteutilisateur() {

@@ -25,13 +25,18 @@ public class SalariéPK implements Serializable {
     @NotNull
     @Column(name = "compteUtilisateur_idcompteUtilisateur")
     private int compteUtilisateuridcompteUtilisateur;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = " Role_id Role")
+    private int roleidRole;
 
     public SalariéPK() {
     }
 
-    public SalariéPK(int idSalarié, int compteUtilisateuridcompteUtilisateur) {
+    public SalariéPK(int idSalarié, int compteUtilisateuridcompteUtilisateur, int roleidRole) {
         this.idSalarié = idSalarié;
         this.compteUtilisateuridcompteUtilisateur = compteUtilisateuridcompteUtilisateur;
+        this.roleidRole = roleidRole;
     }
 
     public int getIdSalarié() {
@@ -50,11 +55,20 @@ public class SalariéPK implements Serializable {
         this.compteUtilisateuridcompteUtilisateur = compteUtilisateuridcompteUtilisateur;
     }
 
+    public int getRoleidRole() {
+        return roleidRole;
+    }
+
+    public void setRoleidRole(int roleidRole) {
+        this.roleidRole = roleidRole;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idSalarié;
         hash += (int) compteUtilisateuridcompteUtilisateur;
+        hash += (int) roleidRole;
         return hash;
     }
 
@@ -71,12 +85,15 @@ public class SalariéPK implements Serializable {
         if (this.compteUtilisateuridcompteUtilisateur != other.compteUtilisateuridcompteUtilisateur) {
             return false;
         }
+        if (this.roleidRole != other.roleidRole) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "entities.Salari\u00e9PK[ idSalari\u00e9=" + idSalarié + ", compteUtilisateuridcompteUtilisateur=" + compteUtilisateuridcompteUtilisateur + " ]";
+        return "entities.Salari\u00e9PK[ idSalari\u00e9=" + idSalarié + ", compteUtilisateuridcompteUtilisateur=" + compteUtilisateuridcompteUtilisateur + ", roleidRole=" + roleidRole + " ]";
     }
     
 }

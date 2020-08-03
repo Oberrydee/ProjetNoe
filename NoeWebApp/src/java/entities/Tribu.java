@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,39 +29,42 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "embranchement")
+@Table(name = "tribu")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Embranchement.findAll", query = "SELECT e FROM Embranchement e")
-    , @NamedQuery(name = "Embranchement.findByIdembranchement", query = "SELECT e FROM Embranchement e WHERE e.idembranchement = :idembranchement")
-    , @NamedQuery(name = "Embranchement.findByNom", query = "SELECT e FROM Embranchement e WHERE e.nom = :nom")})
-public class Embranchement implements Serializable {
+    @NamedQuery(name = "Tribu.findAll", query = "SELECT t FROM Tribu t")
+    , @NamedQuery(name = "Tribu.findByIdtribu", query = "SELECT t FROM Tribu t WHERE t.idtribu = :idtribu")
+    , @NamedQuery(name = "Tribu.findByNom", query = "SELECT t FROM Tribu t WHERE t.nom = :nom")})
+public class Tribu implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idembranchement")
-    private Integer idembranchement;
+    @Column(name = "idtribu")
+    private Integer idtribu;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "embranchement")
-    private List<Regne> regneList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tribuIdtribu")
+    private List<Famille> familleList;
+    @JoinColumn(name = "genre_idgenre", referencedColumnName = "idgenre")
+    @ManyToOne(optional = false)
+    private Genre genreIdgenre;
 
-    public Embranchement() {
+    public Tribu() {
     }
 
-    public Embranchement(Integer idembranchement) {
-        this.idembranchement = idembranchement;
+    public Tribu(Integer idtribu) {
+        this.idtribu = idtribu;
     }
 
-    public Integer getIdembranchement() {
-        return idembranchement;
+    public Integer getIdtribu() {
+        return idtribu;
     }
 
-    public void setIdembranchement(Integer idembranchement) {
-        this.idembranchement = idembranchement;
+    public void setIdtribu(Integer idtribu) {
+        this.idtribu = idtribu;
     }
 
     public String getNom() {
@@ -71,29 +76,37 @@ public class Embranchement implements Serializable {
     }
 
     @XmlTransient
-    public List<Regne> getRegneList() {
-        return regneList;
+    public List<Famille> getFamilleList() {
+        return familleList;
     }
 
-    public void setRegneList(List<Regne> regneList) {
-        this.regneList = regneList;
+    public void setFamilleList(List<Famille> familleList) {
+        this.familleList = familleList;
+    }
+
+    public Genre getGenreIdgenre() {
+        return genreIdgenre;
+    }
+
+    public void setGenreIdgenre(Genre genreIdgenre) {
+        this.genreIdgenre = genreIdgenre;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idembranchement != null ? idembranchement.hashCode() : 0);
+        hash += (idtribu != null ? idtribu.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Embranchement)) {
+        if (!(object instanceof Tribu)) {
             return false;
         }
-        Embranchement other = (Embranchement) object;
-        if ((this.idembranchement == null && other.idembranchement != null) || (this.idembranchement != null && !this.idembranchement.equals(other.idembranchement))) {
+        Tribu other = (Tribu) object;
+        if ((this.idtribu == null && other.idtribu != null) || (this.idtribu != null && !this.idtribu.equals(other.idtribu))) {
             return false;
         }
         return true;
@@ -101,7 +114,7 @@ public class Embranchement implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Embranchement[ idembranchement=" + idembranchement + " ]";
+        return "entities.Tribu[ idtribu=" + idtribu + " ]";
     }
     
 }

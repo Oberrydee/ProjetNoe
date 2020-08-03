@@ -29,42 +29,42 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "classe")
+@Table(name = "section")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Classe.findAll", query = "SELECT c FROM Classe c")
-    , @NamedQuery(name = "Classe.findByIdclasse", query = "SELECT c FROM Classe c WHERE c.idclasse = :idclasse")
-    , @NamedQuery(name = "Classe.findByNom", query = "SELECT c FROM Classe c WHERE c.nom = :nom")})
-public class Classe implements Serializable {
+    @NamedQuery(name = "Section.findAll", query = "SELECT s FROM Section s")
+    , @NamedQuery(name = "Section.findByIdsection", query = "SELECT s FROM Section s WHERE s.idsection = :idsection")
+    , @NamedQuery(name = "Section.findByNom", query = "SELECT s FROM Section s WHERE s.nom = :nom")})
+public class Section implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idclasse")
-    private Integer idclasse;
+    @Column(name = "idsection")
+    private Integer idsection;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @JoinColumn(name = "ordre_idordre", referencedColumnName = "idordre")
+    @JoinColumn(name = "s\u00e9rie_ids\u00e9rie", referencedColumnName = "ids\u00e9rie")
     @ManyToOne(optional = false)
-    private Ordre ordreIdordre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classeIdclasse")
-    private List<Regne> regneList;
+    private Série sérieIdsérie;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sectionIdsection")
+    private List<Genre> genreList;
 
-    public Classe() {
+    public Section() {
     }
 
-    public Classe(Integer idclasse) {
-        this.idclasse = idclasse;
+    public Section(Integer idsection) {
+        this.idsection = idsection;
     }
 
-    public Integer getIdclasse() {
-        return idclasse;
+    public Integer getIdsection() {
+        return idsection;
     }
 
-    public void setIdclasse(Integer idclasse) {
-        this.idclasse = idclasse;
+    public void setIdsection(Integer idsection) {
+        this.idsection = idsection;
     }
 
     public String getNom() {
@@ -75,38 +75,38 @@ public class Classe implements Serializable {
         this.nom = nom;
     }
 
-    public Ordre getOrdreIdordre() {
-        return ordreIdordre;
+    public Série getSérieIdsérie() {
+        return sérieIdsérie;
     }
 
-    public void setOrdreIdordre(Ordre ordreIdordre) {
-        this.ordreIdordre = ordreIdordre;
+    public void setSérieIdsérie(Série sérieIdsérie) {
+        this.sérieIdsérie = sérieIdsérie;
     }
 
     @XmlTransient
-    public List<Regne> getRegneList() {
-        return regneList;
+    public List<Genre> getGenreList() {
+        return genreList;
     }
 
-    public void setRegneList(List<Regne> regneList) {
-        this.regneList = regneList;
+    public void setGenreList(List<Genre> genreList) {
+        this.genreList = genreList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idclasse != null ? idclasse.hashCode() : 0);
+        hash += (idsection != null ? idsection.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Classe)) {
+        if (!(object instanceof Section)) {
             return false;
         }
-        Classe other = (Classe) object;
-        if ((this.idclasse == null && other.idclasse != null) || (this.idclasse != null && !this.idclasse.equals(other.idclasse))) {
+        Section other = (Section) object;
+        if ((this.idsection == null && other.idsection != null) || (this.idsection != null && !this.idsection.equals(other.idsection))) {
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ public class Classe implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Classe[ idclasse=" + idclasse + " ]";
+        return "entities.Section[ idsection=" + idsection + " ]";
     }
     
 }

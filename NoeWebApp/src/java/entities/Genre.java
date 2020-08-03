@@ -29,42 +29,42 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "classe")
+@Table(name = "genre")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Classe.findAll", query = "SELECT c FROM Classe c")
-    , @NamedQuery(name = "Classe.findByIdclasse", query = "SELECT c FROM Classe c WHERE c.idclasse = :idclasse")
-    , @NamedQuery(name = "Classe.findByNom", query = "SELECT c FROM Classe c WHERE c.nom = :nom")})
-public class Classe implements Serializable {
+    @NamedQuery(name = "Genre.findAll", query = "SELECT g FROM Genre g")
+    , @NamedQuery(name = "Genre.findByIdgenre", query = "SELECT g FROM Genre g WHERE g.idgenre = :idgenre")
+    , @NamedQuery(name = "Genre.findByNom", query = "SELECT g FROM Genre g WHERE g.nom = :nom")})
+public class Genre implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idclasse")
-    private Integer idclasse;
+    @Column(name = "idgenre")
+    private Integer idgenre;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @JoinColumn(name = "ordre_idordre", referencedColumnName = "idordre")
+    @JoinColumn(name = "section_idsection", referencedColumnName = "idsection")
     @ManyToOne(optional = false)
-    private Ordre ordreIdordre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classeIdclasse")
-    private List<Regne> regneList;
+    private Section sectionIdsection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genreIdgenre")
+    private List<Tribu> tribuList;
 
-    public Classe() {
+    public Genre() {
     }
 
-    public Classe(Integer idclasse) {
-        this.idclasse = idclasse;
+    public Genre(Integer idgenre) {
+        this.idgenre = idgenre;
     }
 
-    public Integer getIdclasse() {
-        return idclasse;
+    public Integer getIdgenre() {
+        return idgenre;
     }
 
-    public void setIdclasse(Integer idclasse) {
-        this.idclasse = idclasse;
+    public void setIdgenre(Integer idgenre) {
+        this.idgenre = idgenre;
     }
 
     public String getNom() {
@@ -75,38 +75,38 @@ public class Classe implements Serializable {
         this.nom = nom;
     }
 
-    public Ordre getOrdreIdordre() {
-        return ordreIdordre;
+    public Section getSectionIdsection() {
+        return sectionIdsection;
     }
 
-    public void setOrdreIdordre(Ordre ordreIdordre) {
-        this.ordreIdordre = ordreIdordre;
+    public void setSectionIdsection(Section sectionIdsection) {
+        this.sectionIdsection = sectionIdsection;
     }
 
     @XmlTransient
-    public List<Regne> getRegneList() {
-        return regneList;
+    public List<Tribu> getTribuList() {
+        return tribuList;
     }
 
-    public void setRegneList(List<Regne> regneList) {
-        this.regneList = regneList;
+    public void setTribuList(List<Tribu> tribuList) {
+        this.tribuList = tribuList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idclasse != null ? idclasse.hashCode() : 0);
+        hash += (idgenre != null ? idgenre.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Classe)) {
+        if (!(object instanceof Genre)) {
             return false;
         }
-        Classe other = (Classe) object;
-        if ((this.idclasse == null && other.idclasse != null) || (this.idclasse != null && !this.idclasse.equals(other.idclasse))) {
+        Genre other = (Genre) object;
+        if ((this.idgenre == null && other.idgenre != null) || (this.idgenre != null && !this.idgenre.equals(other.idgenre))) {
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ public class Classe implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Classe[ idclasse=" + idclasse + " ]";
+        return "entities.Genre[ idgenre=" + idgenre + " ]";
     }
     
 }

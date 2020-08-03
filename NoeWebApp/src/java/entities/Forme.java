@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,42 +27,39 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "classe")
+@Table(name = "forme")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Classe.findAll", query = "SELECT c FROM Classe c")
-    , @NamedQuery(name = "Classe.findByIdclasse", query = "SELECT c FROM Classe c WHERE c.idclasse = :idclasse")
-    , @NamedQuery(name = "Classe.findByNom", query = "SELECT c FROM Classe c WHERE c.nom = :nom")})
-public class Classe implements Serializable {
+    @NamedQuery(name = "Forme.findAll", query = "SELECT f FROM Forme f")
+    , @NamedQuery(name = "Forme.findByIdforme", query = "SELECT f FROM Forme f WHERE f.idforme = :idforme")
+    , @NamedQuery(name = "Forme.findByNom", query = "SELECT f FROM Forme f WHERE f.nom = :nom")})
+public class Forme implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idclasse")
-    private Integer idclasse;
+    @Column(name = "idforme")
+    private Integer idforme;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @JoinColumn(name = "ordre_idordre", referencedColumnName = "idordre")
-    @ManyToOne(optional = false)
-    private Ordre ordreIdordre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classeIdclasse")
-    private List<Regne> regneList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formeIdforme")
+    private List<Variété> variétéList;
 
-    public Classe() {
+    public Forme() {
     }
 
-    public Classe(Integer idclasse) {
-        this.idclasse = idclasse;
+    public Forme(Integer idforme) {
+        this.idforme = idforme;
     }
 
-    public Integer getIdclasse() {
-        return idclasse;
+    public Integer getIdforme() {
+        return idforme;
     }
 
-    public void setIdclasse(Integer idclasse) {
-        this.idclasse = idclasse;
+    public void setIdforme(Integer idforme) {
+        this.idforme = idforme;
     }
 
     public String getNom() {
@@ -75,38 +70,30 @@ public class Classe implements Serializable {
         this.nom = nom;
     }
 
-    public Ordre getOrdreIdordre() {
-        return ordreIdordre;
-    }
-
-    public void setOrdreIdordre(Ordre ordreIdordre) {
-        this.ordreIdordre = ordreIdordre;
-    }
-
     @XmlTransient
-    public List<Regne> getRegneList() {
-        return regneList;
+    public List<Variété> getVariétéList() {
+        return variétéList;
     }
 
-    public void setRegneList(List<Regne> regneList) {
-        this.regneList = regneList;
+    public void setVariétéList(List<Variété> variétéList) {
+        this.variétéList = variétéList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idclasse != null ? idclasse.hashCode() : 0);
+        hash += (idforme != null ? idforme.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Classe)) {
+        if (!(object instanceof Forme)) {
             return false;
         }
-        Classe other = (Classe) object;
-        if ((this.idclasse == null && other.idclasse != null) || (this.idclasse != null && !this.idclasse.equals(other.idclasse))) {
+        Forme other = (Forme) object;
+        if ((this.idforme == null && other.idforme != null) || (this.idforme != null && !this.idforme.equals(other.idforme))) {
             return false;
         }
         return true;
@@ -114,7 +101,7 @@ public class Classe implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Classe[ idclasse=" + idclasse + " ]";
+        return "entities.Forme[ idforme=" + idforme + " ]";
     }
     
 }

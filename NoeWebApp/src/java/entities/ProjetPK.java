@@ -33,15 +33,20 @@ public class ProjetPK implements Serializable {
     @NotNull
     @Column(name = "alerte_idalerte")
     private int alerteIdalerte;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "etat_idetat")
+    private int etatIdetat;
 
     public ProjetPK() {
     }
 
-    public ProjetPK(int idprojet, int salariéidSalarié, int salariécompteUtilisateuridcompteUtilisateur, int alerteIdalerte) {
+    public ProjetPK(int idprojet, int salariéidSalarié, int salariécompteUtilisateuridcompteUtilisateur, int alerteIdalerte, int etatIdetat) {
         this.idprojet = idprojet;
         this.salariéidSalarié = salariéidSalarié;
         this.salariécompteUtilisateuridcompteUtilisateur = salariécompteUtilisateuridcompteUtilisateur;
         this.alerteIdalerte = alerteIdalerte;
+        this.etatIdetat = etatIdetat;
     }
 
     public int getIdprojet() {
@@ -76,6 +81,14 @@ public class ProjetPK implements Serializable {
         this.alerteIdalerte = alerteIdalerte;
     }
 
+    public int getEtatIdetat() {
+        return etatIdetat;
+    }
+
+    public void setEtatIdetat(int etatIdetat) {
+        this.etatIdetat = etatIdetat;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -83,6 +96,7 @@ public class ProjetPK implements Serializable {
         hash += (int) salariéidSalarié;
         hash += (int) salariécompteUtilisateuridcompteUtilisateur;
         hash += (int) alerteIdalerte;
+        hash += (int) etatIdetat;
         return hash;
     }
 
@@ -105,12 +119,15 @@ public class ProjetPK implements Serializable {
         if (this.alerteIdalerte != other.alerteIdalerte) {
             return false;
         }
+        if (this.etatIdetat != other.etatIdetat) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "entities.ProjetPK[ idprojet=" + idprojet + ", salari\u00e9idSalari\u00e9=" + salariéidSalarié + ", salari\u00e9compteUtilisateuridcompteUtilisateur=" + salariécompteUtilisateuridcompteUtilisateur + ", alerteIdalerte=" + alerteIdalerte + " ]";
+        return "entities.ProjetPK[ idprojet=" + idprojet + ", salari\u00e9idSalari\u00e9=" + salariéidSalarié + ", salari\u00e9compteUtilisateuridcompteUtilisateur=" + salariécompteUtilisateuridcompteUtilisateur + ", alerteIdalerte=" + alerteIdalerte + ", etatIdetat=" + etatIdetat + " ]";
     }
     
 }
