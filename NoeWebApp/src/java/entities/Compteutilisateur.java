@@ -6,16 +6,20 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,6 +63,10 @@ public class Compteutilisateur implements Serializable {
     @Size(max = 20)
     @Column(name = "prenom")
     private String prenom;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteutilisateur")
+    private List<Session> sessionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteutilisateur")
+    private List<Salarié> salariéList;
 
     public Compteutilisateur() {
     }
@@ -121,6 +129,24 @@ public class Compteutilisateur implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    @XmlTransient
+    public List<Session> getSessionList() {
+        return sessionList;
+    }
+
+    public void setSessionList(List<Session> sessionList) {
+        this.sessionList = sessionList;
+    }
+
+    @XmlTransient
+    public List<Salarié> getSalariéList() {
+        return salariéList;
+    }
+
+    public void setSalariéList(List<Salarié> salariéList) {
+        this.salariéList = salariéList;
     }
 
     @Override

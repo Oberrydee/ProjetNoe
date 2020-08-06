@@ -25,18 +25,13 @@ public class EspecePK implements Serializable {
     @NotNull
     @Column(name = "semence_idsemence")
     private int semenceIdsemence;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "alerte_idalerte")
-    private int alerteIdalerte;
 
     public EspecePK() {
     }
 
-    public EspecePK(int idespece, int semenceIdsemence, int alerteIdalerte) {
+    public EspecePK(int idespece, int semenceIdsemence) {
         this.idespece = idespece;
         this.semenceIdsemence = semenceIdsemence;
-        this.alerteIdalerte = alerteIdalerte;
     }
 
     public int getIdespece() {
@@ -55,20 +50,11 @@ public class EspecePK implements Serializable {
         this.semenceIdsemence = semenceIdsemence;
     }
 
-    public int getAlerteIdalerte() {
-        return alerteIdalerte;
-    }
-
-    public void setAlerteIdalerte(int alerteIdalerte) {
-        this.alerteIdalerte = alerteIdalerte;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idespece;
         hash += (int) semenceIdsemence;
-        hash += (int) alerteIdalerte;
         return hash;
     }
 
@@ -85,15 +71,12 @@ public class EspecePK implements Serializable {
         if (this.semenceIdsemence != other.semenceIdsemence) {
             return false;
         }
-        if (this.alerteIdalerte != other.alerteIdalerte) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "entities.EspecePK[ idespece=" + idespece + ", semenceIdsemence=" + semenceIdsemence + ", alerteIdalerte=" + alerteIdalerte + " ]";
+        return "entities.EspecePK[ idespece=" + idespece + ", semenceIdsemence=" + semenceIdsemence + " ]";
     }
     
 }

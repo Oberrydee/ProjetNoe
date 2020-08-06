@@ -75,15 +75,10 @@ public class Salarié implements Serializable {
     @Size(max = 45)
     @Column(name = "pr\u00e9nom")
     private String prénom;
-    @JoinTable(name = "sitedestokage_has_salari\u00e9", joinColumns = 
-            {
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", 
-                referencedColumnName = "idSalari\u00e9")
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur",
-                referencedColumnName = "compteUtilisateur_idcompteUtilisateur")
-            }, inverseJoinColumns = {
-        @JoinColumn(name = "SiteDeStokage_idSiteDeStokage", 
-                referencedColumnName = "idSiteDeStokage")})
+    @JoinTable(name = "sitedestokage_has_salari\u00e9", joinColumns = {
+        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
+        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur")}, inverseJoinColumns = {
+        @JoinColumn(name = "SiteDeStokage_idSiteDeStokage", referencedColumnName = "idSiteDeStokage")})
     @ManyToMany
     private List<Sitedestokage> sitedestokageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")

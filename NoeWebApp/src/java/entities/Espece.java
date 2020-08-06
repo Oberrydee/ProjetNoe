@@ -32,8 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Espece.findAll", query = "SELECT e FROM Espece e")
     , @NamedQuery(name = "Espece.findByIdespece", query = "SELECT e FROM Espece e WHERE e.especePK.idespece = :idespece")
     , @NamedQuery(name = "Espece.findByNom", query = "SELECT e FROM Espece e WHERE e.nom = :nom")
-    , @NamedQuery(name = "Espece.findBySemenceIdsemence", query = "SELECT e FROM Espece e WHERE e.especePK.semenceIdsemence = :semenceIdsemence")
-    , @NamedQuery(name = "Espece.findByAlerteIdalerte", query = "SELECT e FROM Espece e WHERE e.especePK.alerteIdalerte = :alerteIdalerte")})
+    , @NamedQuery(name = "Espece.findBySemenceIdsemence", query = "SELECT e FROM Espece e WHERE e.especePK.semenceIdsemence = :semenceIdsemence")})
 public class Espece implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,17 +41,15 @@ public class Espece implements Serializable {
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
+    @JoinColumn(name = "alerte_idalerte", referencedColumnName = "idalerte")
+    @ManyToOne(optional = false)
+    private Alerte alerteIdalerte;
     @JoinColumn(name = "regne_idregne", referencedColumnName = "idregne")
     @ManyToOne(optional = false)
     private Regne regneIdregne;
     @JoinColumn(name = "semence_idsemence", referencedColumnName = "idsemence", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Semence semence;
-    @JoinColumn(name = "espece_alerte_idalerte", 
-            referencedColumnName = "alerte_idalerte", 
-            insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Alerte alerte;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "espece")
     private List<Alerte> alerteList;
 
@@ -63,8 +60,8 @@ public class Espece implements Serializable {
         this.especePK = especePK;
     }
 
-    public Espece(int idespece, int semenceIdsemence, int alerteIdalerte) {
-        this.especePK = new EspecePK(idespece, semenceIdsemence, alerteIdalerte);
+    public Espece(int idespece, int semenceIdsemence) {
+        this.especePK = new EspecePK(idespece, semenceIdsemence);
     }
 
     public EspecePK getEspecePK() {
@@ -83,6 +80,14 @@ public class Espece implements Serializable {
         this.nom = nom;
     }
 
+    public Alerte getAlerteIdalerte() {
+        return alerteIdalerte;
+    }
+
+    public void setAlerteIdalerte(Alerte alerteIdalerte) {
+        this.alerteIdalerte = alerteIdalerte;
+    }
+
     public Regne getRegneIdregne() {
         return regneIdregne;
     }
@@ -98,15 +103,6 @@ public class Espece implements Serializable {
     public void setSemence(Semence semence) {
         this.semence = semence;
     }
-    
-    public Alerte getAlerte() {
-        return alerte;
-    }
-
-    public void setAlerte(Alerte alerte) {
-        this.alerte = alerte;
-    }
-
 
     @XmlTransient
     public List<Alerte> getAlerteList() {
