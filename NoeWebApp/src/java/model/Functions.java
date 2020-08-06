@@ -28,37 +28,49 @@ public class Functions {
         return matcher.find();
     }
     
-    public static String sendConfirmaitonEmail(String to){
-      // Sender's email ID needs to be mentioned
-      String from = "web@gmail.com";
+    public static String sendConfirmaitonEmail(
+            String to, 
+            String nom, 
+            String prenom, 
+            String email, 
+            String tel, 
+            String mdp){
 
-      // Assuming you are sending email from localhost
-      String host = "localhost";
-
-      // Get system properties
-      Properties properties = System.getProperties();
-
-      // Setup mail server
-      properties.setProperty("mail.smtp.host", host);
-
-      // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
-
+        final String username = Email.ARCHE_EMAIL;
+        final String password = Email.ARCHE_PASSWORD;
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        Session session = Session.getInstance(props,
+          new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+                }
+          });
       try {
          // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
+         Message message = new MimeMessage(session);
 
          // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
+         message.setFrom(new InternetAddress(Email.ARCHE_EMAIL));
 
          // Set To: header field of the header.
          message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
          // Set Subject: header field
-         message.setSubject("Confirmation ARCHE!");
+         message.setSubject("Confirmation de votre email!");
 
          // Send the actual HTML message, as big as you like
-         message.setContent("<h1>This is actual message</h1>", "text/html");
+         
+         message.setContent(Email.createAccountConfirmationEmail(
+                 "http://localhost:8080/association-arche/newuser?nom="+nom
+                         +"&prenom="+prenom
+                         +"&tel="+tel
+                         +"&email="+email
+                         +"&mdp="+mdp
+                         ), "text/html");
 
          // Send message
          Transport.send(message);

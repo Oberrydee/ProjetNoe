@@ -849,3 +849,23 @@ alter table `compteutilisateur` add COLUMN prenom varchar(20) ;
 INSERT INTO `semence` (`idsemence`) VALUES ('2'), ('3');
 
 commit; 
+
+
+alter TABLE mydb.alerte drop 
+  CONSTRAINT `fk_alerte_espece1`; 
+  
+alter TABLE mydb.alerte add CONSTRAINT `fk_alerte_espece1`
+	FOREIGN KEY (`espece_idespece` , `espece_semence_idsemence` ) 
+	REFERENCES `mydb`.`espece` (`idespece` , `semence_idsemence` );  
+	
+--alter table mydb.alerte drop PRIMARY KEY, add PRIMARY KEY (`idalerte`, `espece_idespece`, `espece_semence_idsemence`);
+alter table alerte drop primary key, add primary key (idalerte);
+alter table mydb.espece add constraint `fk_alerte_idalerte` foreign key (`alerte_idalerte`)
+REFERENCES mydb.alerte(idalerte), drop primary key, add primary key (`idespece`, `semence_idsemence`); 
+
+alter TABLE mydb.alerte drop CONSTRAINT `fk_alerte_espece1`; 
+alter table mydb.alerte add CONSTRAINT `fk_alerte_espece1`
+	FOREIGN KEY (`espece_idespece` , `espece_semence_idsemence` ) 
+	REFERENCES `mydb`.`espece` (`idespece` , `semence_idsemence` ); 
+	
+alter table mydb.alerte drop espece_alerte_idalerte; 

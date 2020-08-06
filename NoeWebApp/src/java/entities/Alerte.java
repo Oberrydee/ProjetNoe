@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Alerte.findByUrgence", query = "SELECT a FROM Alerte a WHERE a.urgence = :urgence")
     , @NamedQuery(name = "Alerte.findByEspeceIdespece", query = "SELECT a FROM Alerte a WHERE a.alertePK.especeIdespece = :especeIdespece")
     , @NamedQuery(name = "Alerte.findByEspeceSemenceIdsemence", query = "SELECT a FROM Alerte a WHERE a.alertePK.especeSemenceIdsemence = :especeSemenceIdsemence")
-    , @NamedQuery(name = "Alerte.findByEspeceAlerteIdalerte", query = "SELECT a FROM Alerte a WHERE a.alertePK.especeAlerteIdalerte = :especeAlerteIdalerte")})
+   // , @NamedQuery(name = "Alerte.findByEspeceAlerteIdalerte", query = "SELECT a FROM Alerte a WHERE a.alertePK.especeAlerteIdalerte = :especeAlerteIdalerte")
+})
 public class Alerte implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,7 +48,8 @@ public class Alerte implements Serializable {
     @JoinColumns({
         @JoinColumn(name = "espece_idespece", referencedColumnName = "idespece", insertable = false, updatable = false)
         , @JoinColumn(name = "espece_semence_idsemence", referencedColumnName = "semence_idsemence", insertable = false, updatable = false)
-        , @JoinColumn(name = "espece_alerte_idalerte", referencedColumnName = "alerte_idalerte", insertable = false, updatable = false)})
+    //    , @JoinColumn(name = "espece_alerte_idalerte", referencedColumnName = "alerte_idalerte", insertable = false, updatable = false)
+    })
     @ManyToOne(optional = false)
     private Espece espece;
 

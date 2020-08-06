@@ -57,11 +57,33 @@ public class Projet implements Serializable {
     @Column(name = "dur\u00e9eEnMois")
     private String duréeEnMois;
     @JoinColumns({
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur", insertable = false, updatable = false)})
+        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", 
+                referencedColumnName = "idSalari\u00e9", 
+                insertable = false, updatable = false)
+        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur",
+                referencedColumnName = "compteUtilisateur_idcompteUtilisateur", 
+                insertable = false, updatable = false)
+            //this should be deleted if persist issue persists lol get it?
+        , @JoinColumn(name = "Salari\u00e9_Role_id Role", 
+                referencedColumnName = "Role_id Role", 
+                insertable = false, updatable = false)
+    })
     @ManyToOne(optional = false)
     private Salarié salarié;
-    @JoinColumn(name = "alerte_idalerte", referencedColumnName = "idalerte", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "alerte_idalerte", 
+                referencedColumnName = "idalerte", 
+                insertable = false, updatable = false), 
+        @JoinColumn(name= "alerte_espece_idespece", 
+                referencedColumnName = "espece_idespece", 
+                insertable = false, 
+                updatable = false), 
+        @JoinColumn(name= "alerte_espece_semence_idsemence", 
+                referencedColumnName = "espece_semence_idsemence", 
+                insertable = false, 
+                updatable = false)
+            
+    })
     @ManyToOne(optional = false)
     private Alerte alerte;
     @JoinColumn(name = "etat_idetat", referencedColumnName = "idetat", insertable = false, updatable = false)

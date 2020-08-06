@@ -8,6 +8,7 @@ package controller;
 import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -138,6 +139,7 @@ public class SignUpServlet extends HttpServlet {
             }
             else { 
                 //confirmation for email sent page    
+                Functions.sendConfirmaitonEmail(email, nom, prenom, email, tel, mdp);  
                 pageToDisplay = request.getRequestDispatcher("/WEB-INF/inscriptionEmailSent.jsp");           
                    
             }

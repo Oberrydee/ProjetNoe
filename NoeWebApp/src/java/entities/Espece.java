@@ -48,6 +48,11 @@ public class Espece implements Serializable {
     @JoinColumn(name = "semence_idsemence", referencedColumnName = "idsemence", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Semence semence;
+    @JoinColumn(name = "espece_alerte_idalerte", 
+            referencedColumnName = "alerte_idalerte", 
+            insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Alerte alerte;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "espece")
     private List<Alerte> alerteList;
 
@@ -93,6 +98,15 @@ public class Espece implements Serializable {
     public void setSemence(Semence semence) {
         this.semence = semence;
     }
+    
+    public Alerte getAlerte() {
+        return alerte;
+    }
+
+    public void setAlerte(Alerte alerte) {
+        this.alerte = alerte;
+    }
+
 
     @XmlTransient
     public List<Alerte> getAlerteList() {

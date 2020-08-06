@@ -4,17 +4,18 @@
  * and open the template in the editor.
  */
 package entities;
-
+/*
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
-
+*/
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
+/*
 @Embeddable
 public class AlertePK implements Serializable {
 
@@ -29,19 +30,22 @@ public class AlertePK implements Serializable {
     @NotNull
     @Column(name = "espece_semence_idsemence")
     private int especeSemenceIdsemence;
+*/
+    /*
     @Basic(optional = false)
     @NotNull
     @Column(name = "espece_alerte_idalerte")
     private int especeAlerteIdalerte;
-
+*/
+/*
     public AlertePK() {
     }
-
-    public AlertePK(int idalerte, int especeIdespece, int especeSemenceIdsemence, int especeAlerteIdalerte) {
+*/
+  /*  public AlertePK(int idalerte, int especeIdespece, int especeSemenceIdsemence, int especeAlerteIdalerte) {
         this.idalerte = idalerte;
-        this.especeIdespece = especeIdespece;
-        this.especeSemenceIdsemence = especeSemenceIdsemence;
-        this.especeAlerteIdalerte = especeAlerteIdalerte;
+        //this.especeIdespece = especeIdespece;
+        //this.especeSemenceIdsemence = especeSemenceIdsemence;
+       // this.especeAlerteIdalerte = especeAlerteIdalerte;
     }
 
     public int getIdalerte() {
@@ -67,7 +71,8 @@ public class AlertePK implements Serializable {
     public void setEspeceSemenceIdsemence(int especeSemenceIdsemence) {
         this.especeSemenceIdsemence = especeSemenceIdsemence;
     }
-
+*/
+    /*
     public int getEspeceAlerteIdalerte() {
         return especeAlerteIdalerte;
     }
@@ -85,7 +90,8 @@ public class AlertePK implements Serializable {
         hash += (int) especeAlerteIdalerte;
         return hash;
     }
-
+*/
+/*
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -101,16 +107,23 @@ public class AlertePK implements Serializable {
         }
         if (this.especeSemenceIdsemence != other.especeSemenceIdsemence) {
             return false;
-        }
+        }*/
+        /*
         if (this.especeAlerteIdalerte != other.especeAlerteIdalerte) {
             return false;
         }
+*/
+/*
         return true;
     }
 
     @Override
     public String toString() {
-        return "entities.AlertePK[ idalerte=" + idalerte + ", especeIdespece=" + especeIdespece + ", especeSemenceIdsemence=" + especeSemenceIdsemence + ", especeAlerteIdalerte=" + especeAlerteIdalerte + " ]";
+        return "entities.AlertePK[ idalerte=" + idalerte + ", especeIdespece=" + especeIdespece + ", especeSemenceIdsemence=" + especeSemenceIdsemence +/* ", especeAlerteIdalerte=" + especeAlerteIdalerte 
+    + */
+/*
+" ]";
     }
     
 }
+*/
