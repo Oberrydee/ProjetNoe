@@ -39,7 +39,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="index.html">Accueil</a></li>
 					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Connexion / Déconnexion</a></li>
+					<li><a class="btn" href="signin.html">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -55,7 +55,7 @@
 
 		<ol class="breadcrumb">
 			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Ajout d'alertes de sentinelles</li>
+			<li class="active">Lots de semences</li>
 		</ol>
 
 		<div class="row">
@@ -69,40 +69,67 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout d'alertes de sentinelles</h3>	<hr>
+							<h3 class="thin text-center">Demande d'ajout de lot de semence</h3>	<hr>
 
 							<form>
 								<div class="top-margin">
-									<label>Numéro d'alerte</label>
+									<label>Numéro de semence</label>
 									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>espèce concernée</label>
+									<label>Nature de semence</label>
 									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>Taxinomie <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									
+									<label for="localisation-select">Site de stockage:</label>
+
+										<select name="localisation" id="localisation-select">
+											<option value="">--Choisissez la localisation  --</option>
+											<option value="dog">Dax</option>
+											<option value="cat">Lille</option>
+											<option value="hamster">Annecy</option>
+										</select>
+									
+								</div>
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Disponibilité en stock</label>
+										<input type="text" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>Durée de stockage</label>
+										<input type="text" class="form-control">
+									</div>
 								</div>
 
 								<div class="row top-margin">
+									
 									<div class="col-sm-6">
-										<label>Urgence <span class="text-danger">*</span></label>
+										<label>Qauntité</label>
 										<input type="text" class="form-control">
+						
 									</div>
 									<div class="col-sm-6">
-										<label>Sentinelle <span class="text-danger">*</span></label>
+										<label>Conditions de conservation</label>
 										<input type="text" class="form-control">
+										
 									</div>
+								
+							
+							    
+
 								</div>
+
+		
 
 								<hr>
 
 								
 									<div class="col-lg-4 text-right">
 									
-									<button class="btn btn-action" type="submit"><a href="confirmationSentinelle.html">Envoyer la demande d'ajout d'alerte de sentinelle</a></button>
-									<button class="btn btn-action" type="submit"><a href="AnnulerAlerte.html">Annuler</a></button>
+									<button class="btn btn-action" type="submit"><a href="confirmationCompteParManager.html">Envoyer la demande d'ajout de lot de semence</a></button>
+									<button class="btn btn-action" type="submit"><a href="AnnulerCompte.html">Annuler</a></button>
 
 									
 									</div>
