@@ -8,7 +8,6 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,47 +26,47 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "sitedestokage")
+@Table(name = "salle")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sitedestokage.findAll", query = "SELECT s FROM Sitedestokage s")
-    , @NamedQuery(name = "Sitedestokage.findByIdSiteDeStokage", query = "SELECT s FROM Sitedestokage s WHERE s.idSiteDeStokage = :idSiteDeStokage")
-    , @NamedQuery(name = "Sitedestokage.findByLocalisation", query = "SELECT s FROM Sitedestokage s WHERE s.localisation = :localisation")})
-public class Sitedestokage implements Serializable {
+    @NamedQuery(name = "Salle.findAll", query = "SELECT s FROM Salle s")
+    , @NamedQuery(name = "Salle.findByIdSalle", query = "SELECT s FROM Salle s WHERE s.idSalle = :idSalle")
+    , @NamedQuery(name = "Salle.findByDescription", query = "SELECT s FROM Salle s WHERE s.description = :description")})
+public class Salle implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idSiteDeStokage")
-    private Integer idSiteDeStokage;
+    @Column(name = "idSalle")
+    private Integer idSalle;
     @Size(max = 45)
-    @Column(name = "localisation")
-    private String localisation;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "siteDeStockageSiteDeStockage")
+    @Column(name = "description")
+    private String description;
+    @OneToMany(mappedBy = "salleidSalle")
     private List<Lotdesemence> lotdesemenceList;
 
-    public Sitedestokage() {
+    public Salle() {
     }
 
-    public Sitedestokage(Integer idSiteDeStokage) {
-        this.idSiteDeStokage = idSiteDeStokage;
+    public Salle(Integer idSalle) {
+        this.idSalle = idSalle;
     }
 
-    public Integer getIdSiteDeStokage() {
-        return idSiteDeStokage;
+    public Integer getIdSalle() {
+        return idSalle;
     }
 
-    public void setIdSiteDeStokage(Integer idSiteDeStokage) {
-        this.idSiteDeStokage = idSiteDeStokage;
+    public void setIdSalle(Integer idSalle) {
+        this.idSalle = idSalle;
     }
 
-    public String getLocalisation() {
-        return localisation;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLocalisation(String localisation) {
-        this.localisation = localisation;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @XmlTransient
@@ -82,18 +81,18 @@ public class Sitedestokage implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idSiteDeStokage != null ? idSiteDeStokage.hashCode() : 0);
+        hash += (idSalle != null ? idSalle.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sitedestokage)) {
+        if (!(object instanceof Salle)) {
             return false;
         }
-        Sitedestokage other = (Sitedestokage) object;
-        if ((this.idSiteDeStokage == null && other.idSiteDeStokage != null) || (this.idSiteDeStokage != null && !this.idSiteDeStokage.equals(other.idSiteDeStokage))) {
+        Salle other = (Salle) object;
+        if ((this.idSalle == null && other.idSalle != null) || (this.idSalle != null && !this.idSalle.equals(other.idSalle))) {
             return false;
         }
         return true;
@@ -101,7 +100,7 @@ public class Sitedestokage implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Sitedestokage[ idSiteDeStokage=" + idSiteDeStokage + " ]";
+        return "entities.Salle[ idSalle=" + idSalle + " ]";
     }
     
 }

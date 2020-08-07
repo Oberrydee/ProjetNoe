@@ -6,20 +6,18 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,10 +37,12 @@ public class Semence implements Serializable {
     @Basic(optional = false)
     @Column(name = "idsemence")
     private Integer idsemence;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semence")
-    private List<Espece> especeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semence")
-    private List<Lotdesemence> lotdesemenceList;
+    @JoinColumn(name = "LotDeSemence_idLotDeSemence", referencedColumnName = "idLotDeSemence")
+    @ManyToOne(optional = false)
+    private Lotdesemence lotDeSemenceidLotDeSemence;
+    @JoinColumn(name = "espece_idespece", referencedColumnName = "idespece")
+    @ManyToOne(optional = false)
+    private Espece especeIdespece;
 
     public Semence() {
     }
@@ -59,22 +59,20 @@ public class Semence implements Serializable {
         this.idsemence = idsemence;
     }
 
-    @XmlTransient
-    public List<Espece> getEspeceList() {
-        return especeList;
+    public Lotdesemence getLotDeSemenceidLotDeSemence() {
+        return lotDeSemenceidLotDeSemence;
     }
 
-    public void setEspeceList(List<Espece> especeList) {
-        this.especeList = especeList;
+    public void setLotDeSemenceidLotDeSemence(Lotdesemence lotDeSemenceidLotDeSemence) {
+        this.lotDeSemenceidLotDeSemence = lotDeSemenceidLotDeSemence;
     }
 
-    @XmlTransient
-    public List<Lotdesemence> getLotdesemenceList() {
-        return lotdesemenceList;
+    public Espece getEspeceIdespece() {
+        return especeIdespece;
     }
 
-    public void setLotdesemenceList(List<Lotdesemence> lotdesemenceList) {
-        this.lotdesemenceList = lotdesemenceList;
+    public void setEspeceIdespece(Espece especeIdespece) {
+        this.especeIdespece = especeIdespece;
     }
 
     @Override

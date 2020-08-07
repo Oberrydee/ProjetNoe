@@ -45,7 +45,7 @@ public class Forme implements Serializable {
     @Column(name = "nom")
     private String nom;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "formeIdforme")
-    private List<Variété> variétéList;
+    private List<Taxinomie> taxinomieList;
 
     public Forme() {
     }
@@ -71,12 +71,12 @@ public class Forme implements Serializable {
     }
 
     @XmlTransient
-    public List<Variété> getVariétéList() {
-        return variétéList;
+    public List<Taxinomie> getTaxinomieList() {
+        return taxinomieList;
     }
 
-    public void setVariétéList(List<Variété> variétéList) {
-        this.variétéList = variétéList;
+    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
+        this.taxinomieList = taxinomieList;
     }
 
     @Override

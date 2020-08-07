@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,11 +37,9 @@ public class Sentinelle implements Serializable {
     @Basic(optional = false)
     @Column(name = "idsentinelle")
     private Integer idsentinelle;
-    @JoinColumns({
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur")})
+    @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
     @ManyToOne(optional = false)
-    private Salarié salarié;
+    private Salarié salariéidSalarié;
 
     public Sentinelle() {
     }
@@ -59,12 +56,12 @@ public class Sentinelle implements Serializable {
         this.idsentinelle = idsentinelle;
     }
 
-    public Salarié getSalarié() {
-        return salarié;
+    public Salarié getSalariéidSalarié() {
+        return salariéidSalarié;
     }
 
-    public void setSalarié(Salarié salarié) {
-        this.salarié = salarié;
+    public void setSalariéidSalarié(Salarié salariéidSalarié) {
+        this.salariéidSalarié = salariéidSalarié;
     }
 
     @Override

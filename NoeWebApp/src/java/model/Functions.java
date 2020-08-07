@@ -29,12 +29,13 @@ public class Functions {
     }
     
     public static String sendConfirmaitonEmail(
-            String to, 
-            String nom, 
-            String prenom, 
-            String email, 
-            String tel, 
-            String mdp){
+            String to,
+            String nom,
+            String prenom,
+            String email,
+            String tel,
+            String mdp,
+            String id){
 
         final String username = Email.ARCHE_EMAIL;
         final String password = Email.ARCHE_PASSWORD;
@@ -65,11 +66,10 @@ public class Functions {
          // Send the actual HTML message, as big as you like
          
          message.setContent(Email.createAccountConfirmationEmail(
-                 "http://localhost:8080/association-arche/newuser?nom="+nom
-                         +"&prenom="+prenom
-                         +"&tel="+tel
-                         +"&email="+email
-                         +"&mdp="+mdp
+                 "http://localhost:8080/association-arche/newuser?"
+                 +"&nom="+nom+"&prenom="+prenom+"&email="+email+"&tel="+tel+"&mdp="+mdp
+                 
+                 
                          ), "text/html");
 
          // Send message

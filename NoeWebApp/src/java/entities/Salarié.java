@@ -7,13 +7,14 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,32 +33,29 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Salari\u00e9.findAll", query = "SELECT s FROM Salari\u00e9 s")
-    , @NamedQuery(name = "Salari\u00e9.findByIdSalari\u00e9", query = "SELECT s FROM Salari\u00e9 s WHERE s.salari\u00e9PK.idSalari\u00e9 = :idSalari\u00e9")
+    , @NamedQuery(name = "Salari\u00e9.findByIdSalari\u00e9", query = "SELECT s FROM Salari\u00e9 s WHERE s.idSalari\u00e9 = :idSalari\u00e9")
     , @NamedQuery(name = "Salari\u00e9.findByEmailPro", query = "SELECT s FROM Salari\u00e9 s WHERE s.emailPro = :emailPro")
     , @NamedQuery(name = "Salari\u00e9.findBySite", query = "SELECT s FROM Salari\u00e9 s WHERE s.site = :site")
-    , @NamedQuery(name = "Salari\u00e9.findByDroits", query = "SELECT s FROM Salari\u00e9 s WHERE s.droits = :droits")
     , @NamedQuery(name = "Salari\u00e9.findByNumeroBatiment", query = "SELECT s FROM Salari\u00e9 s WHERE s.numeroBatiment = :numeroBatiment")
     , @NamedQuery(name = "Salari\u00e9.findByRue", query = "SELECT s FROM Salari\u00e9 s WHERE s.rue = :rue")
     , @NamedQuery(name = "Salari\u00e9.findByVille", query = "SELECT s FROM Salari\u00e9 s WHERE s.ville = :ville")
     , @NamedQuery(name = "Salari\u00e9.findByCodePostal", query = "SELECT s FROM Salari\u00e9 s WHERE s.codePostal = :codePostal")
     , @NamedQuery(name = "Salari\u00e9.findByNom", query = "SELECT s FROM Salari\u00e9 s WHERE s.nom = :nom")
-    , @NamedQuery(name = "Salari\u00e9.findByPr\u00e9nom", query = "SELECT s FROM Salari\u00e9 s WHERE s.pr\u00e9nom = :pr\u00e9nom")
-    , @NamedQuery(name = "Salari\u00e9.findByCompteUtilisateuridcompteUtilisateur", query = "SELECT s FROM Salari\u00e9 s WHERE s.salari\u00e9PK.compteUtilisateuridcompteUtilisateur = :compteUtilisateuridcompteUtilisateur")
-    , @NamedQuery(name = "Salari\u00e9.findByRoleidRole", query = "SELECT s FROM Salari\u00e9 s WHERE s.salari\u00e9PK.roleidRole = :roleidRole")})
+    , @NamedQuery(name = "Salari\u00e9.findByPr\u00e9nom", query = "SELECT s FROM Salari\u00e9 s WHERE s.pr\u00e9nom = :pr\u00e9nom")})
 public class Salarié implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SalariéPK salariéPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idSalari\u00e9")
+    private Integer idSalarié;
     @Size(max = 45)
     @Column(name = "emailPro")
     private String emailPro;
     @Size(max = 45)
     @Column(name = "site")
     private String site;
-    @Size(max = 45)
-    @Column(name = "droits")
-    private String droits;
     @Size(max = 45)
     @Column(name = "numeroBatiment")
     private String numeroBatiment;
@@ -75,42 +73,28 @@ public class Salarié implements Serializable {
     @Size(max = 45)
     @Column(name = "pr\u00e9nom")
     private String prénom;
-    @JoinTable(name = "sitedestokage_has_salari\u00e9", joinColumns = {
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur")}, inverseJoinColumns = {
-        @JoinColumn(name = "SiteDeStokage_idSiteDeStokage", referencedColumnName = "idSiteDeStokage")})
-    @ManyToMany
-    private List<Sitedestokage> sitedestokageList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
-    private List<Projet> projetList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9idSalari\u00e9")
     private List<Sentinelle> sentinelleList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9")
-    private List<Equipe> equipeList;
-    @JoinColumn(name = " Role_id Role", referencedColumnName = "id Role", insertable = false, updatable = false)
+    @JoinColumn(name = "Role_id Role", referencedColumnName = "idRole")
     @ManyToOne(optional = false)
-    private Role role;
-    @JoinColumn(name = "compteUtilisateur_idcompteUtilisateur", referencedColumnName = "idcompteUtilisateur", insertable = false, updatable = false)
+    private Role roleidRole;
+    @JoinColumn(name = "compteUtilisateur_idcompteUtilisateur", referencedColumnName = "idcompteUtilisateur")
     @ManyToOne(optional = false)
-    private Compteutilisateur compteutilisateur;
+    private Compteutilisateur compteUtilisateuridcompteUtilisateur;
 
     public Salarié() {
     }
 
-    public Salarié(SalariéPK salariéPK) {
-        this.salariéPK = salariéPK;
+    public Salarié(Integer idSalarié) {
+        this.idSalarié = idSalarié;
     }
 
-    public Salarié(int idSalarié, int compteUtilisateuridcompteUtilisateur, int roleidRole) {
-        this.salariéPK = new SalariéPK(idSalarié, compteUtilisateuridcompteUtilisateur, roleidRole);
+    public Integer getIdSalarié() {
+        return idSalarié;
     }
 
-    public SalariéPK getSalariéPK() {
-        return salariéPK;
-    }
-
-    public void setSalariéPK(SalariéPK salariéPK) {
-        this.salariéPK = salariéPK;
+    public void setIdSalarié(Integer idSalarié) {
+        this.idSalarié = idSalarié;
     }
 
     public String getEmailPro() {
@@ -127,14 +111,6 @@ public class Salarié implements Serializable {
 
     public void setSite(String site) {
         this.site = site;
-    }
-
-    public String getDroits() {
-        return droits;
-    }
-
-    public void setDroits(String droits) {
-        this.droits = droits;
     }
 
     public String getNumeroBatiment() {
@@ -186,24 +162,6 @@ public class Salarié implements Serializable {
     }
 
     @XmlTransient
-    public List<Sitedestokage> getSitedestokageList() {
-        return sitedestokageList;
-    }
-
-    public void setSitedestokageList(List<Sitedestokage> sitedestokageList) {
-        this.sitedestokageList = sitedestokageList;
-    }
-
-    @XmlTransient
-    public List<Projet> getProjetList() {
-        return projetList;
-    }
-
-    public void setProjetList(List<Projet> projetList) {
-        this.projetList = projetList;
-    }
-
-    @XmlTransient
     public List<Sentinelle> getSentinelleList() {
         return sentinelleList;
     }
@@ -212,35 +170,26 @@ public class Salarié implements Serializable {
         this.sentinelleList = sentinelleList;
     }
 
-    @XmlTransient
-    public List<Equipe> getEquipeList() {
-        return equipeList;
+    public Role getRoleidRole() {
+        return roleidRole;
     }
 
-    public void setEquipeList(List<Equipe> equipeList) {
-        this.equipeList = equipeList;
+    public void setRoleidRole(Role roleidRole) {
+        this.roleidRole = roleidRole;
     }
 
-    public Role getRole() {
-        return role;
+    public Compteutilisateur getCompteUtilisateuridcompteUtilisateur() {
+        return compteUtilisateuridcompteUtilisateur;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Compteutilisateur getCompteutilisateur() {
-        return compteutilisateur;
-    }
-
-    public void setCompteutilisateur(Compteutilisateur compteutilisateur) {
-        this.compteutilisateur = compteutilisateur;
+    public void setCompteUtilisateuridcompteUtilisateur(Compteutilisateur compteUtilisateuridcompteUtilisateur) {
+        this.compteUtilisateuridcompteUtilisateur = compteUtilisateuridcompteUtilisateur;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (salariéPK != null ? salariéPK.hashCode() : 0);
+        hash += (idSalarié != null ? idSalarié.hashCode() : 0);
         return hash;
     }
 
@@ -251,7 +200,7 @@ public class Salarié implements Serializable {
             return false;
         }
         Salarié other = (Salarié) object;
-        if ((this.salariéPK == null && other.salariéPK != null) || (this.salariéPK != null && !this.salariéPK.equals(other.salariéPK))) {
+        if ((this.idSalarié == null && other.idSalarié != null) || (this.idSalarié != null && !this.idSalarié.equals(other.idSalarié))) {
             return false;
         }
         return true;
@@ -259,7 +208,7 @@ public class Salarié implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Salari\u00e9[ salari\u00e9PK=" + salariéPK + " ]";
+        return "entities.Salari\u00e9[ idSalari\u00e9=" + idSalarié + " ]";
     }
     
 }

@@ -6,19 +6,21 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -42,9 +44,8 @@ public class Variété implements Serializable {
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @JoinColumn(name = "forme_idforme", referencedColumnName = "idforme")
-    @ManyToOne(optional = false)
-    private Forme formeIdforme;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vari\u00e9t\u00e9Idvari\u00e9t\u00e9")
+    private List<Taxinomie> taxinomieList;
 
     public Variété() {
     }
@@ -69,12 +70,13 @@ public class Variété implements Serializable {
         this.nom = nom;
     }
 
-    public Forme getFormeIdforme() {
-        return formeIdforme;
+    @XmlTransient
+    public List<Taxinomie> getTaxinomieList() {
+        return taxinomieList;
     }
 
-    public void setFormeIdforme(Forme formeIdforme) {
-        this.formeIdforme = formeIdforme;
+    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
+        this.taxinomieList = taxinomieList;
     }
 
     @Override

@@ -7,10 +7,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -29,70 +32,101 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Lotdesemence.findAll", query = "SELECT l FROM Lotdesemence l")
-    , @NamedQuery(name = "Lotdesemence.findByIdLotDeSemence", query = "SELECT l FROM Lotdesemence l WHERE l.lotdesemencePK.idLotDeSemence = :idLotDeSemence")
-    , @NamedQuery(name = "Lotdesemence.findByQuantiteEnNbDeCaiseses", query = "SELECT l FROM Lotdesemence l WHERE l.quantiteEnNbDeCaiseses = :quantiteEnNbDeCaiseses")
-    , @NamedQuery(name = "Lotdesemence.findBySemenceIdsemence", query = "SELECT l FROM Lotdesemence l WHERE l.lotdesemencePK.semenceIdsemence = :semenceIdsemence")})
+    , @NamedQuery(name = "Lotdesemence.findByIdLotDeSemence", query = "SELECT l FROM Lotdesemence l WHERE l.idLotDeSemence = :idLotDeSemence")
+    , @NamedQuery(name = "Lotdesemence.findByQuantiteEnNbDeCaisses", query = "SELECT l FROM Lotdesemence l WHERE l.quantiteEnNbDeCaisses = :quantiteEnNbDeCaisses")
+    , @NamedQuery(name = "Lotdesemence.findByDisponibiliteEnStock", query = "SELECT l FROM Lotdesemence l WHERE l.disponibiliteEnStock = :disponibiliteEnStock")
+    , @NamedQuery(name = "Lotdesemence.findByDureeDeStockageEnMois", query = "SELECT l FROM Lotdesemence l WHERE l.dureeDeStockageEnMois = :dureeDeStockageEnMois")})
 public class Lotdesemence implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected LotdesemencePK lotdesemencePK;
-    @Column(name = "quantiteEnNbDeCaiseses")
-    private Integer quantiteEnNbDeCaiseses;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idLotDeSemence")
+    private Integer idLotDeSemence;
+    @Column(name = "quantiteEnNbDeCaisses")
+    private Integer quantiteEnNbDeCaisses;
+    @Column(name = "disponibiliteEnStock")
+    private Integer disponibiliteEnStock;
+    @Column(name = "dureeDeStockageEnMois")
+    private Integer dureeDeStockageEnMois;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lotDeSemenceidLotDeSemence")
-    private List<Sitedestokage> sitedestokageList;
-    @JoinColumn(name = "semence_idsemence", referencedColumnName = "idsemence", insertable = false, updatable = false)
+    private List<Semence> semenceList;
+    @JoinColumn(name = "Salle_idSalle", referencedColumnName = "idSalle")
+    @ManyToOne
+    private Salle salleidSalle;
+    @JoinColumn(name = "SiteDeStockage_SiteDeStockage", referencedColumnName = "idSiteDeStokage")
     @ManyToOne(optional = false)
-    private Semence semence;
+    private Sitedestokage siteDeStockageSiteDeStockage;
 
     public Lotdesemence() {
     }
 
-    public Lotdesemence(LotdesemencePK lotdesemencePK) {
-        this.lotdesemencePK = lotdesemencePK;
+    public Lotdesemence(Integer idLotDeSemence) {
+        this.idLotDeSemence = idLotDeSemence;
     }
 
-    public Lotdesemence(int idLotDeSemence, int semenceIdsemence) {
-        this.lotdesemencePK = new LotdesemencePK(idLotDeSemence, semenceIdsemence);
+    public Integer getIdLotDeSemence() {
+        return idLotDeSemence;
     }
 
-    public LotdesemencePK getLotdesemencePK() {
-        return lotdesemencePK;
+    public void setIdLotDeSemence(Integer idLotDeSemence) {
+        this.idLotDeSemence = idLotDeSemence;
     }
 
-    public void setLotdesemencePK(LotdesemencePK lotdesemencePK) {
-        this.lotdesemencePK = lotdesemencePK;
+    public Integer getQuantiteEnNbDeCaisses() {
+        return quantiteEnNbDeCaisses;
     }
 
-    public Integer getQuantiteEnNbDeCaiseses() {
-        return quantiteEnNbDeCaiseses;
+    public void setQuantiteEnNbDeCaisses(Integer quantiteEnNbDeCaisses) {
+        this.quantiteEnNbDeCaisses = quantiteEnNbDeCaisses;
     }
 
-    public void setQuantiteEnNbDeCaiseses(Integer quantiteEnNbDeCaiseses) {
-        this.quantiteEnNbDeCaiseses = quantiteEnNbDeCaiseses;
+    public Integer getDisponibiliteEnStock() {
+        return disponibiliteEnStock;
+    }
+
+    public void setDisponibiliteEnStock(Integer disponibiliteEnStock) {
+        this.disponibiliteEnStock = disponibiliteEnStock;
+    }
+
+    public Integer getDureeDeStockageEnMois() {
+        return dureeDeStockageEnMois;
+    }
+
+    public void setDureeDeStockageEnMois(Integer dureeDeStockageEnMois) {
+        this.dureeDeStockageEnMois = dureeDeStockageEnMois;
     }
 
     @XmlTransient
-    public List<Sitedestokage> getSitedestokageList() {
-        return sitedestokageList;
+    public List<Semence> getSemenceList() {
+        return semenceList;
     }
 
-    public void setSitedestokageList(List<Sitedestokage> sitedestokageList) {
-        this.sitedestokageList = sitedestokageList;
+    public void setSemenceList(List<Semence> semenceList) {
+        this.semenceList = semenceList;
     }
 
-    public Semence getSemence() {
-        return semence;
+    public Salle getSalleidSalle() {
+        return salleidSalle;
     }
 
-    public void setSemence(Semence semence) {
-        this.semence = semence;
+    public void setSalleidSalle(Salle salleidSalle) {
+        this.salleidSalle = salleidSalle;
+    }
+
+    public Sitedestokage getSiteDeStockageSiteDeStockage() {
+        return siteDeStockageSiteDeStockage;
+    }
+
+    public void setSiteDeStockageSiteDeStockage(Sitedestokage siteDeStockageSiteDeStockage) {
+        this.siteDeStockageSiteDeStockage = siteDeStockageSiteDeStockage;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (lotdesemencePK != null ? lotdesemencePK.hashCode() : 0);
+        hash += (idLotDeSemence != null ? idLotDeSemence.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +137,7 @@ public class Lotdesemence implements Serializable {
             return false;
         }
         Lotdesemence other = (Lotdesemence) object;
-        if ((this.lotdesemencePK == null && other.lotdesemencePK != null) || (this.lotdesemencePK != null && !this.lotdesemencePK.equals(other.lotdesemencePK))) {
+        if ((this.idLotDeSemence == null && other.idLotDeSemence != null) || (this.idLotDeSemence != null && !this.idLotDeSemence.equals(other.idLotDeSemence))) {
             return false;
         }
         return true;
@@ -111,7 +145,7 @@ public class Lotdesemence implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Lotdesemence[ lotdesemencePK=" + lotdesemencePK + " ]";
+        return "entities.Lotdesemence[ idLotDeSemence=" + idLotDeSemence + " ]";
     }
     
 }

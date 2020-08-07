@@ -7,11 +7,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,68 +32,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Projet.findAll", query = "SELECT p FROM Projet p")
-    , @NamedQuery(name = "Projet.findByIdprojet", query = "SELECT p FROM Projet p WHERE p.projetPK.idprojet = :idprojet")
+    , @NamedQuery(name = "Projet.findByIdprojet", query = "SELECT p FROM Projet p WHERE p.idprojet = :idprojet")
     , @NamedQuery(name = "Projet.findByNom", query = "SELECT p FROM Projet p WHERE p.nom = :nom")
     , @NamedQuery(name = "Projet.findByDateDebut", query = "SELECT p FROM Projet p WHERE p.dateDebut = :dateDebut")
-    , @NamedQuery(name = "Projet.findByStatus", query = "SELECT p FROM Projet p WHERE p.status = :status")
-    , @NamedQuery(name = "Projet.findByDur\u00e9eEnMois", query = "SELECT p FROM Projet p WHERE p.dur\u00e9eEnMois = :dur\u00e9eEnMois")
-    , @NamedQuery(name = "Projet.findBySalari\u00e9idSalari\u00e9", query = "SELECT p FROM Projet p WHERE p.projetPK.salari\u00e9idSalari\u00e9 = :salari\u00e9idSalari\u00e9")
-    , @NamedQuery(name = "Projet.findBySalari\u00e9compteUtilisateuridcompteUtilisateur", query = "SELECT p FROM Projet p WHERE p.projetPK.salari\u00e9compteUtilisateuridcompteUtilisateur = :salari\u00e9compteUtilisateuridcompteUtilisateur")
-    , @NamedQuery(name = "Projet.findByAlerteIdalerte", query = "SELECT p FROM Projet p WHERE p.projetPK.alerteIdalerte = :alerteIdalerte")
-    , @NamedQuery(name = "Projet.findByEtatIdetat", query = "SELECT p FROM Projet p WHERE p.projetPK.etatIdetat = :etatIdetat")})
+    , @NamedQuery(name = "Projet.findByDur\u00e9eEnMois", query = "SELECT p FROM Projet p WHERE p.dur\u00e9eEnMois = :dur\u00e9eEnMois")})
 public class Projet implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ProjetPK projetPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idprojet")
+    private Integer idprojet;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
     @Column(name = "dateDebut")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateDebut;
-    @Size(max = 45)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 45)
     @Column(name = "dur\u00e9eEnMois")
-    private String duréeEnMois;
-    @JoinColumns({
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salari\u00e9_Role_id Role", 
-                referencedColumnName = "Role_id Role", 
-                insertable = false, updatable = false),
-    })
+    private Integer duréeEnMois;
+    @JoinColumn(name = "alerte_idalerte", referencedColumnName = "idalerte")
     @ManyToOne(optional = false)
-    private Salarié salarié;
-    
-    @JoinColumn(name = "alerte_idalerte", 
-            referencedColumnName = "idalerte", 
-            insertable = false, updatable = false)
+    private Alerte alerteIdalerte;
+    @JoinColumn(name = "equipe_idequipe", referencedColumnName = "idequipe")
     @ManyToOne(optional = false)
-    private Alerte alerte;
-    @JoinColumn(name = "etat_idetat", referencedColumnName = "idetat", insertable = false, updatable = false)
+    private Equipe equipeIdequipe;
+    @JoinColumn(name = "etat_idetat", referencedColumnName = "idetat")
     @ManyToOne(optional = false)
-    private Etat etat;
+    private Etat etatIdetat;
 
     public Projet() {
     }
 
-    public Projet(ProjetPK projetPK) {
-        this.projetPK = projetPK;
+    public Projet(Integer idprojet) {
+        this.idprojet = idprojet;
     }
 
-    public Projet(int idprojet, int salariéidSalarié, int salariécompteUtilisateuridcompteUtilisateur, int alerteIdalerte, int etatIdetat) {
-        this.projetPK = new ProjetPK(idprojet, salariéidSalarié, salariécompteUtilisateuridcompteUtilisateur, alerteIdalerte, etatIdetat);
+    public Integer getIdprojet() {
+        return idprojet;
     }
 
-    public ProjetPK getProjetPK() {
-        return projetPK;
-    }
-
-    public void setProjetPK(ProjetPK projetPK) {
-        this.projetPK = projetPK;
+    public void setIdprojet(Integer idprojet) {
+        this.idprojet = idprojet;
     }
 
     public String getNom() {
@@ -110,50 +93,42 @@ public class Projet implements Serializable {
         this.dateDebut = dateDebut;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDuréeEnMois() {
+    public Integer getDuréeEnMois() {
         return duréeEnMois;
     }
 
-    public void setDuréeEnMois(String duréeEnMois) {
+    public void setDuréeEnMois(Integer duréeEnMois) {
         this.duréeEnMois = duréeEnMois;
     }
 
-    public Salarié getSalarié() {
-        return salarié;
+    public Alerte getAlerteIdalerte() {
+        return alerteIdalerte;
     }
 
-    public void setSalarié(Salarié salarié) {
-        this.salarié = salarié;
+    public void setAlerteIdalerte(Alerte alerteIdalerte) {
+        this.alerteIdalerte = alerteIdalerte;
     }
 
-    public Alerte getAlerte() {
-        return alerte;
+    public Equipe getEquipeIdequipe() {
+        return equipeIdequipe;
     }
 
-    public void setAlerte(Alerte alerte) {
-        this.alerte = alerte;
+    public void setEquipeIdequipe(Equipe equipeIdequipe) {
+        this.equipeIdequipe = equipeIdequipe;
     }
 
-    public Etat getEtat() {
-        return etat;
+    public Etat getEtatIdetat() {
+        return etatIdetat;
     }
 
-    public void setEtat(Etat etat) {
-        this.etat = etat;
+    public void setEtatIdetat(Etat etatIdetat) {
+        this.etatIdetat = etatIdetat;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (projetPK != null ? projetPK.hashCode() : 0);
+        hash += (idprojet != null ? idprojet.hashCode() : 0);
         return hash;
     }
 
@@ -164,7 +139,7 @@ public class Projet implements Serializable {
             return false;
         }
         Projet other = (Projet) object;
-        if ((this.projetPK == null && other.projetPK != null) || (this.projetPK != null && !this.projetPK.equals(other.projetPK))) {
+        if ((this.idprojet == null && other.idprojet != null) || (this.idprojet != null && !this.idprojet.equals(other.idprojet))) {
             return false;
         }
         return true;
@@ -172,7 +147,7 @@ public class Projet implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Projet[ projetPK=" + projetPK + " ]";
+        return "entities.Projet[ idprojet=" + idprojet + " ]";
     }
     
 }

@@ -72,6 +72,7 @@ public class CreateCompteUtilisateur extends HttpServlet {
         
         Compteutilisateur newUser = new Compteutilisateur(); 
         newUser.setIdcompteUtilisateur(newUser.hashCode());
+        newUser.setNomUtilisateur(nom+"_"+prenom);
         newUser.setNom(nom);
         newUser.setPrenom(prenom);
         newUser.setEmailPerso(email);

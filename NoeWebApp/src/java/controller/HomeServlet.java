@@ -5,14 +5,18 @@
  */
 package controller;
 
+import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.AccessBD;
 
 /**
  *
@@ -59,8 +63,41 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/index.jsp"); 
-        disp.forward(request, response);
+        
+        //session
+        HttpSession session = request.getSession();
+        session.setAttribute("textError", "" );
+        RequestDispatcher pageToDisplay; 
+        pageToDisplay = request.getRequestDispatcher("/WEB-INF/index.jsp");
+        if(session.getAttribute("session_email")!=null &&session.getAttribute("session_mdp")!=null){
+            
+            //getting parameters
+            String session_email = session.getAttribute("session_email").toString(); 
+            String session_mdp = session.getAttribute("session_mdp").toString();
+            List<Compteutilisateur> listeUtilisateurs = AccessBD.selectAllCompteUtilisateurs(); 
+            Boolean userExists = false; 
+            Boolean psswdIsCorrect = false; 
+            for (Compteutilisateur cpt : listeUtilisateurs){
+                
+                if (cpt.getEmailPerso().equals(session_email))userExists = true; 
+                else userExists = false; 
+                
+                if (cpt.getMdp().equals(session_mdp)) psswdIsCorrect = true;
+                else psswdIsCorrect = false; 
+                
+                if(userExists && psswdIsCorrect) break;
+            }
+            if (!userExists || !psswdIsCorrect)
+                pageToDisplay = request.getRequestDispatcher("/WEB-INF/index.jsp");
+            else {
+                session.setAttribute("textError", "Good" );
+                //user interface page prep
+                //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
+                pageToDisplay = request.getRequestDispatcher("/signin"); 
+
+            }
+        }
+        pageToDisplay.forward(request, response);
     }
 
     /**

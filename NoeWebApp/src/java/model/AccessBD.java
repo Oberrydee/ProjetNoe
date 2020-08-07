@@ -8,11 +8,9 @@ package model;
 import entities.Alerte;
 import entities.Classe;
 import entities.Compteutilisateur;
-import entities.Contact;
 import entities.Droit;
 import entities.Equipe;
 import entities.Espece;
-import entities.EspèceTaxinomie;
 import entities.Etat;
 import entities.Famille;
 import entities.Forme;
@@ -26,9 +24,9 @@ import entities.Salarié;
 import entities.Section;
 import entities.Semence;
 import entities.Sentinelle;
-import entities.Session;
 import entities.Sitedestokage;
 import entities.Série;
+import entities.Taxinomie;
 import entities.Tribu;
 import entities.Variété;
 import java.util.List;
@@ -185,26 +183,7 @@ public class AccessBD {
         } finally {
             em.close();
         }
-    }
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////// Contact /////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-     
-    public static List<Contact> selectAllContacts(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Contact.findAll"); 
-        
-        List<Contact> liste = (List<Contact>)q.getResultList(); 
-        
-        for (Contact a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
+    }   
 
     /////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////Droit/////////////////////////////////
@@ -299,20 +278,20 @@ public class AccessBD {
     }       
         
     /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  EspeceTaxinomie     //////////////////////////////////
+    ////////////////////////////////////  Taxinomie     //////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<EspèceTaxinomie> selectAllEspèceTaxinomie(){
+    public static List<Taxinomie> selectAllTaxinomie(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
         Query q = em.createNamedQuery("EspèceTaxinomie.findAll"); 
         
-        List<EspèceTaxinomie> liste = (List<EspèceTaxinomie>)q.getResultList(); 
+        List<Taxinomie> liste = (List<Taxinomie>)q.getResultList(); 
         
-        for (EspèceTaxinomie a: liste){
+        for (Taxinomie a: liste){
             System.out.println(a.toString());
         }
         return liste; 
@@ -644,26 +623,7 @@ public class AccessBD {
             em.close();
         }
     }
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////    Session  /////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
      
-    
-    public static List<Session> selectAllSessions(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Session.findAll"); 
-        
-        List<Session> liste = (List<Session>)q.getResultList(); 
-        
-        for (Session a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }   
     
     /////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////Site de stokage //////////////////////////

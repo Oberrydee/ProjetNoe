@@ -5,14 +5,18 @@
  */
 package controller;
 
+import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.AccessBD;
 
 /**
  *
@@ -74,7 +78,47 @@ public class SingInServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //error page prep
+        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/signin.jsp"); 
+        
+        //session
+        HttpSession session = request.getSession();
+        session.setAttribute("textError", "" );
+        //getting parameters
+        String email = request.getParameter("session_email"); 
+        String mdp = request.getParameter("session_mdp");
+        
+        if (email!=null && mdp != null){
+            //getting users list
+            List<Compteutilisateur> listeUsers = AccessBD.selectAllCompteUtilisateurs(); 
+
+            Boolean userExists = false; 
+            Boolean psswdIsCorrect = false; 
+            for (Compteutilisateur cpt : listeUsers){
+                if (cpt.getEmailPerso().equals(email)){
+                    userExists = true;                 
+                }
+                if (cpt.getMdp().equals(mdp)){
+                    psswdIsCorrect = true;
+                }
+                if(userExists && psswdIsCorrect) break;
+            }
+            if (!userExists)session.setAttribute("textError", "Email invalide" );
+            else if (userExists && !psswdIsCorrect)
+                session.setAttribute("textError", "Mot de passe Incorrect" );
+            else {                
+                session.setAttribute("session_email", email);
+                session.setAttribute("session_mdp", mdp);
+                session.setAttribute("textError", "Good" );
+                //user interface page prep
+                //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
+            }
+            pageToDisplay.forward(request, response);
+            }
+        else{
+            session.setAttribute("textError", "Veuillez entrer toutes les informations" );
+        }
+
     }
 
     /**

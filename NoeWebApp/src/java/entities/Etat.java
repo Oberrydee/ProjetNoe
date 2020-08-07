@@ -44,7 +44,7 @@ public class Etat implements Serializable {
     @Size(max = 45)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "etat")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "etatIdetat")
     private List<Projet> projetList;
 
     public Etat() {

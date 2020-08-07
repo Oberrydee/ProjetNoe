@@ -63,9 +63,7 @@ public class Compteutilisateur implements Serializable {
     @Size(max = 20)
     @Column(name = "prenom")
     private String prenom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteutilisateur")
-    private List<Session> sessionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteutilisateur")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteUtilisateuridcompteUtilisateur")
     private List<Salarié> salariéList;
 
     public Compteutilisateur() {
@@ -132,28 +130,12 @@ public class Compteutilisateur implements Serializable {
     }
 
     @XmlTransient
-    public List<Session> getSessionList() {
-        return sessionList;
-    }
-
-    public void setSessionList(List<Session> sessionList) {
-        this.sessionList = sessionList;
-    }
-
-    @XmlTransient
     public List<Salarié> getSalariéList() {
         return salariéList;
     }
 
     public void setSalariéList(List<Salarié> salariéList) {
         this.salariéList = salariéList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idcompteUtilisateur != null ? idcompteUtilisateur.hashCode() : 0);
-        return hash;
     }
 
     @Override

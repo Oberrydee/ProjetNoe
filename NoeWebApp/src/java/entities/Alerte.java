@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,15 +44,11 @@ public class Alerte implements Serializable {
     private Integer idalerte;
     @Column(name = "urgence")
     private Integer urgence;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alerte")
-    private List<Projet> projetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alerteIdalerte")
-    private List<Espece> especeList;
-    @JoinColumns({
-        @JoinColumn(name = "espece_idespece", referencedColumnName = "idespece")
-        , @JoinColumn(name = "espece_semence_idsemence", referencedColumnName = "semence_idsemence")})
+    private List<Projet> projetList;
+    @JoinColumn(name = "espece_idespece", referencedColumnName = "idespece")
     @ManyToOne(optional = false)
-    private Espece espece;
+    private Espece especeIdespece;
 
     public Alerte() {
     }
@@ -87,21 +82,12 @@ public class Alerte implements Serializable {
         this.projetList = projetList;
     }
 
-    @XmlTransient
-    public List<Espece> getEspeceList() {
-        return especeList;
+    public Espece getEspeceIdespece() {
+        return especeIdespece;
     }
 
-    public void setEspeceList(List<Espece> especeList) {
-        this.especeList = especeList;
-    }
-
-    public Espece getEspece() {
-        return espece;
-    }
-
-    public void setEspece(Espece espece) {
-        this.espece = espece;
+    public void setEspeceIdespece(Espece especeIdespece) {
+        this.especeIdespece = especeIdespece;
     }
 
     @Override

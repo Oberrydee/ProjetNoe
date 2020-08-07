@@ -27,39 +27,39 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "famille")
+@Table(name = "embranchement")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Famille.findAll", query = "SELECT f FROM Famille f")
-    , @NamedQuery(name = "Famille.findByIdfamille", query = "SELECT f FROM Famille f WHERE f.idfamille = :idfamille")
-    , @NamedQuery(name = "Famille.findByNom", query = "SELECT f FROM Famille f WHERE f.nom = :nom")})
-public class Famille implements Serializable {
+    @NamedQuery(name = "Embranchement.findAll", query = "SELECT e FROM Embranchement e")
+    , @NamedQuery(name = "Embranchement.findByIdembranchement", query = "SELECT e FROM Embranchement e WHERE e.idembranchement = :idembranchement")
+    , @NamedQuery(name = "Embranchement.findByNom", query = "SELECT e FROM Embranchement e WHERE e.nom = :nom")})
+public class Embranchement implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idfamille")
-    private Integer idfamille;
+    @Column(name = "idembranchement")
+    private Integer idembranchement;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familleIdfamille")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "embranchementIdembranchement")
     private List<Taxinomie> taxinomieList;
 
-    public Famille() {
+    public Embranchement() {
     }
 
-    public Famille(Integer idfamille) {
-        this.idfamille = idfamille;
+    public Embranchement(Integer idembranchement) {
+        this.idembranchement = idembranchement;
     }
 
-    public Integer getIdfamille() {
-        return idfamille;
+    public Integer getIdembranchement() {
+        return idembranchement;
     }
 
-    public void setIdfamille(Integer idfamille) {
-        this.idfamille = idfamille;
+    public void setIdembranchement(Integer idembranchement) {
+        this.idembranchement = idembranchement;
     }
 
     public String getNom() {
@@ -82,18 +82,18 @@ public class Famille implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idfamille != null ? idfamille.hashCode() : 0);
+        hash += (idembranchement != null ? idembranchement.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Famille)) {
+        if (!(object instanceof Embranchement)) {
             return false;
         }
-        Famille other = (Famille) object;
-        if ((this.idfamille == null && other.idfamille != null) || (this.idfamille != null && !this.idfamille.equals(other.idfamille))) {
+        Embranchement other = (Embranchement) object;
+        if ((this.idembranchement == null && other.idembranchement != null) || (this.idembranchement != null && !this.idembranchement.equals(other.idembranchement))) {
             return false;
         }
         return true;
@@ -101,7 +101,7 @@ public class Famille implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Famille[ idfamille=" + idfamille + " ]";
+        return "entities.Embranchement[ idembranchement=" + idembranchement + " ]";
     }
     
 }

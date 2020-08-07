@@ -14,13 +14,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -35,10 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Regne.findAll", query = "SELECT r FROM Regne r")
     , @NamedQuery(name = "Regne.findByIdregne", query = "SELECT r FROM Regne r WHERE r.idregne = :idregne")
-    , @NamedQuery(name = "Regne.findByNom", query = "SELECT r FROM Regne r WHERE r.nom = :nom")
-    , @NamedQuery(name = "Regne.findByEmbranchement", query = "SELECT r FROM Regne r WHERE r.embranchement = :embranchement")
-    , @NamedQuery(name = "Regne.findByDivision", query = "SELECT r FROM Regne r WHERE r.division = :division")
-    , @NamedQuery(name = "Regne.findByPhylum", query = "SELECT r FROM Regne r WHERE r.phylum = :phylum")})
+    , @NamedQuery(name = "Regne.findByNom", query = "SELECT r FROM Regne r WHERE r.nom = :nom")})
 public class Regne implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,39 +44,14 @@ public class Regne implements Serializable {
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "embranchement")
-    private String embranchement;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "division")
-    private String division;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "phylum")
-    private String phylum;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "regneIdregne")
-    private List<Espece> especeList;
-    @JoinColumn(name = "classe_idclasse", referencedColumnName = "idclasse")
-    @ManyToOne(optional = false)
-    private Classe classeIdclasse;
+    private List<Taxinomie> taxinomieList;
 
     public Regne() {
     }
 
     public Regne(Integer idregne) {
         this.idregne = idregne;
-    }
-
-    public Regne(Integer idregne, String embranchement, String division, String phylum) {
-        this.idregne = idregne;
-        this.embranchement = embranchement;
-        this.division = division;
-        this.phylum = phylum;
     }
 
     public Integer getIdregne() {
@@ -101,45 +70,13 @@ public class Regne implements Serializable {
         this.nom = nom;
     }
 
-    public String getEmbranchement() {
-        return embranchement;
-    }
-
-    public void setEmbranchement(String embranchement) {
-        this.embranchement = embranchement;
-    }
-
-    public String getDivision() {
-        return division;
-    }
-
-    public void setDivision(String division) {
-        this.division = division;
-    }
-
-    public String getPhylum() {
-        return phylum;
-    }
-
-    public void setPhylum(String phylum) {
-        this.phylum = phylum;
-    }
-
     @XmlTransient
-    public List<Espece> getEspeceList() {
-        return especeList;
+    public List<Taxinomie> getTaxinomieList() {
+        return taxinomieList;
     }
 
-    public void setEspeceList(List<Espece> especeList) {
-        this.especeList = especeList;
-    }
-
-    public Classe getClasseIdclasse() {
-        return classeIdclasse;
-    }
-
-    public void setClasseIdclasse(Classe classeIdclasse) {
-        this.classeIdclasse = classeIdclasse;
+    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
+        this.taxinomieList = taxinomieList;
     }
 
     @Override
