@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "salle")
+@Table(name = "Salle")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Salle.findAll", query = "SELECT s FROM Salle s")
@@ -44,7 +44,7 @@ public class Salle implements Serializable {
     @Column(name = "description")
     private String description;
     @OneToMany(mappedBy = "salleidSalle")
-    private List<Lotdesemence> lotdesemenceList;
+    private List<LotDeSemence> lotDeSemenceList;
 
     public Salle() {
     }
@@ -70,12 +70,12 @@ public class Salle implements Serializable {
     }
 
     @XmlTransient
-    public List<Lotdesemence> getLotdesemenceList() {
-        return lotdesemenceList;
+    public List<LotDeSemence> getLotDeSemenceList() {
+        return lotDeSemenceList;
     }
 
-    public void setLotdesemenceList(List<Lotdesemence> lotdesemenceList) {
-        this.lotdesemenceList = lotdesemenceList;
+    public void setLotDeSemenceList(List<LotDeSemence> lotDeSemenceList) {
+        this.lotDeSemenceList = lotDeSemenceList;
     }
 
     @Override

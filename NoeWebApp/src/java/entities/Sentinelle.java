@@ -6,7 +6,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,15 +18,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "sentinelle")
+@Table(name = "Sentinelle")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sentinelle.findAll", query = "SELECT s FROM Sentinelle s")
@@ -37,6 +41,8 @@ public class Sentinelle implements Serializable {
     @Basic(optional = false)
     @Column(name = "idsentinelle")
     private Integer idsentinelle;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sentinelleIdsentinelle")
+    private List<Alerte> alerteList;
     @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
     @ManyToOne(optional = false)
     private Salarié salariéidSalarié;
@@ -54,6 +60,15 @@ public class Sentinelle implements Serializable {
 
     public void setIdsentinelle(Integer idsentinelle) {
         this.idsentinelle = idsentinelle;
+    }
+
+    @XmlTransient
+    public List<Alerte> getAlerteList() {
+        return alerteList;
+    }
+
+    public void setAlerteList(List<Alerte> alerteList) {
+        this.alerteList = alerteList;
     }
 
     public Salarié getSalariéidSalarié() {

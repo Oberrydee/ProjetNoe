@@ -28,15 +28,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "lotdesemence")
+@Table(name = "LotDeSemence")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Lotdesemence.findAll", query = "SELECT l FROM Lotdesemence l")
-    , @NamedQuery(name = "Lotdesemence.findByIdLotDeSemence", query = "SELECT l FROM Lotdesemence l WHERE l.idLotDeSemence = :idLotDeSemence")
-    , @NamedQuery(name = "Lotdesemence.findByQuantiteEnNbDeCaisses", query = "SELECT l FROM Lotdesemence l WHERE l.quantiteEnNbDeCaisses = :quantiteEnNbDeCaisses")
-    , @NamedQuery(name = "Lotdesemence.findByDisponibiliteEnStock", query = "SELECT l FROM Lotdesemence l WHERE l.disponibiliteEnStock = :disponibiliteEnStock")
-    , @NamedQuery(name = "Lotdesemence.findByDureeDeStockageEnMois", query = "SELECT l FROM Lotdesemence l WHERE l.dureeDeStockageEnMois = :dureeDeStockageEnMois")})
-public class Lotdesemence implements Serializable {
+    @NamedQuery(name = "LotDeSemence.findAll", query = "SELECT l FROM LotDeSemence l")
+    , @NamedQuery(name = "LotDeSemence.findByIdLotDeSemence", query = "SELECT l FROM LotDeSemence l WHERE l.idLotDeSemence = :idLotDeSemence")
+    , @NamedQuery(name = "LotDeSemence.findByQuantiteEnNbDeCaisses", query = "SELECT l FROM LotDeSemence l WHERE l.quantiteEnNbDeCaisses = :quantiteEnNbDeCaisses")
+    , @NamedQuery(name = "LotDeSemence.findByDisponibiliteEnStock", query = "SELECT l FROM LotDeSemence l WHERE l.disponibiliteEnStock = :disponibiliteEnStock")
+    , @NamedQuery(name = "LotDeSemence.findByDureeDeStockageEnMois", query = "SELECT l FROM LotDeSemence l WHERE l.dureeDeStockageEnMois = :dureeDeStockageEnMois")})
+public class LotDeSemence implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,17 +52,17 @@ public class Lotdesemence implements Serializable {
     private Integer dureeDeStockageEnMois;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lotDeSemenceidLotDeSemence")
     private List<Semence> semenceList;
+    @JoinColumn(name = "SiteDeStockage_SiteDeStockage", referencedColumnName = "idSiteDeStokage")
+    @ManyToOne(optional = false)
+    private SiteDeStokage siteDeStockageSiteDeStockage;
     @JoinColumn(name = "Salle_idSalle", referencedColumnName = "idSalle")
     @ManyToOne
     private Salle salleidSalle;
-    @JoinColumn(name = "SiteDeStockage_SiteDeStockage", referencedColumnName = "idSiteDeStokage")
-    @ManyToOne(optional = false)
-    private Sitedestokage siteDeStockageSiteDeStockage;
 
-    public Lotdesemence() {
+    public LotDeSemence() {
     }
 
-    public Lotdesemence(Integer idLotDeSemence) {
+    public LotDeSemence(Integer idLotDeSemence) {
         this.idLotDeSemence = idLotDeSemence;
     }
 
@@ -107,20 +107,20 @@ public class Lotdesemence implements Serializable {
         this.semenceList = semenceList;
     }
 
+    public SiteDeStokage getSiteDeStockageSiteDeStockage() {
+        return siteDeStockageSiteDeStockage;
+    }
+
+    public void setSiteDeStockageSiteDeStockage(SiteDeStokage siteDeStockageSiteDeStockage) {
+        this.siteDeStockageSiteDeStockage = siteDeStockageSiteDeStockage;
+    }
+
     public Salle getSalleidSalle() {
         return salleidSalle;
     }
 
     public void setSalleidSalle(Salle salleidSalle) {
         this.salleidSalle = salleidSalle;
-    }
-
-    public Sitedestokage getSiteDeStockageSiteDeStockage() {
-        return siteDeStockageSiteDeStockage;
-    }
-
-    public void setSiteDeStockageSiteDeStockage(Sitedestokage siteDeStockageSiteDeStockage) {
-        this.siteDeStockageSiteDeStockage = siteDeStockageSiteDeStockage;
     }
 
     @Override
@@ -133,10 +133,10 @@ public class Lotdesemence implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Lotdesemence)) {
+        if (!(object instanceof LotDeSemence)) {
             return false;
         }
-        Lotdesemence other = (Lotdesemence) object;
+        LotDeSemence other = (LotDeSemence) object;
         if ((this.idLotDeSemence == null && other.idLotDeSemence != null) || (this.idLotDeSemence != null && !this.idLotDeSemence.equals(other.idLotDeSemence))) {
             return false;
         }
@@ -145,7 +145,7 @@ public class Lotdesemence implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Lotdesemence[ idLotDeSemence=" + idLotDeSemence + " ]";
+        return "entities.LotDeSemence[ idLotDeSemence=" + idLotDeSemence + " ]";
     }
     
 }

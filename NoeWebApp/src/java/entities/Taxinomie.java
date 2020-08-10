@@ -46,36 +46,36 @@ public class Taxinomie implements Serializable {
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @JoinColumn(name = "classe_idclasse", referencedColumnName = "idclasse")
-    @ManyToOne(optional = false)
-    private Classe classeIdclasse;
-    @JoinColumn(name = "embranchement_idembranchement", referencedColumnName = "idembranchement")
-    @ManyToOne(optional = false)
-    private Embranchement embranchementIdembranchement;
-    @JoinColumn(name = "famille_idfamille", referencedColumnName = "idfamille")
-    @ManyToOne(optional = false)
-    private Famille familleIdfamille;
-    @JoinColumn(name = "forme_idforme", referencedColumnName = "idforme")
-    @ManyToOne(optional = false)
-    private Forme formeIdforme;
-    @JoinColumn(name = "genre_idgenre", referencedColumnName = "idgenre")
-    @ManyToOne(optional = false)
-    private Genre genreIdgenre;
-    @JoinColumn(name = "ordre_idordre", referencedColumnName = "idordre")
-    @ManyToOne(optional = false)
-    private Ordre ordreIdordre;
     @JoinColumn(name = "regne_idregne", referencedColumnName = "idregne")
     @ManyToOne(optional = false)
     private Regne regneIdregne;
-    @JoinColumn(name = "section_idsection", referencedColumnName = "idsection")
+    @JoinColumn(name = "embranchement_idembranchement", referencedColumnName = "idembranchement")
     @ManyToOne(optional = false)
-    private Section sectionIdsection;
+    private Embranchement embranchementIdembranchement;
+    @JoinColumn(name = "classe_idclasse", referencedColumnName = "idclasse")
+    @ManyToOne(optional = false)
+    private Classe classeIdclasse;
+    @JoinColumn(name = "ordre_idordre", referencedColumnName = "idordre")
+    @ManyToOne(optional = false)
+    private Ordre ordreIdordre;
+    @JoinColumn(name = "famille_idfamille", referencedColumnName = "idfamille")
+    @ManyToOne(optional = false)
+    private Famille familleIdfamille;
     @JoinColumn(name = "tribu_idtribu", referencedColumnName = "idtribu")
     @ManyToOne(optional = false)
     private Tribu tribuIdtribu;
+    @JoinColumn(name = "genre_idgenre", referencedColumnName = "idgenre")
+    @ManyToOne(optional = false)
+    private Genre genreIdgenre;
+    @JoinColumn(name = "section_idsection", referencedColumnName = "idsection")
+    @ManyToOne(optional = false)
+    private Section sectionIdsection;
     @JoinColumn(name = "vari\u00e9t\u00e9_idvari\u00e9t\u00e9", referencedColumnName = "idvari\u00e9t\u00e9")
     @ManyToOne(optional = false)
     private Variété variétéIdvariété;
+    @JoinColumn(name = "forme_idforme", referencedColumnName = "idforme")
+    @ManyToOne(optional = false)
+    private Forme formeIdforme;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taxinomieIdtaxinomie")
     private List<Espece> especeList;
 
@@ -102,12 +102,12 @@ public class Taxinomie implements Serializable {
         this.nom = nom;
     }
 
-    public Classe getClasseIdclasse() {
-        return classeIdclasse;
+    public Regne getRegneIdregne() {
+        return regneIdregne;
     }
 
-    public void setClasseIdclasse(Classe classeIdclasse) {
-        this.classeIdclasse = classeIdclasse;
+    public void setRegneIdregne(Regne regneIdregne) {
+        this.regneIdregne = regneIdregne;
     }
 
     public Embranchement getEmbranchementIdembranchement() {
@@ -118,28 +118,12 @@ public class Taxinomie implements Serializable {
         this.embranchementIdembranchement = embranchementIdembranchement;
     }
 
-    public Famille getFamilleIdfamille() {
-        return familleIdfamille;
+    public Classe getClasseIdclasse() {
+        return classeIdclasse;
     }
 
-    public void setFamilleIdfamille(Famille familleIdfamille) {
-        this.familleIdfamille = familleIdfamille;
-    }
-
-    public Forme getFormeIdforme() {
-        return formeIdforme;
-    }
-
-    public void setFormeIdforme(Forme formeIdforme) {
-        this.formeIdforme = formeIdforme;
-    }
-
-    public Genre getGenreIdgenre() {
-        return genreIdgenre;
-    }
-
-    public void setGenreIdgenre(Genre genreIdgenre) {
-        this.genreIdgenre = genreIdgenre;
+    public void setClasseIdclasse(Classe classeIdclasse) {
+        this.classeIdclasse = classeIdclasse;
     }
 
     public Ordre getOrdreIdordre() {
@@ -150,20 +134,12 @@ public class Taxinomie implements Serializable {
         this.ordreIdordre = ordreIdordre;
     }
 
-    public Regne getRegneIdregne() {
-        return regneIdregne;
+    public Famille getFamilleIdfamille() {
+        return familleIdfamille;
     }
 
-    public void setRegneIdregne(Regne regneIdregne) {
-        this.regneIdregne = regneIdregne;
-    }
-
-    public Section getSectionIdsection() {
-        return sectionIdsection;
-    }
-
-    public void setSectionIdsection(Section sectionIdsection) {
-        this.sectionIdsection = sectionIdsection;
+    public void setFamilleIdfamille(Famille familleIdfamille) {
+        this.familleIdfamille = familleIdfamille;
     }
 
     public Tribu getTribuIdtribu() {
@@ -174,12 +150,36 @@ public class Taxinomie implements Serializable {
         this.tribuIdtribu = tribuIdtribu;
     }
 
+    public Genre getGenreIdgenre() {
+        return genreIdgenre;
+    }
+
+    public void setGenreIdgenre(Genre genreIdgenre) {
+        this.genreIdgenre = genreIdgenre;
+    }
+
+    public Section getSectionIdsection() {
+        return sectionIdsection;
+    }
+
+    public void setSectionIdsection(Section sectionIdsection) {
+        this.sectionIdsection = sectionIdsection;
+    }
+
     public Variété getVariétéIdvariété() {
         return variétéIdvariété;
     }
 
     public void setVariétéIdvariété(Variété variétéIdvariété) {
         this.variétéIdvariété = variétéIdvariété;
+    }
+
+    public Forme getFormeIdforme() {
+        return formeIdforme;
+    }
+
+    public void setFormeIdforme(Forme formeIdforme) {
+        this.formeIdforme = formeIdforme;
     }
 
     @XmlTransient

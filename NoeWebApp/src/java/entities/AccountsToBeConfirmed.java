@@ -22,16 +22,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "accountstobeconfirmed")
+@Table(name = "AccountsToBeConfirmed")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Accountstobeconfirmed.findAll", query = "SELECT a FROM Accountstobeconfirmed a")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByIdcompteaconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.idcompteaconf = :idcompteaconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByNomUtilisateuraconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.nomUtilisateuraconf = :nomUtilisateuraconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByMdpaconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.mdpaconf = :mdpaconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByEmailPersoaconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.emailPersoaconf = :emailPersoaconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByNum\u00e9roTelephoneaconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.num\u00e9roTelephoneaconf = :num\u00e9roTelephoneaconf")})
-public class Accountstobeconfirmed implements Serializable {
+    @NamedQuery(name = "AccountsToBeConfirmed.findAll", query = "SELECT a FROM AccountsToBeConfirmed a")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByIdcompteaconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.idcompteaconf = :idcompteaconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByNomUtilisateuraconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.nomUtilisateuraconf = :nomUtilisateuraconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByMdpaconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.mdpaconf = :mdpaconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByEmailPersoaconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.emailPersoaconf = :emailPersoaconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByNum\u00e9roTelephoneaconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.num\u00e9roTelephoneaconf = :num\u00e9roTelephoneaconf")})
+public class AccountsToBeConfirmed implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,10 +52,10 @@ public class Accountstobeconfirmed implements Serializable {
     @Column(name = "num\u00e9roTelephoneaconf")
     private String numéroTelephoneaconf;
 
-    public Accountstobeconfirmed() {
+    public AccountsToBeConfirmed() {
     }
 
-    public Accountstobeconfirmed(Integer idcompteaconf) {
+    public AccountsToBeConfirmed(Integer idcompteaconf) {
         this.idcompteaconf = idcompteaconf;
     }
 
@@ -109,10 +109,10 @@ public class Accountstobeconfirmed implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Accountstobeconfirmed)) {
+        if (!(object instanceof AccountsToBeConfirmed)) {
             return false;
         }
-        Accountstobeconfirmed other = (Accountstobeconfirmed) object;
+        AccountsToBeConfirmed other = (AccountsToBeConfirmed) object;
         if ((this.idcompteaconf == null && other.idcompteaconf != null) || (this.idcompteaconf != null && !this.idcompteaconf.equals(other.idcompteaconf))) {
             return false;
         }
@@ -121,7 +121,7 @@ public class Accountstobeconfirmed implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Accountstobeconfirmed[ idcompteaconf=" + idcompteaconf + " ]";
+        return "entities.AccountsToBeConfirmed[ idcompteaconf=" + idcompteaconf + " ]";
     }
     
 }

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "salari\u00e9")
+@Table(name = "Salari\u00e9")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Salari\u00e9.findAll", query = "SELECT s FROM Salari\u00e9 s")
@@ -73,14 +73,18 @@ public class Salarié implements Serializable {
     @Size(max = 45)
     @Column(name = "pr\u00e9nom")
     private String prénom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9idSalari\u00e9")
-    private List<Sentinelle> sentinelleList;
+    @JoinColumn(name = "compteUtilisateur_idcompteUtilisateur", referencedColumnName = "idcompteUtilisateur")
+    @ManyToOne(optional = false)
+    private CompteUtilisateur compteUtilisateuridcompteUtilisateur;
     @JoinColumn(name = "Role_id Role", referencedColumnName = "idRole")
     @ManyToOne(optional = false)
     private Role roleidRole;
-    @JoinColumn(name = "compteUtilisateur_idcompteUtilisateur", referencedColumnName = "idcompteUtilisateur")
-    @ManyToOne(optional = false)
-    private Compteutilisateur compteUtilisateuridcompteUtilisateur;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "narrateurIdsalarie")
+    private List<Projet> projetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "demandeurIdsalarie")
+    private List<Projet> projetList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salari\u00e9idSalari\u00e9")
+    private List<Sentinelle> sentinelleList;
 
     public Salarié() {
     }
@@ -161,13 +165,12 @@ public class Salarié implements Serializable {
         this.prénom = prénom;
     }
 
-    @XmlTransient
-    public List<Sentinelle> getSentinelleList() {
-        return sentinelleList;
+    public CompteUtilisateur getCompteUtilisateuridcompteUtilisateur() {
+        return compteUtilisateuridcompteUtilisateur;
     }
 
-    public void setSentinelleList(List<Sentinelle> sentinelleList) {
-        this.sentinelleList = sentinelleList;
+    public void setCompteUtilisateuridcompteUtilisateur(CompteUtilisateur compteUtilisateuridcompteUtilisateur) {
+        this.compteUtilisateuridcompteUtilisateur = compteUtilisateuridcompteUtilisateur;
     }
 
     public Role getRoleidRole() {
@@ -178,12 +181,31 @@ public class Salarié implements Serializable {
         this.roleidRole = roleidRole;
     }
 
-    public Compteutilisateur getCompteUtilisateuridcompteUtilisateur() {
-        return compteUtilisateuridcompteUtilisateur;
+    @XmlTransient
+    public List<Projet> getProjetList() {
+        return projetList;
     }
 
-    public void setCompteUtilisateuridcompteUtilisateur(Compteutilisateur compteUtilisateuridcompteUtilisateur) {
-        this.compteUtilisateuridcompteUtilisateur = compteUtilisateuridcompteUtilisateur;
+    public void setProjetList(List<Projet> projetList) {
+        this.projetList = projetList;
+    }
+
+    @XmlTransient
+    public List<Projet> getProjetList1() {
+        return projetList1;
+    }
+
+    public void setProjetList1(List<Projet> projetList1) {
+        this.projetList1 = projetList1;
+    }
+
+    @XmlTransient
+    public List<Sentinelle> getSentinelleList() {
+        return sentinelleList;
+    }
+
+    public void setSentinelleList(List<Sentinelle> sentinelleList) {
+        this.sentinelleList = sentinelleList;
     }
 
     @Override

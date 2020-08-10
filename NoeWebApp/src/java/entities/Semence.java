@@ -39,7 +39,7 @@ public class Semence implements Serializable {
     private Integer idsemence;
     @JoinColumn(name = "LotDeSemence_idLotDeSemence", referencedColumnName = "idLotDeSemence")
     @ManyToOne(optional = false)
-    private Lotdesemence lotDeSemenceidLotDeSemence;
+    private LotDeSemence lotDeSemenceidLotDeSemence;
     @JoinColumn(name = "espece_idespece", referencedColumnName = "idespece")
     @ManyToOne(optional = false)
     private Espece especeIdespece;
@@ -59,11 +59,11 @@ public class Semence implements Serializable {
         this.idsemence = idsemence;
     }
 
-    public Lotdesemence getLotDeSemenceidLotDeSemence() {
+    public LotDeSemence getLotDeSemenceidLotDeSemence() {
         return lotDeSemenceidLotDeSemence;
     }
 
-    public void setLotDeSemenceidLotDeSemence(Lotdesemence lotDeSemenceidLotDeSemence) {
+    public void setLotDeSemenceidLotDeSemence(LotDeSemence lotDeSemenceidLotDeSemence) {
         this.lotDeSemenceidLotDeSemence = lotDeSemenceidLotDeSemence;
     }
 

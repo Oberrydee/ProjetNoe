@@ -110,18 +110,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tribu` (
   `nom` VARCHAR(45) NULL,
   PRIMARY KEY (`idtribu`))
 ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `mydb`.`Famille`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Famille` ;
-
-CREATE TABLE IF NOT EXISTS `mydb`.`Famille` (
-  `idFamille` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NULL,
-  PRIMARY KEY (`idFamille`))
-ENGINE = InnoDB;
-
 -- -----------------------------------------------------
 -- Table `mydb`.`ordre`
 -- -----------------------------------------------------
@@ -425,3 +413,20 @@ create table mydb.AccountsToBeConfirmed (
   `emailPersoaconf` VARCHAR(45) NULL,
   `numéroTelephoneaconf` VARCHAR(45) NULL,
   PRIMARY KEY (`idcompteaconf`));
+  
+ alter table `alerte` add COLUMN `sentinelle_idsentinelle` int not null , 
+	add constraint `fk_alerte_sentinelle`
+    FOREIGN KEY (`sentinelle_idsentinelle`)
+    REFERENCES `mydb`.`Sentinelle` (`idsentinelle`); 
+  
+alter table `projet` add COLUMN `demandeur_idsalarie` int not null, 
+	add constraint `fk_alerte_salarie`
+    FOREIGN KEY (`demandeur_idsalarie`)
+    REFERENCES `mydb`.`Salarié` (`idSalarié`);   
+	
+alter table `projet` add COLUMN `narrateur_idsalarie` int not null, 
+	add constraint `fk_alerte_salarie1`
+    FOREIGN KEY (`narrateur_idsalarie`)
+    REFERENCES `mydb`.`Salarié` (`idSalarié`); 
+commit; 
+  

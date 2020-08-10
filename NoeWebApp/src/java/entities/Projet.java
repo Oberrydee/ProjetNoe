@@ -52,6 +52,12 @@ public class Projet implements Serializable {
     private Date dateDebut;
     @Column(name = "dur\u00e9eEnMois")
     private Integer duréeEnMois;
+    @JoinColumn(name = "narrateur_idsalarie", referencedColumnName = "idSalari\u00e9")
+    @ManyToOne(optional = false)
+    private Salarié narrateurIdsalarie;
+    @JoinColumn(name = "demandeur_idsalarie", referencedColumnName = "idSalari\u00e9")
+    @ManyToOne(optional = false)
+    private Salarié demandeurIdsalarie;
     @JoinColumn(name = "alerte_idalerte", referencedColumnName = "idalerte")
     @ManyToOne(optional = false)
     private Alerte alerteIdalerte;
@@ -99,6 +105,22 @@ public class Projet implements Serializable {
 
     public void setDuréeEnMois(Integer duréeEnMois) {
         this.duréeEnMois = duréeEnMois;
+    }
+
+    public Salarié getNarrateurIdsalarie() {
+        return narrateurIdsalarie;
+    }
+
+    public void setNarrateurIdsalarie(Salarié narrateurIdsalarie) {
+        this.narrateurIdsalarie = narrateurIdsalarie;
+    }
+
+    public Salarié getDemandeurIdsalarie() {
+        return demandeurIdsalarie;
+    }
+
+    public void setDemandeurIdsalarie(Salarié demandeurIdsalarie) {
+        this.demandeurIdsalarie = demandeurIdsalarie;
     }
 
     public Alerte getAlerteIdalerte() {

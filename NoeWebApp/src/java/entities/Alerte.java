@@ -46,6 +46,9 @@ public class Alerte implements Serializable {
     private Integer urgence;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alerteIdalerte")
     private List<Projet> projetList;
+    @JoinColumn(name = "sentinelle_idsentinelle", referencedColumnName = "idsentinelle")
+    @ManyToOne(optional = false)
+    private Sentinelle sentinelleIdsentinelle;
     @JoinColumn(name = "espece_idespece", referencedColumnName = "idespece")
     @ManyToOne(optional = false)
     private Espece especeIdespece;
@@ -80,6 +83,14 @@ public class Alerte implements Serializable {
 
     public void setProjetList(List<Projet> projetList) {
         this.projetList = projetList;
+    }
+
+    public Sentinelle getSentinelleIdsentinelle() {
+        return sentinelleIdsentinelle;
+    }
+
+    public void setSentinelleIdsentinelle(Sentinelle sentinelleIdsentinelle) {
+        this.sentinelleIdsentinelle = sentinelleIdsentinelle;
     }
 
     public Espece getEspeceIdespece() {

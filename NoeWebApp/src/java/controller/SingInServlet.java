@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Compteutilisateur;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -90,11 +90,11 @@ public class SingInServlet extends HttpServlet {
         
         if (email!=null && mdp != null){
             //getting users list
-            List<Compteutilisateur> listeUsers = AccessBD.selectAllCompteUtilisateurs(); 
+            List<CompteUtilisateur> listeUsers = AccessBD.selectAllCompteUtilisateurs(); 
 
             Boolean userExists = false; 
             Boolean psswdIsCorrect = false; 
-            for (Compteutilisateur cpt : listeUsers){
+            for (CompteUtilisateur cpt : listeUsers){
                 if (cpt.getEmailPerso().equals(email)){
                     userExists = true;                 
                 }

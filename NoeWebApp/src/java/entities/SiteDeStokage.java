@@ -27,13 +27,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "sitedestokage")
+@Table(name = "SiteDeStokage")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sitedestokage.findAll", query = "SELECT s FROM Sitedestokage s")
-    , @NamedQuery(name = "Sitedestokage.findByIdSiteDeStokage", query = "SELECT s FROM Sitedestokage s WHERE s.idSiteDeStokage = :idSiteDeStokage")
-    , @NamedQuery(name = "Sitedestokage.findByLocalisation", query = "SELECT s FROM Sitedestokage s WHERE s.localisation = :localisation")})
-public class Sitedestokage implements Serializable {
+    @NamedQuery(name = "SiteDeStokage.findAll", query = "SELECT s FROM SiteDeStokage s")
+    , @NamedQuery(name = "SiteDeStokage.findByIdSiteDeStokage", query = "SELECT s FROM SiteDeStokage s WHERE s.idSiteDeStokage = :idSiteDeStokage")
+    , @NamedQuery(name = "SiteDeStokage.findByLocalisation", query = "SELECT s FROM SiteDeStokage s WHERE s.localisation = :localisation")})
+public class SiteDeStokage implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,12 +45,12 @@ public class Sitedestokage implements Serializable {
     @Column(name = "localisation")
     private String localisation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "siteDeStockageSiteDeStockage")
-    private List<Lotdesemence> lotdesemenceList;
+    private List<LotDeSemence> lotDeSemenceList;
 
-    public Sitedestokage() {
+    public SiteDeStokage() {
     }
 
-    public Sitedestokage(Integer idSiteDeStokage) {
+    public SiteDeStokage(Integer idSiteDeStokage) {
         this.idSiteDeStokage = idSiteDeStokage;
     }
 
@@ -71,12 +71,12 @@ public class Sitedestokage implements Serializable {
     }
 
     @XmlTransient
-    public List<Lotdesemence> getLotdesemenceList() {
-        return lotdesemenceList;
+    public List<LotDeSemence> getLotDeSemenceList() {
+        return lotDeSemenceList;
     }
 
-    public void setLotdesemenceList(List<Lotdesemence> lotdesemenceList) {
-        this.lotdesemenceList = lotdesemenceList;
+    public void setLotDeSemenceList(List<LotDeSemence> lotDeSemenceList) {
+        this.lotDeSemenceList = lotDeSemenceList;
     }
 
     @Override
@@ -89,10 +89,10 @@ public class Sitedestokage implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sitedestokage)) {
+        if (!(object instanceof SiteDeStokage)) {
             return false;
         }
-        Sitedestokage other = (Sitedestokage) object;
+        SiteDeStokage other = (SiteDeStokage) object;
         if ((this.idSiteDeStokage == null && other.idSiteDeStokage != null) || (this.idSiteDeStokage != null && !this.idSiteDeStokage.equals(other.idSiteDeStokage))) {
             return false;
         }
@@ -101,7 +101,7 @@ public class Sitedestokage implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Sitedestokage[ idSiteDeStokage=" + idSiteDeStokage + " ]";
+        return "entities.SiteDeStokage[ idSiteDeStokage=" + idSiteDeStokage + " ]";
     }
     
 }

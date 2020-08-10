@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Compteutilisateur;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -122,8 +122,8 @@ public class SignUpServlet extends HttpServlet {
         else if (!Functions.checkRegEx(mdp, passwordRegEx)){
             session.setAttribute("textError", 
                     "Le mot de passe doit avoir: "
-                     +  "        au moins une elettre majuscule,\n" +
-                        "        au moins une elettre minuscule,\n" +
+                     +  "        au moins une lettre majuscule,\n" +
+                        "        au moins une lettre minuscule,\n" +
                         "        au moins un chiffre,\n" +
                         "        au moins un caractère spécial,\n" +
                         "        au  moins 8 caractères " );            
@@ -140,9 +140,9 @@ public class SignUpServlet extends HttpServlet {
             else { 
                 Boolean emailExistant=false; 
                 //check database for same email
-                List<Compteutilisateur> listeDesComptesUtilisateurs = 
+                List<CompteUtilisateur> listeDesComptesUtilisateurs = 
                         AccessBD.selectAllCompteUtilisateurs();
-                for (Compteutilisateur cpt : listeDesComptesUtilisateurs){
+                for (CompteUtilisateur cpt : listeDesComptesUtilisateurs){
                     if (cpt.getEmailPerso().equals(email)){
                         session.setAttribute("textError", "Il existe un compte associé à cette adresse email"); 
                         emailExistant = true; 

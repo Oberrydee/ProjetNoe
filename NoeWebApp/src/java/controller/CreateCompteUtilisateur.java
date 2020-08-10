@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Compteutilisateur;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -70,7 +70,7 @@ public class CreateCompteUtilisateur extends HttpServlet {
         String tel = request.getParameter("tel"); 
         String mdp = request.getParameter("mdp"); 
         
-        Compteutilisateur newUser = new Compteutilisateur(); 
+        CompteUtilisateur newUser = new CompteUtilisateur(); 
         newUser.setIdcompteUtilisateur(newUser.hashCode());
         newUser.setNomUtilisateur(nom+"_"+prenom);
         newUser.setNom(nom);
