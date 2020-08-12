@@ -38,7 +38,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
 					<li><a href="/association-arche/contact">Contact</a></li>
-					<li><a class="btn" href="/association-arche/signin">Connexion / Déconnexion</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -69,14 +69,14 @@
 							<h3 class="thin text-center">Se connecter à votre compte utilisateur</h3>
 							<hr>
 							
-							<form>
+							<form action="/association-arche/signin" method="post">
 								<div class="top-margin">
-									<label>Username/Email <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									<label>Email <span class="text-danger">*</span></label>
+									<input type="text" name="session_email" class="form-control" value="${session_email}">
 								</div>
 								<div class="top-margin">
 									<label>Mot de passe <span class="text-danger">*</span></label>
-									<input type="password" class="form-control">
+									<input type="password" name="session_mdp" class="form-control" value="${session_mdp}">
 								</div>
 
 								<hr>
@@ -84,9 +84,14 @@
 								<div class="row">
 									<div class="col-lg-8">
 										<b><a href="">Mot de passe oublié?</a></b>
+                                                                        <div>
+                                                                            <p style="color: red">${textError}</p>
+                                                                        </div>
 									</div>
+                                                                    
+                                                            
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit"><a href="session-accueil">Connexion</a></button>
+										<button class="btn btn-action" type="submit">Connexion</button>
 									</div>
 								</div>
 							</form>

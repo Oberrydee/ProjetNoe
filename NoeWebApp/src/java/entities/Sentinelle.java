@@ -6,26 +6,29 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "sentinelle")
+@Table(name = "Sentinelle")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sentinelle.findAll", query = "SELECT s FROM Sentinelle s")
@@ -38,11 +41,11 @@ public class Sentinelle implements Serializable {
     @Basic(optional = false)
     @Column(name = "idsentinelle")
     private Integer idsentinelle;
-    @JoinColumns({
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur")})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sentinelleIdsentinelle")
+    private List<Alerte> alerteList;
+    @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9")
     @ManyToOne(optional = false)
-    private Salarié salarié;
+    private Salarié salariéidSalarié;
 
     public Sentinelle() {
     }
@@ -59,12 +62,21 @@ public class Sentinelle implements Serializable {
         this.idsentinelle = idsentinelle;
     }
 
-    public Salarié getSalarié() {
-        return salarié;
+    @XmlTransient
+    public List<Alerte> getAlerteList() {
+        return alerteList;
     }
 
-    public void setSalarié(Salarié salarié) {
-        this.salarié = salarié;
+    public void setAlerteList(List<Alerte> alerteList) {
+        this.alerteList = alerteList;
+    }
+
+    public Salarié getSalariéidSalarié() {
+        return salariéidSalarié;
+    }
+
+    public void setSalariéidSalarié(Salarié salariéidSalarié) {
+        this.salariéidSalarié = salariéidSalarié;
     }
 
     @Override

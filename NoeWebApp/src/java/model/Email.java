@@ -9,7 +9,13 @@ package model;
  *
  * @author ADZOH-VINYO DIANA
  */
-public class Email {
+public class Email {    
+    
+    //psswd: associationArcheMSIA19
+    //email: association.arche.msia19@gmail.com
+    public static final String ARCHE_EMAIL = "association.arche.msia19@gmail.com";
+    public static final String ARCHE_PASSWORD = "associationArcheMSIA19";
+    
     public static String ACCOUNT_CONFIRMATION_EMAIL_CONTENT = ""; 
     public static String createAccountConfirmationEmail(String confirmLink){
         ACCOUNT_CONFIRMATION_EMAIL_CONTENT = "<!DOCTYPE html>\n" +
@@ -117,7 +123,8 @@ public class Email {
 "\n" +
 "<body style=\"background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;\">\n" +
 "    <!-- HIDDEN PREHEADER TEXT -->\n" +
-"    <div style=\"display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;\"> We're thrilled to have you here! Get ready to dive into your new account. </div>\n" +
+"    <div style=\"display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;\"> "
+                + "Nous sommes heureux de vous compter parmi nous. Tout d'abord, vous devez confirmer votre compte. </div>\n" +
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" +
 "        <!-- LOGO -->\n" +
 "        <tr>\n" +

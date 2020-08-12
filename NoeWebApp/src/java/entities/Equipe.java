@@ -6,17 +6,21 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,49 +31,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Equipe.findAll", query = "SELECT e FROM Equipe e")
-    , @NamedQuery(name = "Equipe.findByIdequipe", query = "SELECT e FROM Equipe e WHERE e.equipePK.idequipe = :idequipe")
-    , @NamedQuery(name = "Equipe.findByNom", query = "SELECT e FROM Equipe e WHERE e.nom = :nom")
-    , @NamedQuery(name = "Equipe.findByNombreDeMembre", query = "SELECT e FROM Equipe e WHERE e.nombreDeMembre = :nombreDeMembre")
-    , @NamedQuery(name = "Equipe.findByMembres", query = "SELECT e FROM Equipe e WHERE e.membres = :membres")
-    , @NamedQuery(name = "Equipe.findBySalari\u00e9idSalari\u00e9", query = "SELECT e FROM Equipe e WHERE e.equipePK.salari\u00e9idSalari\u00e9 = :salari\u00e9idSalari\u00e9")
-    , @NamedQuery(name = "Equipe.findBySalari\u00e9compteUtilisateuridcompteUtilisateur", query = "SELECT e FROM Equipe e WHERE e.equipePK.salari\u00e9compteUtilisateuridcompteUtilisateur = :salari\u00e9compteUtilisateuridcompteUtilisateur")})
+    , @NamedQuery(name = "Equipe.findByIdequipe", query = "SELECT e FROM Equipe e WHERE e.idequipe = :idequipe")
+    , @NamedQuery(name = "Equipe.findByNom", query = "SELECT e FROM Equipe e WHERE e.nom = :nom")})
 public class Equipe implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EquipePK equipePK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idequipe")
+    private Integer idequipe;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @Size(max = 45)
-    @Column(name = "nombreDeMembre")
-    private String nombreDeMembre;
-    @Size(max = 45)
-    @Column(name = "membres")
-    private String membres;
-    @JoinColumns({
-        @JoinColumn(name = "Salari\u00e9_idSalari\u00e9", referencedColumnName = "idSalari\u00e9", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salari\u00e9_compteUtilisateur_idcompteUtilisateur", referencedColumnName = "compteUtilisateur_idcompteUtilisateur", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private Salarié salarié;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipeIdequipe")
+    private List<Projet> projetList;
 
     public Equipe() {
     }
 
-    public Equipe(EquipePK equipePK) {
-        this.equipePK = equipePK;
+    public Equipe(Integer idequipe) {
+        this.idequipe = idequipe;
     }
 
-    public Equipe(int idequipe, int salariéidSalarié, int salariécompteUtilisateuridcompteUtilisateur) {
-        this.equipePK = new EquipePK(idequipe, salariéidSalarié, salariécompteUtilisateuridcompteUtilisateur);
+    public Integer getIdequipe() {
+        return idequipe;
     }
 
-    public EquipePK getEquipePK() {
-        return equipePK;
-    }
-
-    public void setEquipePK(EquipePK equipePK) {
-        this.equipePK = equipePK;
+    public void setIdequipe(Integer idequipe) {
+        this.idequipe = idequipe;
     }
 
     public String getNom() {
@@ -80,34 +70,19 @@ public class Equipe implements Serializable {
         this.nom = nom;
     }
 
-    public String getNombreDeMembre() {
-        return nombreDeMembre;
+    @XmlTransient
+    public List<Projet> getProjetList() {
+        return projetList;
     }
 
-    public void setNombreDeMembre(String nombreDeMembre) {
-        this.nombreDeMembre = nombreDeMembre;
-    }
-
-    public String getMembres() {
-        return membres;
-    }
-
-    public void setMembres(String membres) {
-        this.membres = membres;
-    }
-
-    public Salarié getSalarié() {
-        return salarié;
-    }
-
-    public void setSalarié(Salarié salarié) {
-        this.salarié = salarié;
+    public void setProjetList(List<Projet> projetList) {
+        this.projetList = projetList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (equipePK != null ? equipePK.hashCode() : 0);
+        hash += (idequipe != null ? idequipe.hashCode() : 0);
         return hash;
     }
 
@@ -118,7 +93,7 @@ public class Equipe implements Serializable {
             return false;
         }
         Equipe other = (Equipe) object;
-        if ((this.equipePK == null && other.equipePK != null) || (this.equipePK != null && !this.equipePK.equals(other.equipePK))) {
+        if ((this.idequipe == null && other.idequipe != null) || (this.idequipe != null && !this.idequipe.equals(other.idequipe))) {
             return false;
         }
         return true;
@@ -126,7 +101,7 @@ public class Equipe implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Equipe[ equipePK=" + equipePK + " ]";
+        return "entities.Equipe[ idequipe=" + idequipe + " ]";
     }
     
 }

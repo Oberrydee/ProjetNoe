@@ -8,16 +8,15 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,14 +27,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "sitedestokage")
+@Table(name = "SiteDeStokage")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sitedestokage.findAll", query = "SELECT s FROM Sitedestokage s")
-    , @NamedQuery(name = "Sitedestokage.findByIdSiteDeStokage", query = "SELECT s FROM Sitedestokage s WHERE s.idSiteDeStokage = :idSiteDeStokage")
-    , @NamedQuery(name = "Sitedestokage.findBySalle", query = "SELECT s FROM Sitedestokage s WHERE s.salle = :salle")
-    , @NamedQuery(name = "Sitedestokage.findByLocalisation", query = "SELECT s FROM Sitedestokage s WHERE s.localisation = :localisation")})
-public class Sitedestokage implements Serializable {
+    @NamedQuery(name = "SiteDeStokage.findAll", query = "SELECT s FROM SiteDeStokage s")
+    , @NamedQuery(name = "SiteDeStokage.findByIdSiteDeStokage", query = "SELECT s FROM SiteDeStokage s WHERE s.idSiteDeStokage = :idSiteDeStokage")
+    , @NamedQuery(name = "SiteDeStokage.findByLocalisation", query = "SELECT s FROM SiteDeStokage s WHERE s.localisation = :localisation")})
+public class SiteDeStokage implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,21 +41,16 @@ public class Sitedestokage implements Serializable {
     @Basic(optional = false)
     @Column(name = "idSiteDeStokage")
     private Integer idSiteDeStokage;
-    @Column(name = "salle")
-    private Integer salle;
     @Size(max = 45)
     @Column(name = "localisation")
     private String localisation;
-    @ManyToMany(mappedBy = "sitedestokageList")
-    private List<Salarié> salariéList;
-    @JoinColumn(name = "LotDeSemence_idLotDeSemence", referencedColumnName = "idLotDeSemence")
-    @ManyToOne(optional = false)
-    private Lotdesemence lotDeSemenceidLotDeSemence;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "siteDeStockageSiteDeStockage")
+    private List<LotDeSemence> lotDeSemenceList;
 
-    public Sitedestokage() {
+    public SiteDeStokage() {
     }
 
-    public Sitedestokage(Integer idSiteDeStokage) {
+    public SiteDeStokage(Integer idSiteDeStokage) {
         this.idSiteDeStokage = idSiteDeStokage;
     }
 
@@ -69,14 +62,6 @@ public class Sitedestokage implements Serializable {
         this.idSiteDeStokage = idSiteDeStokage;
     }
 
-    public Integer getSalle() {
-        return salle;
-    }
-
-    public void setSalle(Integer salle) {
-        this.salle = salle;
-    }
-
     public String getLocalisation() {
         return localisation;
     }
@@ -86,20 +71,12 @@ public class Sitedestokage implements Serializable {
     }
 
     @XmlTransient
-    public List<Salarié> getSalariéList() {
-        return salariéList;
+    public List<LotDeSemence> getLotDeSemenceList() {
+        return lotDeSemenceList;
     }
 
-    public void setSalariéList(List<Salarié> salariéList) {
-        this.salariéList = salariéList;
-    }
-
-    public Lotdesemence getLotDeSemenceidLotDeSemence() {
-        return lotDeSemenceidLotDeSemence;
-    }
-
-    public void setLotDeSemenceidLotDeSemence(Lotdesemence lotDeSemenceidLotDeSemence) {
-        this.lotDeSemenceidLotDeSemence = lotDeSemenceidLotDeSemence;
+    public void setLotDeSemenceList(List<LotDeSemence> lotDeSemenceList) {
+        this.lotDeSemenceList = lotDeSemenceList;
     }
 
     @Override
@@ -112,10 +89,10 @@ public class Sitedestokage implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sitedestokage)) {
+        if (!(object instanceof SiteDeStokage)) {
             return false;
         }
-        Sitedestokage other = (Sitedestokage) object;
+        SiteDeStokage other = (SiteDeStokage) object;
         if ((this.idSiteDeStokage == null && other.idSiteDeStokage != null) || (this.idSiteDeStokage != null && !this.idSiteDeStokage.equals(other.idSiteDeStokage))) {
             return false;
         }
@@ -124,7 +101,7 @@ public class Sitedestokage implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Sitedestokage[ idSiteDeStokage=" + idSiteDeStokage + " ]";
+        return "entities.SiteDeStokage[ idSiteDeStokage=" + idSiteDeStokage + " ]";
     }
     
 }

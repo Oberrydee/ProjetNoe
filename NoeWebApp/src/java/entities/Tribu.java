@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -47,10 +45,7 @@ public class Tribu implements Serializable {
     @Column(name = "nom")
     private String nom;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tribuIdtribu")
-    private List<Famille> familleList;
-    @JoinColumn(name = "genre_idgenre", referencedColumnName = "idgenre")
-    @ManyToOne(optional = false)
-    private Genre genreIdgenre;
+    private List<Taxinomie> taxinomieList;
 
     public Tribu() {
     }
@@ -76,20 +71,12 @@ public class Tribu implements Serializable {
     }
 
     @XmlTransient
-    public List<Famille> getFamilleList() {
-        return familleList;
+    public List<Taxinomie> getTaxinomieList() {
+        return taxinomieList;
     }
 
-    public void setFamilleList(List<Famille> familleList) {
-        this.familleList = familleList;
-    }
-
-    public Genre getGenreIdgenre() {
-        return genreIdgenre;
-    }
-
-    public void setGenreIdgenre(Genre genreIdgenre) {
-        this.genreIdgenre = genreIdgenre;
+    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
+        this.taxinomieList = taxinomieList;
     }
 
     @Override

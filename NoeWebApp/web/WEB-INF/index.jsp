@@ -40,7 +40,7 @@
 					<li class="active"><a href="#">Accueil</a></li>
 					
 					<li><a href="/association-arche/contact">Contact</a></li>
-					<li><a class="btn" href="/association-arche/signin">Connexion / Déconnexion</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

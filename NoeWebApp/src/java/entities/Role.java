@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = " role")
+@Table(name = "Role")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
@@ -42,17 +40,14 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id Role")
+    @Column(name = "idRole")
     private Integer idRole;
     @Size(max = 45)
     @Column(name = "nomRole")
     private String nomRole;
-    @JoinTable(name = " role_has_droit", joinColumns = {
-        @JoinColumn(name = " Role_id Role", referencedColumnName = "id Role")}, inverseJoinColumns = {
-        @JoinColumn(name = "Droit_idDroit", referencedColumnName = "idDroit")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "roleList")
     private List<Droit> droitList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleidRole")
     private List<Salarié> salariéList;
 
     public Role() {

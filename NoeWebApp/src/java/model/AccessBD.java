@@ -7,17 +7,15 @@ package model;
 
 import entities.Alerte;
 import entities.Classe;
-import entities.Compteutilisateur;
-import entities.Contact;
+import entities.CompteUtilisateur;
 import entities.Droit;
 import entities.Equipe;
 import entities.Espece;
-import entities.EspèceTaxinomie;
 import entities.Etat;
 import entities.Famille;
 import entities.Forme;
 import entities.Genre;
-import entities.Lotdesemence;
+import entities.LotDeSemence;
 import entities.Ordre;
 import entities.Projet;
 import entities.Regne;
@@ -26,9 +24,9 @@ import entities.Salarié;
 import entities.Section;
 import entities.Semence;
 import entities.Sentinelle;
-import entities.Session;
-import entities.Sitedestokage;
+import entities.SiteDeStokage;
 import entities.Série;
+import entities.Taxinomie;
 import entities.Tribu;
 import entities.Variété;
 import java.util.List;
@@ -140,23 +138,23 @@ public class AccessBD {
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<Compteutilisateur> selectAllCompteUtilisateurs(){
+    public static List<CompteUtilisateur> selectAllCompteUtilisateurs(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Compteutilisateur.findAll"); 
+        Query q = em.createNamedQuery("CompteUtilisateur.findAll"); 
         
-        List<Compteutilisateur> liste = (List<Compteutilisateur>)q.getResultList(); 
+        List<CompteUtilisateur> liste = (List<CompteUtilisateur>)q.getResultList(); 
         
-        for (Compteutilisateur a: liste){
+        for (CompteUtilisateur a: liste){
             System.out.println(a.toString());
         }
         return liste; 
     }      
     
          
-    public static Compteutilisateur selectCompteUtilisateursByid(int id){
+    public static CompteUtilisateur selectCompteUtilisateursByid(int id){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
@@ -164,11 +162,11 @@ public class AccessBD {
         Query q = em.createNamedQuery("Compteutilisateur.findById"); 
         q.setParameter("id", id); 
         
-        Compteutilisateur al = (Compteutilisateur)q.getSingleResult(); 
+        CompteUtilisateur al = (CompteUtilisateur)q.getSingleResult(); 
         return al; 
     }
     
-        public static void deleteCompteutilisateur(Compteutilisateur emp)
+        public static void deleteCompteutilisateur(CompteUtilisateur emp)
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();
@@ -185,26 +183,7 @@ public class AccessBD {
         } finally {
             em.close();
         }
-    }
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////// Contact /////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-     
-    public static List<Contact> selectAllContacts(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Contact.findAll"); 
-        
-        List<Contact> liste = (List<Contact>)q.getResultList(); 
-        
-        for (Contact a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
+    }   
 
     /////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////Droit/////////////////////////////////
@@ -299,20 +278,20 @@ public class AccessBD {
     }       
         
     /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  EspeceTaxinomie     //////////////////////////////////
+    ////////////////////////////////////  Taxinomie     //////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<EspèceTaxinomie> selectAllEspèceTaxinomie(){
+    public static List<Taxinomie> selectAllTaxinomie(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
         Query q = em.createNamedQuery("EspèceTaxinomie.findAll"); 
         
-        List<EspèceTaxinomie> liste = (List<EspèceTaxinomie>)q.getResultList(); 
+        List<Taxinomie> liste = (List<Taxinomie>)q.getResultList(); 
         
-        for (EspèceTaxinomie a: liste){
+        for (Taxinomie a: liste){
             System.out.println(a.toString());
         }
         return liste; 
@@ -406,16 +385,16 @@ public class AccessBD {
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<Lotdesemence> selectAllLotdesemences(){
+    public static List<LotDeSemence> selectAllLotdesemences(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
         Query q = em.createNamedQuery("Lotdesemence.findAll"); 
         
-        List<Lotdesemence> liste = (List<Lotdesemence>)q.getResultList(); 
+        List<LotDeSemence> liste = (List<LotDeSemence>)q.getResultList(); 
         
-        for (Lotdesemence a: liste){
+        for (LotDeSemence a: liste){
             System.out.println(a.toString());
         }
         return liste; 
@@ -644,48 +623,29 @@ public class AccessBD {
             em.close();
         }
     }
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////    Session  /////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
      
-    
-    public static List<Session> selectAllSessions(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Session.findAll"); 
-        
-        List<Session> liste = (List<Session>)q.getResultList(); 
-        
-        for (Session a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }   
     
     /////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////Site de stokage //////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
      
-    public static List<Sitedestokage> selectAllSitedestokages(){
+    public static List<SiteDeStokage> selectAllSitedestokages(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
         Query q = em.createNamedQuery("Sitedestokage.findAll"); 
         
-        List<Sitedestokage> liste = (List<Sitedestokage>)q.getResultList(); 
+        List<SiteDeStokage> liste = (List<SiteDeStokage>)q.getResultList(); 
         
-        for (Sitedestokage a: liste){
+        for (SiteDeStokage a: liste){
             System.out.println(a.toString());
         }
         return liste; 
     }    
     
                  
-    public static Sitedestokage selectSitedestokageByid(int id){
+    public static SiteDeStokage selectSitedestokageByid(int id){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
@@ -693,10 +653,10 @@ public class AccessBD {
         Query q = em.createNamedQuery("Sitedestokage.findById"); 
         q.setParameter("id", id); 
         
-        Sitedestokage al = (Sitedestokage)q.getSingleResult(); 
+        SiteDeStokage al = (SiteDeStokage)q.getSingleResult(); 
         return al; 
     }
-            public static void deleteSitedestokage(Sitedestokage emp)
+            public static void deleteSitedestokage(SiteDeStokage emp)
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();

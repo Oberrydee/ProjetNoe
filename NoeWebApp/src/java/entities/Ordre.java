@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -46,11 +44,8 @@ public class Ordre implements Serializable {
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @JoinColumn(name = "Famille_idFamille", referencedColumnName = "idFamille")
-    @ManyToOne(optional = false)
-    private Famille familleidFamille;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordreIdordre")
-    private List<Classe> classeList;
+    private List<Taxinomie> taxinomieList;
 
     public Ordre() {
     }
@@ -75,21 +70,13 @@ public class Ordre implements Serializable {
         this.nom = nom;
     }
 
-    public Famille getFamilleidFamille() {
-        return familleidFamille;
-    }
-
-    public void setFamilleidFamille(Famille familleidFamille) {
-        this.familleidFamille = familleidFamille;
-    }
-
     @XmlTransient
-    public List<Classe> getClasseList() {
-        return classeList;
+    public List<Taxinomie> getTaxinomieList() {
+        return taxinomieList;
     }
 
-    public void setClasseList(List<Classe> classeList) {
-        this.classeList = classeList;
+    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
+        this.taxinomieList = taxinomieList;
     }
 
     @Override

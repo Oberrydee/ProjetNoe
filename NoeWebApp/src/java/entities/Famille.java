@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Famille.findAll", query = "SELECT f FROM Famille f")
-    , @NamedQuery(name = "Famille.findByIdFamille", query = "SELECT f FROM Famille f WHERE f.idFamille = :idFamille")
+    , @NamedQuery(name = "Famille.findByIdfamille", query = "SELECT f FROM Famille f WHERE f.idfamille = :idfamille")
     , @NamedQuery(name = "Famille.findByNom", query = "SELECT f FROM Famille f WHERE f.nom = :nom")})
 public class Famille implements Serializable {
 
@@ -41,30 +39,27 @@ public class Famille implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idFamille")
-    private Integer idFamille;
+    @Column(name = "idfamille")
+    private Integer idfamille;
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familleidFamille")
-    private List<Ordre> ordreList;
-    @JoinColumn(name = "tribu_idtribu", referencedColumnName = "idtribu")
-    @ManyToOne(optional = false)
-    private Tribu tribuIdtribu;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "familleIdfamille")
+    private List<Taxinomie> taxinomieList;
 
     public Famille() {
     }
 
-    public Famille(Integer idFamille) {
-        this.idFamille = idFamille;
+    public Famille(Integer idfamille) {
+        this.idfamille = idfamille;
     }
 
-    public Integer getIdFamille() {
-        return idFamille;
+    public Integer getIdfamille() {
+        return idfamille;
     }
 
-    public void setIdFamille(Integer idFamille) {
-        this.idFamille = idFamille;
+    public void setIdfamille(Integer idfamille) {
+        this.idfamille = idfamille;
     }
 
     public String getNom() {
@@ -76,26 +71,18 @@ public class Famille implements Serializable {
     }
 
     @XmlTransient
-    public List<Ordre> getOrdreList() {
-        return ordreList;
+    public List<Taxinomie> getTaxinomieList() {
+        return taxinomieList;
     }
 
-    public void setOrdreList(List<Ordre> ordreList) {
-        this.ordreList = ordreList;
-    }
-
-    public Tribu getTribuIdtribu() {
-        return tribuIdtribu;
-    }
-
-    public void setTribuIdtribu(Tribu tribuIdtribu) {
-        this.tribuIdtribu = tribuIdtribu;
+    public void setTaxinomieList(List<Taxinomie> taxinomieList) {
+        this.taxinomieList = taxinomieList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idFamille != null ? idFamille.hashCode() : 0);
+        hash += (idfamille != null ? idfamille.hashCode() : 0);
         return hash;
     }
 
@@ -106,7 +93,7 @@ public class Famille implements Serializable {
             return false;
         }
         Famille other = (Famille) object;
-        if ((this.idFamille == null && other.idFamille != null) || (this.idFamille != null && !this.idFamille.equals(other.idFamille))) {
+        if ((this.idfamille == null && other.idfamille != null) || (this.idfamille != null && !this.idfamille.equals(other.idfamille))) {
             return false;
         }
         return true;
@@ -114,7 +101,7 @@ public class Famille implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Famille[ idFamille=" + idFamille + " ]";
+        return "entities.Famille[ idfamille=" + idfamille + " ]";
     }
     
 }

@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "droit")
+@Table(name = "Droit")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Droit.findAll", query = "SELECT d FROM Droit d")
@@ -43,7 +45,10 @@ public class Droit implements Serializable {
     @Size(max = 45)
     @Column(name = "nomDroit")
     private String nomDroit;
-    @ManyToMany(mappedBy = "droitList")
+    @JoinTable(name = "Role_has_Droit", joinColumns = {
+        @JoinColumn(name = "Droit_idDroit", referencedColumnName = "idDroit")}, inverseJoinColumns = {
+        @JoinColumn(name = "Role_idRole", referencedColumnName = "idRole")})
+    @ManyToMany
     private List<Role> roleList;
 
     public Droit() {

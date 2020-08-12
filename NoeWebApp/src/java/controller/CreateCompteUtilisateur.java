@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.AccessBD;
 
 /**
  *
@@ -59,8 +62,47 @@ public class CreateCompteUtilisateur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //getting all parameters        
+        String nom = request.getParameter("nom"); 
+        String prenom = request.getParameter("prenom"); 
+        String email = request.getParameter("email"); 
+        String tel = request.getParameter("tel"); 
+        String mdp = request.getParameter("mdp"); 
+        
+        CompteUtilisateur newUser = new CompteUtilisateur(); 
+        newUser.setIdcompteUtilisateur(newUser.hashCode());
+        newUser.setNomUtilisateur(nom+"_"+prenom);
+        newUser.setNom(nom);
+        newUser.setPrenom(prenom);
+        newUser.setEmailPerso(email);
+        newUser.setNuméroTelephone(tel);
+        newUser.setMdp(mdp);
+              
+        AccessBD.persist(newUser);
+
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/confirmationinscription.jsp"); 
         disp.forward(request, response);
+        
+/*
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CreateCompteUtilisateur</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CreateCompteUtilisateur at " + newUser.getNom() +" "
+                                                                   + newUser.getPrenom()+" "
+                                                                   + newUser.getEmailPerso()+" "
+                                                                   + newUser.getNuméroTelephone()+" "
+                                                                   + newUser.getIdcompteUtilisateur()+" "
+                                                                   + newUser.getMdp() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+        */
     }
 
     /**

@@ -5,9 +5,10 @@
  */
 package controller;
 
-import entities.Compteutilisateur;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -85,18 +86,18 @@ public class SignUpServlet extends HttpServlet {
         
         //ajout compte utilisateur
         //getting all parameters        
-        String nom = request.getParameter("nom"); 
-        String prenom = request.getParameter("prenom"); 
-        String email = request.getParameter("email"); 
-        String tel = request.getParameter("tel"); 
-        String mdp = request.getParameter("password"); 
-        String mdp_conf = request.getParameter("conf_password"); 
+        String nom = request.getParameter("attemptnom"); 
+        String prenom = request.getParameter("attemptprenom"); 
+        String email = request.getParameter("attemptemail"); 
+        String tel = request.getParameter("attempttel"); 
+        String mdp = request.getParameter("attemptpassword"); 
+        String mdp_conf = request.getParameter("attemptconf_password"); 
         
         //
-        session.setAttribute("nom", nom);
-        session.setAttribute("prenom", prenom );
-        session.setAttribute("email", email );
-        session.setAttribute("tel", tel );
+        session.setAttribute("attemptnom", nom);
+        session.setAttribute("attemptprenom", prenom );
+        session.setAttribute("attemptemail", email );
+        session.setAttribute("attempttel", tel );
         session.setAttribute("textError", "" );
         
         String emailRegEx = "^\\S+@\\S+\\.\\S+$";
@@ -117,12 +118,12 @@ public class SignUpServlet extends HttpServlet {
         else if(!Functions.checkRegEx(email, emailRegEx))    
         {
             session.setAttribute("textError", "Addresse email invalide" );            
-        }
+        }        
         else if (!Functions.checkRegEx(mdp, passwordRegEx)){
             session.setAttribute("textError", 
                     "Le mot de passe doit avoir: "
-                     +  "        au moins une elettre majuscule,\n" +
-                        "        au moins une elettre minuscule,\n" +
+                     +  "        au moins une lettre majuscule,\n" +
+                        "        au moins une lettre minuscule,\n" +
                         "        au moins un chiffre,\n" +
                         "        au moins un caractère spécial,\n" +
                         "        au  moins 8 caractères " );            
@@ -137,14 +138,25 @@ public class SignUpServlet extends HttpServlet {
                 session.setAttribute("textError", "Veuilez cocher la case \"J'ai bien lu les termes et conditions\""); 
             }
             else { 
-                //confirmation for email sent page    
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/inscriptionEmailSent.jsp");           
-                   
+                Boolean emailExistant=false; 
+                //check database for same email
+                List<CompteUtilisateur> listeDesComptesUtilisateurs = 
+                        AccessBD.selectAllCompteUtilisateurs();
+                for (CompteUtilisateur cpt : listeDesComptesUtilisateurs){
+                    if (cpt.getEmailPerso().equals(email)){
+                        session.setAttribute("textError", "Il existe un compte associé à cette adresse email"); 
+                        emailExistant = true; 
+                    }
+                }
+                if (!emailExistant){
+                    //confirmation for email sent page    
+                    Functions.sendConfirmaitonEmail(email, nom, prenom, email, tel, mdp, null);  
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/inscriptionEmailSent.jsp");           
+                }
             }
             
         }
         //create new object 
-        Compteutilisateur nouveauCompte = new Compteutilisateur();
         
         //- username: id objet
         //- add field phone number
@@ -152,21 +164,6 @@ public class SignUpServlet extends HttpServlet {
         //- check for existing email
         //- send confirmation email 
         //- link containing infos to insert into database
-        /*
-        confirmationPage.forward(request, response);
-               String name = request.getParameter("name"); 
-        if(name != null && name.isEmpty()==false){
-            Employee emp = new Employee(); 
-            emp.setName(name);
-            Department dep = AccessBD.selectDepById(36); 
-            emp.setDepartmentid(dep);
-            AccessBD.persist(emp);
-            HttpSession session = request.getSession();
-            session.setAttribute("employee", emp); //employee est à utiliser dans la jsp
-            RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/setEmployees.jsp"); 
-            disp.forward(request, response);
-        }
-        */
         
         pageToDisplay.forward(request, response);
         

@@ -73,30 +73,30 @@
 
 							<form action="/association-arche/signup" method="post">
 								<div class="top-margin">
-									<label>Nom</label>
-									<input type="text" id="fnom" name="nom" class="form-control" value="${nom}">
+									<label>Nom<span class="text-danger">*</span></label>
+									<input type="text" id="fnom" name="attemptnom" class="form-control" value="${attemptnom}">
 								</div>
 								<div class="top-margin">
-									<label>Prénom</label>
-									<input type="text" id="fprenom" name="prenom" class="form-control"value="${prenom}">
+									<label>Prénom<span class="text-danger">*</span></label>
+									<input type="text" id="fprenom" name="attemptprenom" class="form-control"value="${attemptprenom}">
 								</div>
 								<div class="top-margin">
-									<label>Téléphone</label>
-									<input type="text" id="ftel" name="tel" class="form-control" value="${tel}">
+									<label>Téléphone<span class="text-danger">*</span></label>
+									<input type="text" id="ftel" name="attempttel" class="form-control" value="${attempttel}">
 								</div>
 								<div class="top-margin">
 									<label>Adresse e-mail <span class="text-danger">*</span></label>
-                                                                        <input type="email" id="femail" name="email" class="form-control" value="${email}">
+                                                                        <input type="email" id="femail" name="attemptemail" class="form-control" value="${attemptemail}">
 								</div>
 
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Mot de passe <span class="text-danger">*</span></label>
-                                                                                <input type="password" id="fpassword" name="password" class="form-control">
+                                                                                <input type="password" id="fpassword" name="attemptpassword" class="form-control">
 									</div>
 									<div class="col-sm-6">
 										<label>Confirmer mot de passe <span class="text-danger">*</span></label>
-                                                                                <input type="password" id="fconf_password" name="conf_password" class="form-control">
+                                                                                <input type="password" id="fconf_password" name="attemptconf_password" class="form-control">
 									</div>
 								</div>
                                                             
@@ -110,7 +110,7 @@
 									<div class="col-lg-8">
 										<label class="checkbox" >
 											<input type="checkbox" name="termes_et_conditions" value="termes_et_conditions"> 
-											J'ai bien lu les <a href="page_terms.html">termes de conditions</a>
+											J'ai bien lu les <a href="page_terms.html">termes de conditions</a><span class="text-danger">*</span>
 										</label>                        
 									</div>
 									<div class="col-lg-4 text-right">
