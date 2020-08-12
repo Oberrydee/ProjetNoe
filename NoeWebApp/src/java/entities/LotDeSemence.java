@@ -124,13 +124,6 @@ public class LotDeSemence implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idLotDeSemence != null ? idLotDeSemence.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof LotDeSemence)) {

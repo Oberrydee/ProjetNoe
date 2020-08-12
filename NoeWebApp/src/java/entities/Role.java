@@ -91,12 +91,6 @@ public class Role implements Serializable {
         this.salariéList = salariéList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idRole != null ? idRole.hashCode() : 0);
-        return hash;
-    }
 
     @Override
     public boolean equals(Object object) {

@@ -78,12 +78,6 @@ public class Salle implements Serializable {
         this.lotDeSemenceList = lotDeSemenceList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idSalle != null ? idSalle.hashCode() : 0);
-        return hash;
-    }
 
     @Override
     public boolean equals(Object object) {
