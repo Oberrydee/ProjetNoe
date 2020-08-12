@@ -83,7 +83,7 @@
 
 								<div class="row">
 									<div class="col-lg-8">
-										<b><a href="">Mot de passe oublié?</a></b>
+										<b><a href="/association-arche/new-password" method="get">Mot de passe oublié?</a></b>
                                                                         <div>
                                                                             <p style="color: red">${textError}</p>
                                                                         </div>

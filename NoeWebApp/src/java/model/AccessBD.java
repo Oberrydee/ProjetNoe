@@ -153,17 +153,13 @@ public class AccessBD {
         return liste; 
     }      
     
-         
-    public static CompteUtilisateur selectCompteUtilisateursByid(int id){
+    public static List<CompteUtilisateur> getCompteUtilisateurByEmail(String email){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Compteutilisateur.findById"); 
-        q.setParameter("id", id); 
-        
-        CompteUtilisateur al = (CompteUtilisateur)q.getSingleResult(); 
-        return al; 
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createNamedQuery("CompteUtilisateur.findByEmailPerso"); 
+        List<CompteUtilisateur> cpt = (List<CompteUtilisateur>)q.getResultList(); 
+        return cpt;
     }
     
         public static void deleteCompteutilisateur(CompteUtilisateur emp)
