@@ -33,7 +33,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="" alt="logo arche"></a>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -55,7 +55,7 @@
 
 		<ol class="breadcrumb">
 			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Ajout d'alertes de sentinelles</li>
+			<li class="active">Création de projet</li>
 		</ol>
 
 		<div class="row">
@@ -69,47 +69,59 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout d'alertes de sentinelles</h3>	<hr>
+							<h3 class="thin text-center">Demande de création de projet faite par les managers</h3>	<hr>
 
 							<form>
 								<div class="top-margin">
-									<label>Numéro d'alerte</label>
+									<label>Nom du projet</label>
 									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>espèce concernée</label>
+									<label>Localisation</label>
 									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>Taxinomie</label>
+									<label>Nombre de membres dans l'équipe de projet</label>
 									<input type="text" class="form-control">
 								</div>
-
 								<div class="row top-margin">
 									<div class="col-sm-6">
-										<label>Urgence </label>
+										<label>Nom du demandeur</label>
 										<input type="text" class="form-control">
 									</div>
 									<div class="col-sm-6">
-										<label>Sentinelle </label>
+										<label>Nom du narrateur</label>
 										<input type="text" class="form-control">
 									</div>
 								</div>
+
+								<div class="top-margin">
+									
+									<div class="col-sm-6">
+										<label>Date de début de mission
+										
+										</label>
+										
+									</div>
+								
+							
+							    <input type="date" name="anniversaire">
+
+								</div>
+
+		
 
 								<hr>
 
-									<div display="inline-block">
-									
-									<button class="btn btn-success btn-space" type="submit"><a href="confirmationAjoutAlerteSentinelle.html" style="color:black;">Envoyer la demande</a>
 								
-	
+									<div class="col-lg-4 text-right">
 									
-									<button class="btn btn-danger btn-space" type="submit"><a href="AnnulerAjoutAlerteSentinelle.html" style="color:black;">Annuler</a></button>
+									<button class="btn btn-action" type="submit"><a href="confirmationCompteParManager.html">Envoyer la demande de création de projet</a></button>
+									<button class="btn btn-action" type="submit"><a href="AnnulerCompte.html">Annuler</a></button>
 
 									
 									</div>
 								</div>
-								
 							</form>
 						</div>
 					</div>
