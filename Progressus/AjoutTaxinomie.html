@@ -55,7 +55,7 @@
 
 		<ol class="breadcrumb">
 			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Lots de semences</li>
+			<li class="active">Taxinomie</li>
 		</ol>
 
 		<div class="row">
@@ -69,36 +69,31 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout de lot de semence</h3>	<hr>
+							<h3 class="thin text-center">Demande d'ajout de taxinomie</h3>	<hr>
 
 							<form>
 								<div class="top-margin">
-									<label>Numéro de semence</label>
+									<label>Règne</label>
 									<input type="text" class="form-control">
 								</div>
-								<div class="top-margin">
-									<label>Nature de semence</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									
-									<label for="localisation-select">Site de stockage:</label>
-
-										<select name="localisation" id="localisation-select">
-											<option value="">--Choisissez la localisation  --</option>
-											<option value="dog">Dax</option>
-											<option value="cat">Lille</option>
-											<option value="hamster">Annecy</option>
-										</select>
-									
-								</div>
+								
 								<div class="row top-margin">
 									<div class="col-sm-6">
-										<label>Disponibilité en stock</label>
+										<label>Famille</label>
 										<input type="text" class="form-control">
 									</div>
 									<div class="col-sm-6">
-										<label>Durée de stockage</label>
+										<label>Classe</label>
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Espèce</label>
+										<input type="text" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>Embranchement</label>
 										<input type="text" class="form-control">
 									</div>
 								</div>
@@ -106,12 +101,12 @@
 								<div class="row top-margin">
 									
 									<div class="col-sm-6">
-										<label>Qauntité</label>
+										<label>Ordre</label>
 										<input type="text" class="form-control">
 						
 									</div>
 									<div class="col-sm-6">
-										<label>Conditions de conservation</label>
+										<label>Genre</label>
 										<input type="text" class="form-control">
 										
 									</div>
@@ -125,15 +120,14 @@
 
 								<hr>
 
-								
-									
+								<div>
 									<div display="inline-block">
 									
-									<button class="btn btn-success btn-space" type="submit"><a href="confirmationAjoutSemence.html" style="color:black;">Envoyer la demande</a>
+									<button class="btn btn-success btn-space" type="submit"><a href="ConfirmerAjoutTaxinomie.html" style="color:black;">Ajouter une espèce</a>
 								
 	
 									
-									<button class="btn btn-danger btn-space" type="submit"><a href="AnnulerAjoutSemence.html" style="color:black;">Annuler</a></button>
+									<button class="btn btn-danger btn-space" type="submit"><a href="AnnulerAjoutTaxinomie.html" style="color:black;">Annuler</a></button>
 
 									
 									</div>
@@ -151,6 +145,7 @@
 		</div>
 	</div>	<!-- /container -->
 	
+
 <footer id="footer" class="top-space">
 
 		<div class="footer1">

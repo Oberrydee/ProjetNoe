@@ -33,7 +33,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
+				<a class="navbar-brand" href="index.html"><img src="" alt="logo arche"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -46,16 +46,14 @@
 	</div> 
 	<!-- /.navbar -->
 
-
-
 	<header id="head" class="secondary"></header>
 
 	<!-- container -->
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Lots de semences</li>
+			<li><a href="index.html">Accueil</a></li>
+			<li class="active">Accès utilisateur</li>
 		</ol>
 
 		<div class="row">
@@ -63,81 +61,34 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title"></h1>
+					<h1 class="page-title">Connexion</h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout de lot de semence</h3>	<hr>
-
+							<h3 class="thin text-center">Se connecter à votre compte utilisateur</h3>
+							<hr>
+							
 							<form>
 								<div class="top-margin">
-									<label>Numéro de semence</label>
-									<input type="text" class="form-control">
+									<label>Nom d'utilisateur/Email <span class="text-danger" >*</span></label>
+									<input type="text" class="form-control" required="required">
 								</div>
 								<div class="top-margin">
-									<label>Nature de semence</label>
-									<input type="text" class="form-control">
+									<label>Mot de passe <span class="text-danger">*</span></label>
+									<input type="password" class="form-control" required="required">
 								</div>
-								<div class="top-margin">
-									
-									<label for="localisation-select">Site de stockage:</label>
-
-										<select name="localisation" id="localisation-select">
-											<option value="">--Choisissez la localisation  --</option>
-											<option value="dog">Dax</option>
-											<option value="cat">Lille</option>
-											<option value="hamster">Annecy</option>
-										</select>
-									
-								</div>
-								<div class="row top-margin">
-									<div class="col-sm-6">
-										<label>Disponibilité en stock</label>
-										<input type="text" class="form-control">
-									</div>
-									<div class="col-sm-6">
-										<label>Durée de stockage</label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-
-								<div class="row top-margin">
-									
-									<div class="col-sm-6">
-										<label>Qauntité</label>
-										<input type="text" class="form-control">
-						
-									</div>
-									<div class="col-sm-6">
-										<label>Conditions de conservation</label>
-										<input type="text" class="form-control">
-										
-									</div>
-								
-							
-							    
-
-								</div>
-
-		
 
 								<hr>
 
-								
-									
-									<div display="inline-block">
-									
-									<button class="btn btn-success btn-space" type="submit"><a href="confirmationAjoutSemence.html" style="color:black;">Envoyer la demande</a>
-								
-	
-									
-									<button class="btn btn-danger btn-space" type="submit"><a href="AnnulerAjoutSemence.html" style="color:black;">Annuler</a></button>
-
-									
+								<div class="row">
+									<div class="col-lg-8">
+										<b><a href="passwordForgotten.html">Mot de passe oublié?</a></b>
 									</div>
-									
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit"><a href="interface.html">Connexion</a></button>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -151,6 +102,7 @@
 		</div>
 	</div>	<!-- /container -->
 	
+
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -218,5 +170,4 @@
 			</div>
 		</div>
 
-	</footer>	
-</html>
+	</footer>		
