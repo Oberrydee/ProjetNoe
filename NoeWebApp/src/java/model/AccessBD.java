@@ -7,6 +7,7 @@ package model;
 
 import entities.Alerte;
 import entities.Classe;
+import entities.CodePourConfirmation;
 import entities.CompteUtilisateur;
 import entities.Droit;
 import entities.Equipe;
@@ -57,12 +58,45 @@ public class AccessBD {
         }
         catch(Exception e){
             e.printStackTrace();
-            em.getTransaction().rollback();
         }
         finally{
             em.close(); 
         }
     }
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////  CodePourCOnfirmation  ///////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+    
+    public static List<CodePourConfirmation> selectAllCodePourConfirmations(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("CodePourConfirmation.findAll"); 
+        
+        List<CodePourConfirmation> liste = (List<CodePourConfirmation>)q.getResultList(); 
+        
+        for (CodePourConfirmation a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }    
+    
+    
+    public static List<CompteUtilisateur> getCodePourConfirmationByNomCode(String email){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createNamedQuery("CompteUtilisateur.findByNomcodePourConfirmation"); 
+        List<CompteUtilisateur> cpt = (List<CompteUtilisateur>)q.getResultList(); 
+        
+        em.close(); 
+        return cpt;
+    }
+    
+      
     /////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////  Alerte  ///////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +114,9 @@ public class AccessBD {
         for (Alerte a: liste){
             System.out.println(a.toString());
         }
+        em.close(); 
         return liste; 
-    }       
+    }
     public static Alerte selectALertsById(int id){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
@@ -91,6 +126,7 @@ public class AccessBD {
         q.setParameter("id", id); 
         
         Alerte al = (Alerte)q.getSingleResult(); 
+        em.close(); 
         return al; 
     }
     /*
@@ -130,6 +166,7 @@ public class AccessBD {
         for (Classe a: liste){
             System.out.println(a.toString());
         }
+        em.close(); 
         return liste; 
     }       
     
@@ -150,20 +187,19 @@ public class AccessBD {
         for (CompteUtilisateur a: liste){
             System.out.println(a.toString());
         }
+        em.close(); 
         return liste; 
     }      
     
-         
-    public static CompteUtilisateur selectCompteUtilisateursByid(int id){
+    public static List<CompteUtilisateur> getCompteUtilisateurByEmail(String email){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createNamedQuery("CompteUtilisateur.findByEmailPerso"); 
+        List<CompteUtilisateur> cpt = (List<CompteUtilisateur>)q.getResultList(); 
         
-        Query q = em.createNamedQuery("Compteutilisateur.findById"); 
-        q.setParameter("id", id); 
-        
-        CompteUtilisateur al = (CompteUtilisateur)q.getSingleResult(); 
-        return al; 
+        em.close(); 
+        return cpt;
     }
     
         public static void deleteCompteutilisateur(CompteUtilisateur emp)
