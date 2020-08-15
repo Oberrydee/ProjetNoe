@@ -24,7 +24,7 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
-<header id="head" class="secondary"></header>
+
 
 <body class="home">
 	<!-- Fixed navbar -->
@@ -33,25 +33,83 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
+				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="index.html">Accueil</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Connexion</a></li>
+					<li class="active"><a href="/association-arche/home">Accueil</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
-	<div class="container text-center">	
-		<h2 class="thin">Votre demande de réinitisalisation de mot de passe a bien été prise en compte</h2>
-		</br>
-		</br>
-		<p><a class="btn btn-action btn-lg" role="button" href="index.html">Retour</a></p>
-	</div>
-</body>
+
+
+
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+		<ol class="breadcrumb">
+			<li><a href="/association-arche/home">Page d'accueil</a></li>
+			<li class="active">Mot de passe oublié</li>
+		</ol>
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Mot de passe oublié</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Réinitisalisation de mot de passe</h3>							<hr>
+
+                                                        <form action="/association-arche/reset-password" method="post">
+								<div class="top-margin">
+									<label>Code reçu par e-mail</label>
+                                                                        <input type="text" name="code" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Nouveau mot de passe</label>
+                                                                        <input type="password" name="mdp" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Confirmez votre nouveau mot de passe<span class="text-danger">*</span></label>
+                                                                        <input type="password" name="mdp_conf" class="form-control">
+                                                                        <div>
+                                                                            <p style="color: red">${textError}</p>
+                                                                        </div>
+								</div>
+
+								
+
+								<hr>
+
+								
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Enregistrer</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+	
+
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -88,6 +146,7 @@
 						</div>
 					</div>
 
+
 				</div> <!-- /row of widgets -->
 			</div>
 		</div>
@@ -101,8 +160,8 @@
 							<p class="simplenav">
 								<a href="#">Accueil</a> | 
 								<a href="about.html">A propos de nous</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Connexion</a></b>
+								<a href="/association-arche/contact">Contact</a> |
+								<b><a href="/association-arche/signup">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -120,5 +179,16 @@
 		</div>
 
 	</footer>	
+		
+
+
+
+
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/headroom.min.js"></script>
+	<script src="assets/js/jQuery.headroom.min.js"></script>
+	<script src="assets/js/template.js"></script>
+</body>
 </html>
-	

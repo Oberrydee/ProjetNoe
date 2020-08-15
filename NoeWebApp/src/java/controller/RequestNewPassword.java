@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Accountstobeconfirmed;
+import entities.Coderesetpassword;
 import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,14 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.Functions;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "CreateCompteutilisateur", urlPatterns = {"/newuser"})
-public class CreateCompteUtilisateur extends HttpServlet {
+@WebServlet(name = "RequestNewPassword", urlPatterns = {"/request-new-password"})
+public class RequestNewPassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +43,10 @@ public class CreateCompteUtilisateur extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateCompteutilisateur</title>");            
+            out.println("<title>Servlet RequestNewPassword</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateCompteutilisateur at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RequestNewPassword at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,34 +64,10 @@ public class CreateCompteUtilisateur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //getting all parameters        
-        String codeId = request.getParameter("code"); 
-        
-        
-        RequestDispatcher disp
-             = request.getRequestDispatcher("/WEB-INF/Error.html");  
-        
-        if (AccessBD.getAccountstobeconfirmedBycode(codeId)!=null){
-            Accountstobeconfirmed code = (Accountstobeconfirmed) AccessBD.getAccountstobeconfirmedBycode(codeId); 
-
-            Compteutilisateur newUser = new Compteutilisateur(); 
-            newUser.setIdcompteUtilisateur(newUser.hashCode());
-            newUser.setNomUtilisateur(code.getNomAconf()+"_"+code.getPrenomAconf());
-            newUser.setNom(code.getNomAconf());
-            newUser.setPrenom(code.getPrenomAconf());
-            newUser.setEmailPerso(code.getEmailPersoAconf());
-            newUser.setNuméroTelephone(code.getNuméroTelephoneAconf());
-            newUser.setMdp(code.getMdpAconf());
-
-            if(AccessBD.persist(newUser)) {
-                if (!(Boolean)AccessBD.deleteAccounttobeconfirmed(code)) 
-                    System.out.println("AccountToBeConfirmed code failed to be deleted");
-                else disp = request.getRequestDispatcher("/WEB-INF/confirmationinscription.jsp"); 
-            }
-        }
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
+        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/request-new-password.jsp"); 
         disp.forward(request, response);
-            
     }
 
     /**
@@ -103,7 +81,37 @@ public class CreateCompteUtilisateur extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher pageToDisplay; 
+        
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
+        pageToDisplay = request.getRequestDispatcher("/WEB-INF/request-new-password.jsp"); 
+        
+        String email = request.getParameter("email"); 
+        
+        if (email!=null && !email.isEmpty()){
+            if(AccessBD.getCompteUtilisateurByEmail(email)!=null){
+                //todo: random code
+                Coderesetpassword code = new Coderesetpassword(); 
+                code.setIdCodeResetPassword(Functions.generateCodeResetPasswordUUID()); 
+                code.setIdCompteUtilisateur((Compteutilisateur)AccessBD.getCompteUtilisateurByEmail(email));
+                code.setNomCodeResetPassword(null);
+                if(AccessBD.persist(code)){
+                    Functions.sendCodeToResetPassword(email, code.getIdCodeResetPassword()); 
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/confirmation-password-requested.jsp");                     
+                }
+                else{
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/Error.html");   
+                }
+            }
+            else {
+                session.setAttribute("textError", "Email invalide");
+            }
+        } else{
+            session.setAttribute("textError", "Champ vide");
+        }
+        pageToDisplay.forward(request, response);
+
     }
 
     /**

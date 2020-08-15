@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.CompteUtilisateur;
+import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -63,6 +63,8 @@ public class SingInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/signin.jsp"); 
         disp.forward(request, response);
     }
@@ -90,11 +92,11 @@ public class SingInServlet extends HttpServlet {
         
         if (email!=null && mdp != null){
             //getting users list
-            List<CompteUtilisateur> listeUsers = AccessBD.selectAllCompteUtilisateurs(); 
+            List<Compteutilisateur> listeUsers = AccessBD.selectAllCompteutilisateurs(); 
 
             Boolean userExists = false; 
             Boolean psswdIsCorrect = false; 
-            for (CompteUtilisateur cpt : listeUsers){
+            for (Compteutilisateur cpt : listeUsers){
                 if (cpt.getEmailPerso().equals(email)){
                     userExists = true;                 
                 }

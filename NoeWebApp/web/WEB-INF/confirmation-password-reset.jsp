@@ -38,49 +38,20 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
-					<li><a href="contact.jsp">Contact</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
 					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
-	<!-- /body password-->
-	</br>
-	</br>
 	<div class="container text-center">	
-		<h4 class="thin">Veuillez saisir votre adresse mail, un code de réinitialisation vous est transmis sur ce moyen de contact </h4>
-		</br>
-		</br>
-                <form action="/association-arche/new-password" method="post">
-		<label>Adresse e-mail <span class="text-danger">*</span></label>
-                                                            <div>
-                                                                <p style="color: red">${textError}</p>
-                                                            </div>
-		<input type="text" name="mail-de-recuperation">
-		</br>
-		</br>                
-                    <p class="btn btn-action btn-lg"
-                       type="submit" >Réinitialiser
-
-                    </p>
-                </form>
+		<h2 class="thin">Votre mot de passe a bien été modifié. 
+                    <br>
+                    Vous pouvez désormais vous connecter avec les informations. </h2>
+		<p><a class="btn btn-action btn-lg" role="button" href="/association-arche/home">Retour</a></p>
 	</div>
-	
-
-	
-
-
-	
-
-
-
-
-
-
-
-
-
+</body>
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -129,9 +100,9 @@
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="#">Accueil</a> | 
-								<a href="about.jsp">A propos de nous</a> |
-								<a href="contact.jsp">Contact</a> |
-								<b><a href="/association-arche/signin">Connexion</a></b>
+								<a href="/association-arche/about">A propos de nous</a> |
+								<a href="/association-arche/contact">Contact</a> |
+								<b><a href="/association-arche/signup">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -148,7 +119,6 @@
 			</div>
 		</div>
 
-	</footer>
-
-</body>
-</html>	
+	</footer>	
+</html>
+	

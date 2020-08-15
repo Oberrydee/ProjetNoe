@@ -5,10 +5,10 @@
  */
 package controller;
 
+import entities.Coderesetpassword;
 import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.AppStrings;
+import model.Functions;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "Home", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "ResetPasswordServlet", urlPatterns = {"/reset-password"})
+public class ResetPasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +44,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");            
+            out.println("<title>Servlet ResetPasswordServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ResetPasswordServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,40 +65,9 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //session
-        HttpSession session = request.getSession();
-        session.setAttribute("textError", "" );
-        RequestDispatcher pageToDisplay; 
-        pageToDisplay = request.getRequestDispatcher("/WEB-INF/index.jsp");
-        if(session.getAttribute("session_email")!=null &&session.getAttribute("session_mdp")!=null){
-            
-            //getting parameters
-            String session_email = session.getAttribute("session_email").toString(); 
-            String session_mdp = session.getAttribute("session_mdp").toString();
-            List<Compteutilisateur> listeUtilisateurs = AccessBD.selectAllCompteutilisateurs(); 
-            Boolean userExists = false; 
-            Boolean psswdIsCorrect = false; 
-            for (Compteutilisateur cpt : listeUtilisateurs){
-                
-                if (cpt.getEmailPerso().equals(session_email))userExists = true; 
-                else userExists = false; 
-                
-                if (cpt.getMdp().equals(session_mdp)) psswdIsCorrect = true;
-                else psswdIsCorrect = false; 
-                
-                if(userExists && psswdIsCorrect) break;
-            }
-            if (!userExists || !psswdIsCorrect)
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/index.jsp");
-            else {
-                session.setAttribute("textError", "Good" );
-                //user interface page prep
-                //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
-                pageToDisplay = request.getRequestDispatcher("/signin"); 
-
-            }
-        }
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
+        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/reset-password.jsp"); 
         pageToDisplay.forward(request, response);
     }
 
@@ -111,7 +82,46 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
+        
+        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/reset-password.jsp"); 
+        
+        String code = request.getParameter("code"); 
+        String mdp = request.getParameter("mdp"); 
+        String mdp_conf = request.getParameter("mdp_conf"); 
+        
+        if(AccessBD.getCoderesetpasswordByID(code) != null){
+            if(Functions.checkRegEx(mdp, AppStrings.passwordRegEx)){
+                if(mdp.equals(mdp_conf)){
+                    if(!mdp.equals((((Coderesetpassword)AccessBD.getCoderesetpasswordByID(code))
+                            .getIdCompteUtilisateur()).getMdp())){
+                        Coderesetpassword reset = (Coderesetpassword) AccessBD.getCoderesetpasswordByID(code); 
+                        Compteutilisateur cpt = reset.getIdCompteUtilisateur(); 
+                        AccessBD.deleteCoderesetpassword(reset);
+                        AccessBD.deleteCompteutilisateur(cpt);
+                        cpt.setMdp(mdp);
+                        if(AccessBD.persist(cpt)) {
+                            pageToDisplay = request.getRequestDispatcher("/WEB-INF/confirmation-password-reset.jsp"); 
+                        }else{
+                            pageToDisplay = request.getRequestDispatcher("Error.html");                         
+                        }
+                    }
+                    else{   
+                        session.setAttribute("textError", "Le nouveau mot de passe doit etre différent de l'ancien.");                    
+                    }
+                }
+                else{                    
+                    session.setAttribute("textError", AppStrings.PASSWORD_DONT_MATCH); 
+                }
+            }else{
+                session.setAttribute("textError", AppStrings.PASSWORD_REQUIERMENTS);                
+            }
+        }else{
+            session.setAttribute("textError", AppStrings.INVALID_PARAM_DISP("code")); 
+        }        
+        pageToDisplay.forward(request, response);
+        
     }
 
     /**

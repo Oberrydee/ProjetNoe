@@ -30,15 +30,8 @@ public class Functions {
     
     public static String sendConfirmaitonEmail(
             String to,
-            String nom,
-            String prenom,
-            String email,
-            String tel,
-            String mdp,
-            String id){
+            String code){
 
-        final String username = Email.ARCHE_EMAIL;
-        final String password = Email.ARCHE_PASSWORD;
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -47,7 +40,7 @@ public class Functions {
         Session session = Session.getInstance(props,
           new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(Email.ARCHE_EMAIL, Email.ARCHE_PASSWORD);
                 }
           });
       try {
@@ -67,26 +60,34 @@ public class Functions {
          
          message.setContent(Email.createAccountConfirmationEmail(
                  "http://localhost:8080/association-arche/newuser?"
-                 +"&nom="+nom+"&prenom="+prenom+"&email="+email+"&tel="+tel+"&mdp="+mdp
-                 
-                 
-                         ), "text/html");
+                 +"code="+code), "text/html");
 
          // Send message
          Transport.send(message);
-         System.out.println("Sent message successfully....");
+         System.out.println("Sent sign in message successfully....");
       } catch (MessagingException mex) {
          mex.printStackTrace();
       }
       
       return null;
     }
-    
-    public static String sendPasswordResetEmail(
-            String to){
 
-        final String username = Email.ARCHE_EMAIL;
-        final String password = Email.ARCHE_PASSWORD;
+    public static String generateCodeResetPasswordUUID() {
+        String id =  UUID.randomUUID().toString();
+        
+        while(AccessBD.getCoderesetpasswordByID(id)!=null) id = UUID.randomUUID().toString();
+        
+        return id;
+    }
+    public static String generateCodePendingAccountUUID() {
+        String id =  UUID.randomUUID().toString();
+        
+        while(AccessBD.getAccountstobeconfirmedBycode(id)!=null) id = UUID.randomUUID().toString();
+        
+        return id;
+    }
+
+    public static void sendCodeToResetPassword(String to, String code) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -95,7 +96,7 @@ public class Functions {
         Session session = Session.getInstance(props,
           new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(Email.ARCHE_EMAIL, Email.ARCHE_PASSWORD);
                 }
           });
       try {
@@ -109,19 +110,17 @@ public class Functions {
          message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
          // Set Subject: header field
-         message.setSubject("Confirmation de votre email!");
+         message.setSubject("Nouveau mot de passe");
 
          // Send the actual HTML message, as big as you like
          
-         message.setContent(Email.createPasswordResetEmail(), "text/html");
+         message.setContent(Email.createPasswordResetemail(code), "text/html");
 
          // Send message
          Transport.send(message);
-         System.out.println("Sent message successfully....");
+         System.out.println("Sent reset password message successfully....");
       } catch (MessagingException mex) {
          mex.printStackTrace();
       }
-      
-      return null;
     }
 }

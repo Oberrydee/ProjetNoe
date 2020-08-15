@@ -46,7 +46,9 @@
 	</div> 
 	<!-- /.navbar -->
 	<div class="container text-center">	
-		<h2 class="thin">Votre demande de création de compte a bien été prise en compte</h2>
+		<h2 class="thin">Votre demande de modification de mot de passe a bien été prise en compte. 
+                    <br>
+                    Un code vient de vous être envoyé. </h2>
 		<p><a class="btn btn-action btn-lg" role="button" href="/association-arche/home">Retour</a></p>
 	</div>
 </body>

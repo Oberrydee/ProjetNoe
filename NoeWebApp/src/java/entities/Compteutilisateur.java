@@ -26,18 +26,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "compteUtilisateur")
+@Table(name = "compteutilisateur")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CompteUtilisateur.findAll", query = "SELECT c FROM CompteUtilisateur c")
-    , @NamedQuery(name = "CompteUtilisateur.findByIdcompteUtilisateur", query = "SELECT c FROM CompteUtilisateur c WHERE c.idcompteUtilisateur = :idcompteUtilisateur")
-    , @NamedQuery(name = "CompteUtilisateur.findByNomUtilisateur", query = "SELECT c FROM CompteUtilisateur c WHERE c.nomUtilisateur = :nomUtilisateur")
-    , @NamedQuery(name = "CompteUtilisateur.findByMdp", query = "SELECT c FROM CompteUtilisateur c WHERE c.mdp = :mdp")
-    , @NamedQuery(name = "CompteUtilisateur.findByEmailPerso", query = "SELECT c FROM CompteUtilisateur c WHERE c.emailPerso = :emailPerso")
-    , @NamedQuery(name = "CompteUtilisateur.findByNum\u00e9roTelephone", query = "SELECT c FROM CompteUtilisateur c WHERE c.num\u00e9roTelephone = :num\u00e9roTelephone")
-    , @NamedQuery(name = "CompteUtilisateur.findByNom", query = "SELECT c FROM CompteUtilisateur c WHERE c.nom = :nom")
-    , @NamedQuery(name = "CompteUtilisateur.findByPrenom", query = "SELECT c FROM CompteUtilisateur c WHERE c.prenom = :prenom")})
-public class CompteUtilisateur implements Serializable {
+    @NamedQuery(name = "Compteutilisateur.findAll", query = "SELECT c FROM Compteutilisateur c")
+    , @NamedQuery(name = "Compteutilisateur.findByIdcompteUtilisateur", query = "SELECT c FROM Compteutilisateur c WHERE c.idcompteUtilisateur = :idcompteUtilisateur")
+    , @NamedQuery(name = "Compteutilisateur.findByNomUtilisateur", query = "SELECT c FROM Compteutilisateur c WHERE c.nomUtilisateur = :nomUtilisateur")
+    , @NamedQuery(name = "Compteutilisateur.findByMdp", query = "SELECT c FROM Compteutilisateur c WHERE c.mdp = :mdp")
+    , @NamedQuery(name = "Compteutilisateur.findByEmailPerso", query = "SELECT c FROM Compteutilisateur c WHERE c.emailPerso = :emailPerso")
+    , @NamedQuery(name = "Compteutilisateur.findByNum\u00e9roTelephone", query = "SELECT c FROM Compteutilisateur c WHERE c.num\u00e9roTelephone = :num\u00e9roTelephone")
+    , @NamedQuery(name = "Compteutilisateur.findByNom", query = "SELECT c FROM Compteutilisateur c WHERE c.nom = :nom")
+    , @NamedQuery(name = "Compteutilisateur.findByPrenom", query = "SELECT c FROM Compteutilisateur c WHERE c.prenom = :prenom")})
+public class Compteutilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,13 +63,13 @@ public class CompteUtilisateur implements Serializable {
     @Size(max = 20)
     @Column(name = "prenom")
     private String prenom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteUtilisateuridcompteUtilisateur")
-    private List<Salarié> salariéList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompteUtilisateur")
+    private List<Coderesetpassword> coderesetpasswordList;
 
-    public CompteUtilisateur() {
+    public Compteutilisateur() {
     }
 
-    public CompteUtilisateur(Integer idcompteUtilisateur) {
+    public Compteutilisateur(Integer idcompteUtilisateur) {
         this.idcompteUtilisateur = idcompteUtilisateur;
     }
 
@@ -130,21 +130,21 @@ public class CompteUtilisateur implements Serializable {
     }
 
     @XmlTransient
-    public List<Salarié> getSalariéList() {
-        return salariéList;
+    public List<Coderesetpassword> getCoderesetpasswordList() {
+        return coderesetpasswordList;
     }
 
-    public void setSalariéList(List<Salarié> salariéList) {
-        this.salariéList = salariéList;
+    public void setCoderesetpasswordList(List<Coderesetpassword> coderesetpasswordList) {
+        this.coderesetpasswordList = coderesetpasswordList;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CompteUtilisateur)) {
+        if (!(object instanceof Compteutilisateur)) {
             return false;
         }
-        CompteUtilisateur other = (CompteUtilisateur) object;
+        Compteutilisateur other = (Compteutilisateur) object;
         if ((this.idcompteUtilisateur == null && other.idcompteUtilisateur != null) || (this.idcompteUtilisateur != null && !this.idcompteUtilisateur.equals(other.idcompteUtilisateur))) {
             return false;
         }
@@ -153,7 +153,7 @@ public class CompteUtilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.CompteUtilisateur[ idcompteUtilisateur=" + idcompteUtilisateur + " ]";
+        return "entities.Compteutilisateur[ idcompteUtilisateur=" + idcompteUtilisateur + " ]";
     }
     
 }

@@ -5,10 +5,9 @@
  */
 package controller;
 
-import entities.CompteUtilisateur;
+import entities.Accountstobeconfirmed;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.AppStrings;
 import model.Functions;
 
 /**
@@ -99,11 +99,7 @@ public class SignUpServlet extends HttpServlet {
         session.setAttribute("attemptemail", email );
         session.setAttribute("attempttel", tel );
         session.setAttribute("textError", "" );
-        
-        String emailRegEx = "^\\S+@\\S+\\.\\S+$";
-        //String phoneRegEx = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$";
-        String phoneRegEx = "((?:\\+|00)[17](?: |\\-)?|(?:\\+|00)[1-9]\\d{0,2}(?: |\\-)?|(?:\\+|00)1\\-\\d{3}(?: |\\-)?)?(0\\d|\\([0-9]{3}\\)|[1-9]{0,3})(?:((?: |\\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\\-)[0-9]{3}(?: |\\-)[0-9]{4})|([0-9]{7}))";        String passwordRegEx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^,\"\'&*-]).{8,}$"; 
-        
+       
         //^\+(?:[0-9] ?){6,14}[0-9]$
         //((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))
         
@@ -112,45 +108,40 @@ public class SignUpServlet extends HttpServlet {
         //default page if anything goes wrong   
         pageToDisplay = request.getRequestDispatcher("/WEB-INF/signup.jsp"); 
         
-        if(!Functions.checkRegEx(tel, phoneRegEx)){
-            session.setAttribute("textError", "Numero de telephone invalide" );
+        if(!Functions.checkRegEx(tel, AppStrings.phoneRegEx)){
+            session.setAttribute("textError", AppStrings.INVALID_PARAM_DISP("Numero de telephone") );
         }
-        else if(!Functions.checkRegEx(email, emailRegEx))    
+        else if(!Functions.checkRegEx(email, AppStrings.emailRegEx))    
         {
-            session.setAttribute("textError", "Addresse email invalide" );            
+            session.setAttribute("textError", AppStrings.INVALID_PARAM_DISP("Addresse email") );            
         }        
-        else if (!Functions.checkRegEx(mdp, passwordRegEx)){
-            session.setAttribute("textError", 
-                    "Le mot de passe doit avoir: "
-                     +  "        au moins une lettre majuscule,\n" +
-                        "        au moins une lettre minuscule,\n" +
-                        "        au moins un chiffre,\n" +
-                        "        au moins un caractère spécial,\n" +
-                        "        au  moins 8 caractères " );            
+        else if (!Functions.checkRegEx(mdp, AppStrings.passwordRegEx)){
+            session.setAttribute("textError", AppStrings.PASSWORD_REQUIERMENTS );            
         }
         else if(!mdp.equals(null) 
                 && mdp.isEmpty()==false && !mdp.equals(mdp_conf)){
-            session.setAttribute("textError", "Confirmation de mot de passe incorrecte" );            
+            session.setAttribute("textError", AppStrings.PASSWORD_DONT_MATCH );            
         }
         else {            
             String checked = (String)request.getParameter("termes_et_conditions");
             if(checked==(null)){
                 session.setAttribute("textError", "Veuilez cocher la case \"J'ai bien lu les termes et conditions\""); 
             }
-            else { 
-                Boolean emailExistant=false; 
-                //check database for same email
-                List<CompteUtilisateur> listeDesComptesUtilisateurs = 
-                        AccessBD.selectAllCompteUtilisateurs();
-                for (CompteUtilisateur cpt : listeDesComptesUtilisateurs){
-                    if (cpt.getEmailPerso().equals(email)){
-                        session.setAttribute("textError", "Il existe un compte associé à cette adresse email"); 
-                        emailExistant = true; 
-                    }
+            else {  
+                if (AccessBD.getCompteUtilisateurByEmail(email)!= null){
+                    session.setAttribute("textError", "Il existe un compte associé à cette adresse email"); 
                 }
-                if (!emailExistant){
+                else{
+                    Accountstobeconfirmed code = new Accountstobeconfirmed(Functions.generateCodePendingAccountUUID());
+                    code.setEmailPersoAconf(email);
+                    code.setMdpAconf(mdp);
+                    code.setNomAconf(nom);
+                    code.setPrenomAconf(prenom);
+                    code.setNuméroTelephoneAconf(tel);
+                    code.setNomUtilisateurAconf(prenom+""+nom);
+                    AccessBD.persist(code); 
                     //confirmation for email sent page    
-                    Functions.sendConfirmaitonEmail(email, nom, prenom, email, tel, mdp, null);  
+                    Functions.sendConfirmaitonEmail(email,code.getCode());  
                     pageToDisplay = request.getRequestDispatcher("/WEB-INF/inscriptionEmailSent.jsp");           
                 }
             }

@@ -45,11 +45,41 @@
 		</div>
 	</div> 
 	<!-- /.navbar -->
-	<div class="container text-center">	
-		<h2 class="thin">Votre demande de création de compte a bien été prise en compte</h2>
-		<p><a class="btn btn-action btn-lg" role="button" href="/association-arche/home">Retour</a></p>
+	<!-- /body password-->
+	</br>
+	</br>
+	<div class="container text-center">
+            <form action="/association-arche/request-new-password" method="post">
+		<h4 class="thin">Veuillez saisir votre adresse mail, un code de réinitialisation vous est transmis sur ce moyen de contact </h4>
+		</br>
+		</br>
+		<label>Adresse e-mail <span class="text-danger" >*</span></label>
+                <input name="email" type="text">
+                    <div>
+                       <p style="color: red">${textError}</p>
+                   </div>
+		</br>
+		</br>
+                <div class="col-lg-4 text-right">
+                        <button class="btn btn-action" type="submit">Valider</button>
+                </div>
+            </form>
 	</div>
-</body>
+	
+
+	
+
+
+	
+
+
+
+
+
+
+
+
+
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -98,7 +128,7 @@
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="#">Accueil</a> | 
-								<a href="/association-arche/about">A propos de nous</a> |
+								<a href="about.html">A propos de nous</a> |
 								<a href="/association-arche/contact">Contact</a> |
 								<b><a href="/association-arche/signup">Connexion</a></b>
 							</p>
@@ -117,6 +147,7 @@
 			</div>
 		</div>
 
-	</footer>	
-</html>
-	
+	</footer>
+
+</body>
+</html>	

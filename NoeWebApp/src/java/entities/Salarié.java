@@ -75,7 +75,7 @@ public class Salarié implements Serializable {
     private String prénom;
     @JoinColumn(name = "compteUtilisateur_idcompteUtilisateur", referencedColumnName = "idcompteUtilisateur")
     @ManyToOne(optional = false)
-    private CompteUtilisateur compteUtilisateuridcompteUtilisateur;
+    private Compteutilisateur compteUtilisateuridcompteUtilisateur;
     @JoinColumn(name = "Role_id Role", referencedColumnName = "idRole")
     @ManyToOne(optional = false)
     private Role roleidRole;
@@ -165,11 +165,11 @@ public class Salarié implements Serializable {
         this.prénom = prénom;
     }
 
-    public CompteUtilisateur getCompteUtilisateuridcompteUtilisateur() {
+    public Compteutilisateur getCompteutilisateuridcompteUtilisateur() {
         return compteUtilisateuridcompteUtilisateur;
     }
 
-    public void setCompteUtilisateuridcompteUtilisateur(CompteUtilisateur compteUtilisateuridcompteUtilisateur) {
+    public void setCompteutilisateuridcompteUtilisateur(Compteutilisateur compteUtilisateuridcompteUtilisateur) {
         this.compteUtilisateuridcompteUtilisateur = compteUtilisateuridcompteUtilisateur;
     }
 
