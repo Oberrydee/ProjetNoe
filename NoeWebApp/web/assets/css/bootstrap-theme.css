@@ -92,7 +92,61 @@
 	.jumbotron h5, .jumbotron h6 { line-height: 1.3em; }
 
 
+
+
+
 /*******************************/
-/*           Images            */
+/*         GALLERY BY IBTISSAME*/
 /*******************************/
-.img-rounded { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+
+.miniature{
+
+display: inline-block;
+
+height : 20px;
+width : 1800px ;
+
+
+
+}
+
+
+
+.paragraph{
+
+text-align : center;
+font-family: "Open sans", Helvetica, Arial;
+line-height: 300%;
+font-size: 14px;
+
+}
+
+
+
+/*******************************/
+/*       Interface BY IBTISSAME*/
+/*******************************/
+
+.nav flex-column {
+
+display : inline-block;
+}
+
+.nav ul li a {
+
+backgroound : #999;
+}
+
+.btn-space{
+margin-right : 5em;
+
+}
+
+
+
+
+
+
+
+
+
