@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Ajout sentinelle</title>
+	<title>Ajout lot de semence</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -33,7 +33,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="" alt="logo arche"></a>
+				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -55,7 +55,7 @@
 
 		<ol class="breadcrumb">
 			<li><a href="/association-arche/home">Page d'accueil</a></li>
-			<li class="active">Ajout d'alertes de sentinelles</li>
+			<li class="active">Lots de semences</li>
 		</ol>
 
 		<div class="row">
@@ -69,48 +69,71 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout d'alertes de sentinelles</h3>	<hr>
+							<h3 class="thin text-center">Demande d'ajout de lot de semence</h3>	<hr>
 
 							<form>
 								<div class="top-margin">
-									<label>NumÃ©ro d'alerte</label>
+									<label>Numéro de semence</label>
 									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>espÃ¨ce concernÃ©e</label>
+									<label>Nature de semence</label>
 									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>Taxinomie <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									
+									<label for="localisation-select">Site de stockage:</label>
+
+										<select name="localisation" id="localisation-select">
+											<option value="">--Choisissez la localisation  --</option>
+											<option value="dog">Dax</option>
+											<option value="cat">Lille</option>
+											<option value="hamster">Annecy</option>
+										</select>
+									
+								</div>
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Disponibilité en stock</label>
+										<input type="text" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>Durée de stockage</label>
+										<input type="text" class="form-control">
+									</div>
 								</div>
 
 								<div class="row top-margin">
+									
 									<div class="col-sm-6">
-										<label>Urgence <span class="text-danger">*</span></label>
+										<label>Qauntité</label>
 										<input type="text" class="form-control">
+						
 									</div>
 									<div class="col-sm-6">
-										<label>Sentinelle <span class="text-danger">*</span></label>
+										<label>Conditions de conservation</label>
 										<input type="text" class="form-control">
+										
 									</div>
+								
+							
+							    
+
 								</div>
+
+		
 
 								<hr>
 
-								<div display="inline-block">
 								
-									<div align="left">
+									<div class="col-lg-4 text-right">
 									
-										<button class="btn btn-action" type="submit"><a href="confirmationSentinelle.html">Envoyer</a>
-									
-									<div align="right">
-										<button class="btn btn-action" type="submit"><a href="AnnulerAlerte.html">Annuler</a></button>	
+									<button class="btn btn-action" type="submit"><a href="confirmationCompteParManager.html">Envoyer la demande d'ajout de lot de semence</a></button>
+									<button class="btn btn-action" type="submit"><a href="AnnulerCompte.html">Annuler</a></button>
 
 									
 									</div>
 								</div>
-								
 							</form>
 						</div>
 					</div>
@@ -175,7 +198,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
+								<a href="/association/home">Accueil</a> | 
 								<a href="/association-arche/about">A propos de nous</a> |
 								<a href="/association-arche/contact">Contact</a> |
 								<b><a href="/association-arche/signup">Connexion</a></b>
