@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Projet Fil Rouge</title>
+	<title>Réinitialisation mot de passe</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -24,7 +24,7 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
-<header id="head" class="secondary"></header>
+
 
 <body class="home">
 	<!-- Fixed navbar -->
@@ -33,54 +33,83 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
-			</div>
+					<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
+	</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
-					<li><a href="contact.jsp">Contact</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
 					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
-	<!-- /body password-->
-	</br>
-	</br>
-	<div class="container text-center">	
-		<h4 class="thin">Veuillez saisir votre adresse mail, un code de réinitialisation vous est transmis sur ce moyen de contact </h4>
-		</br>
-		</br>
-                <form action="/association-arche/new-password" method="post">
-		<label>Adresse e-mail <span class="text-danger">*</span></label>
-                                                            <div>
-                                                                <p style="color: red">${textError}</p>
-                                                            </div>
-		<input type="text" name="mail-de-recuperation">
-		</br>
-		</br>                
-                    <p class="btn btn-action btn-lg"
-                       type="submit" >Réinitialiser
-
-                    </p>
-                </form>
-	</div>
-	
-
-	
-
-
-	
 
 
 
+	<header id="head" class="secondary"></header>
 
+	<!-- container -->
+	<div class="container">
 
+		<ol class="breadcrumb">
+			<li><a href="/association-arche/home">Page d'accueil</a></li>
+			<li class="active">Mot de passe oublié</li>
+		</ol>
 
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Mot de passe oublié</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Réinitisalisation de mot de passe</h3>							<hr>
 
+                                                        <form action="/association-arche/reset-password" method="post">
+								<div class="top-margin">
+									<label>Code reçu par e-mail</label>
+                                                                        <input type="text" name="code" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Nouveau mot de passe</label>
+                                                                        <input type="password" name="mdp" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Confirmez votre nouveau mot de passe<span class="text-danger">*</span></label>
+                                                                        <input type="password" name="mdp_conf" class="form-control">
+                                                                        <div>
+                                                                            <p style="color: red">${textError}</p>
+                                                                        </div>
+								</div>
 
+								
 
+								<hr>
+
+								
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Enregistrer</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+</body>
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -90,7 +119,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association@arche.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
 								
 							</p>	
@@ -128,9 +157,9 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
-								<a href="about.jsp">A propos de nous</a> |
-								<a href="contact.jsp">Contact</a> |
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/about">A propos de nous</a> |
+								<a href="/association-arche/contact">Contact</a> |
 								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
 						</div>
@@ -149,6 +178,4 @@
 		</div>
 
 	</footer>
-
-</body>
-</html>	
+</html>

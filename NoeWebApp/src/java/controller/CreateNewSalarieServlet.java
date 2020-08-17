@@ -5,24 +5,20 @@
  */
 package controller;
 
-import entities.Accountstobeconfirmed;
-import entities.Compteutilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AccessBD;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "CreateCompteutilisateur", urlPatterns = {"/newuser"})
-public class CreateCompteUtilisateur extends HttpServlet {
+@WebServlet(name = "CreateNewSalarieServlet", urlPatterns = {"/new-salarie"})
+public class CreateNewSalarieServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class CreateCompteUtilisateur extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateCompteutilisateur</title>");            
+            out.println("<title>Servlet CreateNewSalarieServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateCompteutilisateur at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Don't forget to check if compte utilisateur pas deja associé à qqun</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,34 +58,9 @@ public class CreateCompteUtilisateur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //getting all parameters        
-        String codeId = request.getParameter("code"); 
-        
-        
-        RequestDispatcher disp
-             = request.getRequestDispatcher("/WEB-INF/Error.html");  
-        
-        if (AccessBD.selectAccountstobeconfirmedBycode(codeId)!=null){
-            Accountstobeconfirmed code = (Accountstobeconfirmed) AccessBD.selectAccountstobeconfirmedBycode(codeId); 
-
-            Compteutilisateur newUser = new Compteutilisateur(); 
-            newUser.setIdcompteUtilisateur(newUser.hashCode());
-            newUser.setNomUtilisateur(code.getNomAconf()+"_"+code.getPrenomAconf());
-            newUser.setNom(code.getNomAconf());
-            newUser.setPrenom(code.getPrenomAconf());
-            newUser.setEmailPerso(code.getEmailPersoAconf());
-            newUser.setNuméroTelephone(code.getNuméroTelephoneAconf());
-            newUser.setMdp(code.getMdpAconf());
-
-            if(AccessBD.persist(newUser)) {
-                if (!(Boolean)AccessBD.deleteAccounttobeconfirmed(code)) 
-                    System.out.println("AccountToBeConfirmed code failed to be deleted");
-                else disp = request.getRequestDispatcher("/WEB-INF/confirmationinscription.jsp"); 
-            }
-        }
-        disp.forward(request, response);
-            
+        //TODO
+        //Don't forget to check if compte utilisateur pas deja associé à qqun!!!!!!!!!!!!!!!!!!
+        processRequest(request, response);
     }
 
     /**
@@ -103,6 +74,8 @@ public class CreateCompteUtilisateur extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //TODO
+        //Don't forget to check if compte utilisateur pas deja associé à qqun!!!!!!!
         processRequest(request, response);
     }
 

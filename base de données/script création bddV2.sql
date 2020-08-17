@@ -402,17 +402,32 @@ commit;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`emailsToBeConfirmed`
+-- Table `mydb`.`AccountsToBeConfirmed`
 -- -----------------------------------------------------
 
-drop table if exists mydb.emailsToBeConfirmed ;
+drop table if exists mydb.AccountsToBeConfirmed ;
 create table mydb.AccountsToBeConfirmed (    
-  `idcompteaconf` INT NOT NULL,
-  `nomUtilisateuraconf` VARCHAR(45) NULL,
-  `mdpaconf` VARCHAR(45) NULL,
-  `emailPersoaconf` VARCHAR(45) NULL,
-  `numéroTelephoneaconf` VARCHAR(45) NULL,
-  PRIMARY KEY (`idcompteaconf`));
+  `code` INT NOT NULL,
+  `nomUtilisateurAconf` VARCHAR(45) NULL,
+  `mdpAconf` VARCHAR(45) NULL,
+  `emailPersoAconf` VARCHAR(45) NULL,
+  `numéroTelephoneAconf` VARCHAR(45) NULL,
+  `nomAconf` VARCHAR(45) NULL,
+  `prenomAconf` VARCHAR(45) NULL,
+  PRIMARY KEY (`code`));
+  
+
+-- -----------------------------------------------------
+-- Table `mydb`.`CodeResetPassword`
+-- -----------------------------------------------------
+drop table if exists mydb.CodeResetPassword ;
+drop table if exists mydb.Codes ;
+create table mydb.CodeResetPassword (    
+  `idCodeResetPassword` varchar(45) NOT NULL,
+  `nomCodeResetPassword` VARCHAR(45) NULL,
+  `idCompteUtilisateur` int not NULL,
+  PRIMARY KEY (`idCodeResetPassword`)  
+  );
   
  alter table `alerte` add COLUMN `sentinelle_idsentinelle` int not null , 
 	add constraint `fk_alerte_sentinelle`
@@ -428,5 +443,12 @@ alter table `projet` add COLUMN `narrateur_idsalarie` int not null,
 	add constraint `fk_alerte_salarie1`
     FOREIGN KEY (`narrateur_idsalarie`)
     REFERENCES `mydb`.`Salarié` (`idSalarié`); 
+
+	
+alter table droit add column information varchar(100) not null ; 
+alter table droit add column droit varchar(100) not null; 
+
+alter table salarié change `Role_id Role` `Role_id_Role` int not null; 
+	
 commit; 
   

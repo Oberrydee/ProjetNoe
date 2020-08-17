@@ -5,7 +5,10 @@
  */
 package controller;
 
-import entities.CompteUtilisateur;
+import entities.Compteutilisateur;
+import entities.Droit;
+import entities.Role;
+import entities.Salarié;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.AppStrings;
 
 /**
  *
@@ -63,6 +67,8 @@ public class SingInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/signin.jsp"); 
         disp.forward(request, response);
     }
@@ -90,11 +96,11 @@ public class SingInServlet extends HttpServlet {
         
         if (email!=null && mdp != null){
             //getting users list
-            List<CompteUtilisateur> listeUsers = AccessBD.selectAllCompteUtilisateurs(); 
+            List<Compteutilisateur> listeUsers = AccessBD.selectAllCompteutilisateurs(); 
 
             Boolean userExists = false; 
             Boolean psswdIsCorrect = false; 
-            for (CompteUtilisateur cpt : listeUsers){
+            for (Compteutilisateur cpt : listeUsers){
                 if (cpt.getEmailPerso().equals(email)){
                     userExists = true;                 
                 }
@@ -109,7 +115,22 @@ public class SingInServlet extends HttpServlet {
             else {                
                 session.setAttribute("session_email", email);
                 session.setAttribute("session_mdp", mdp);
-                session.setAttribute("textError", "Good" );
+                session.setAttribute("ambpambp", mdp);
+                //getting rights
+                Compteutilisateur cpt = (Compteutilisateur) AccessBD.selectCompteUtilisateurByEmail(email); 
+                System.out.println("::::!!!!!!!!:::::::::::"+cpt.getIdcompteUtilisateur());
+                Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur(cpt.getIdcompteUtilisateur());
+                System.out.println("::::!!!!!!!!:::::::::::"+salarié);
+
+                if(salarié == null) {
+                    Role role = AccessBD.selectRoleByName(AppStrings.NOM_ROLE_ABONNE); 
+                    session.setAttribute("ambpambp", role.getIdRole());
+                session.setAttribute("textError", role.getNomRole() );
+                }else{
+                    session.setAttribute("ambpambp", salarié.getRoleidRole().getIdRole());  
+                session.setAttribute("textError", salarié.getRoleidRole().getNomRole() );                  
+                }
+                
                 //user interface page prep
                 //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
             }

@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Inscription</title>
+	<title>Confirmation</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -24,7 +24,7 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
-
+<header id="head" class="secondary"></header>
 
 <body class="home">
 	<!-- Fixed navbar -->
@@ -33,9 +33,9 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-					<a class="navbar-brand" href="/association-arche/home">
+						<a class="navbar-brand" href="/association-arche/home">
                                     <img src="assets/images/Logo.png" alt="logo arche"></a>
-		</div>
+	</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
@@ -46,90 +46,12 @@
 		</div>
 	</div> 
 	<!-- /.navbar -->
-
-
-
-	<header id="head" class="secondary"></header>
-
-	<!-- container -->
-	<div class="container">
-
-		<ol class="breadcrumb">
-			<li><a href="/association-arche/home">Page d'accueil</a></li>
-                        <li class="active">Inscription</li>
-		</ol>
-
-		<div class="row">
-			
-			<!-- Article main content -->
-			<article class="col-xs-12 maincontent">
-				<header class="page-header">
-					<h1 class="page-title">Inscription</h1>
-				</header>
-				
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<h3 class="thin text-center">Créer un nouveau compte</h3>							<hr>
-
-							<form action="/association-arche/signup" method="post">
-								<div class="top-margin">
-									<label>Nom<span class="text-danger">*</span></label>
-									<input type="text" id="fnom" name="attemptnom" class="form-control" value="${attemptnom}">
-								</div>
-								<div class="top-margin">
-									<label>Prénom<span class="text-danger">*</span></label>
-									<input type="text" id="fprenom" name="attemptprenom" class="form-control"value="${attemptprenom}">
-								</div>
-								<div class="top-margin">
-									<label>Téléphone<span class="text-danger">*</span></label>
-									<input type="text" id="ftel" name="attempttel" class="form-control" value="${attempttel}">
-								</div>
-								<div class="top-margin">
-									<label>Adresse e-mail <span class="text-danger">*</span></label>
-                                                                        <input type="email" id="femail" name="attemptemail" class="form-control" value="${attemptemail}">
-								</div>
-
-								<div class="row top-margin">
-									<div class="col-sm-6">
-										<label>Mot de passe <span class="text-danger">*</span></label>
-                                                                                <input type="password" id="fpassword" name="attemptpassword" class="form-control">
-									</div>
-									<div class="col-sm-6">
-										<label>Confirmer mot de passe <span class="text-danger">*</span></label>
-                                                                                <input type="password" id="fconf_password" name="attemptconf_password" class="form-control">
-									</div>
-								</div>
-                                                            
-                                                            <div>
-                                                                <p style="color: red">${textError}</p>
-                                                            </div>
-
-								<hr>
-
-								<div class="row">
-									<div class="col-lg-8">
-										<label class="checkbox" >
-											<input type="checkbox" name="termes_et_conditions" value="termes_et_conditions"> 
-											J'ai bien lu les <a href="page_terms.html">termes de conditions</a><span class="text-danger">*</span>
-										</label>                        
-									</div>
-									<div class="col-lg-4 text-right">
-                                                                            <input type="submit" value="Enregistrer">
-                                                                            
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-
-				</div>
-				
-			</article>
-			<!-- /Article -->
-
-		</div>
-	</div>	<!-- /container -->
+	<div class="container text-center">	
+		<h2 class="thin">Votre mot de passe a bien été modifié. 
+                    <br>
+                    Vous pouvez désormais vous connecter avec les informations. </h2>
+		<p><a class="btn btn-action btn-lg" role="button" href="/association-arche/home">Retour</a></p>
+	</div>
 </body>
 <footer id="footer" class="top-space">
 
@@ -200,3 +122,4 @@
 
 	</footer>
 </html>
+	

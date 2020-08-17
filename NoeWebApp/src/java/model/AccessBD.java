@@ -5,10 +5,11 @@
  */
 package model;
 
+import entities.Accountstobeconfirmed;
 import entities.Alerte;
 import entities.Classe;
-import entities.CodePourConfirmation;
-import entities.CompteUtilisateur;
+import entities.Coderesetpassword;
+import entities.Compteutilisateur;
 import entities.Droit;
 import entities.Equipe;
 import entities.Espece;
@@ -33,6 +34,8 @@ import entities.Variété;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -46,57 +49,75 @@ public class AccessBD {
     //                               GENERAL FUNCTIONS                                  //
     //////////////////////////////////////////////////////////////////////////////////////
     
-      public static void persist(Object object){
+      public static Boolean persist(Object object){
+        Boolean success = false;
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
-        em.getTransaction().begin();
+          EntityTransaction t = em.getTransaction(); 
+          t.begin();
         
         try{
-            em.persist(object); 
-            em.getTransaction().commit(); 
+            //if(!em.contains(object)){
+                em.persist(object); 
+                t.commit(); 
+                success = true;
+            //}
         }
         catch(Exception e){
             e.printStackTrace();
+            if(em.getTransaction().isActive()) em.getTransaction().rollback();
         }
         finally{
-            em.close(); 
+            em.close();
         }
+        return success; 
     }
+   
+      
     /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////  CodePourCOnfirmation  ///////////////////////////////////////////
+    ////////////////////////////////  Accountstobeconfirmed  ///////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<CodePourConfirmation> selectAllCodePourConfirmations(){
+    public static Object selectAccountstobeconfirmedBycode(String code) {
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("CodePourConfirmation.findAll"); 
-        
-        List<CodePourConfirmation> liste = (List<CodePourConfirmation>)q.getResultList(); 
-        
-        for (CodePourConfirmation a: liste){
-            System.out.println(a.toString());
-        }
+        Query q = em.createNamedQuery("Accountstobeconfirmed.findByCode"); 
+        q.setParameter("code", code); 
+        try{
+        Accountstobeconfirmed al = (Accountstobeconfirmed)q.getSingleResult(); 
         em.close(); 
-        return liste; 
-    }    
-    
-    
-    public static List<CompteUtilisateur> getCodePourConfirmationByNomCode(String email){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+            return al; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
+    }
+    public static Object deleteAccounttobeconfirmed(Accountstobeconfirmed act){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();
-        Query q = em.createNamedQuery("CompteUtilisateur.findByNomcodePourConfirmation"); 
-        List<CompteUtilisateur> cpt = (List<CompteUtilisateur>)q.getResultList(); 
+        String QueryStr = "DELETE From Accountstobeconfirmed where code ='" + act.getCode()+"'";
+
+        Boolean success = false; 
         
-        em.close(); 
-        return cpt;
+        EntityTransaction t = em.getTransaction(); 
+        t.begin();
+        try {
+            Query q = em.createQuery(QueryStr);
+            int updateCount = q.executeUpdate();
+            t.commit();
+            success = true; 
+        } catch (Exception e) {
+            e.printStackTrace();
+            t.rollback();
+            
+        } finally {
+            em.close();
+        }  
+        return success; 
     }
     
-      
     /////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////  Alerte  ///////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +137,7 @@ public class AccessBD {
         }
         em.close(); 
         return liste; 
-    }
+    }       
     public static Alerte selectALertsById(int id){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
@@ -129,26 +150,6 @@ public class AccessBD {
         em.close(); 
         return al; 
     }
-    /*
-    public static void deleteAlerte(Alerte emp)
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
-        EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Alerte WHERE id =" + emp.getIdalerte();
-
-        em.getTransaction().begin();
-        try {
-            Query q = em.createQuery(QueryStr);
-            int updateCount = q.executeUpdate();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-    }
-*/
     /////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////// Classe /////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
@@ -175,330 +176,154 @@ public class AccessBD {
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<CompteUtilisateur> selectAllCompteUtilisateurs(){
+    public static List<Coderesetpassword> selectAllCodeResetPassword(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("CompteUtilisateur.findAll"); 
+        Query q = em.createNamedQuery("Coderesetpassword.findAll"); 
         
-        List<CompteUtilisateur> liste = (List<CompteUtilisateur>)q.getResultList(); 
+        List<Coderesetpassword> liste = (List<Coderesetpassword>)q.getResultList(); 
         
-        for (CompteUtilisateur a: liste){
+        for (Coderesetpassword a: liste){
             System.out.println(a.toString());
         }
         em.close(); 
         return liste; 
-    }      
+    }
     
-    public static List<CompteUtilisateur> getCompteUtilisateurByEmail(String email){
+    public static void deleteCoderesetpassword(Coderesetpassword reset) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
+        EntityManager em = emf.createEntityManager();
+        String QueryStr = "DELETE From Coderesetpassword WHERE idCodeResetPassword = '" + reset.getIdCodeResetPassword() +"'";
+
+        EntityTransaction t = em.getTransaction(); 
+        t.begin();
+        try {
+            Query q = em.createQuery(QueryStr);
+            int updateCount = q.executeUpdate();
+            t.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            t.rollback();
+        } finally {
+            em.close();
+        }    
+        
+    }
+    
+    public static Object selectCoderesetpasswordByID(String id) {
+        
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager();
-        Query q = em.createNamedQuery("CompteUtilisateur.findByEmailPerso"); 
-        List<CompteUtilisateur> cpt = (List<CompteUtilisateur>)q.getResultList(); 
+        EntityManager em = emf.createEntityManager(); 
         
+        Query q = em.createNamedQuery("Coderesetpassword.findByIdCodeResetPassword"); 
+        q.setParameter("idCodeResetPassword", id); 
+        try{
+            Coderesetpassword cpt = (Coderesetpassword)q.getSingleResult(); 
+            em.close(); 
+            return cpt; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }
+        
+    }
+    
+       /////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////// Compteutilisateur ///////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+    
+    public static List<Compteutilisateur> selectAllCompteutilisateurs(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Compteutilisateur.findAll"); 
+        
+        List<Compteutilisateur> liste = (List<Compteutilisateur>)q.getResultList(); 
+        
+        for (Compteutilisateur a: liste){
+            System.out.println(a.toString());
+        }
         em.close(); 
-        return cpt;
+        return liste; 
     }
     
-        public static void deleteCompteutilisateur(CompteUtilisateur emp)
+    public static Object selectCompteUtilisateurByEmail(String email) {
+        
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Compteutilisateur.findByEmailPerso"); 
+        q.setParameter("emailPerso", email); 
+        try{
+            Compteutilisateur cpt = (Compteutilisateur)q.getSingleResult(); 
+            em.close(); 
+            return cpt; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
+    }
+        public static void deleteCompteutilisateur(Compteutilisateur emp)
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Compteutilisateur WHERE id =" + emp.getIdcompteUtilisateur();
+        String QueryStr = "DELETE From Compteutilisateur WHERE idcompteUtilisateur = " + emp.getIdcompteUtilisateur();
 
-        em.getTransaction().begin();
+        EntityTransaction t = em.getTransaction(); 
+        t.begin();
         try {
             Query q = em.createQuery(QueryStr);
             int updateCount = q.executeUpdate();
-            em.getTransaction().commit();
+            t.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            em.getTransaction().rollback();
+            t.rollback();
         } finally {
             em.close();
         }
-    }   
+    } 
+     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// Salarié /////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+     
+    public static List<Salarié> selectAllSalariés(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Salari\u00e9.findAll"); 
+        
+        List<Salarié> liste = (List<Salarié>)q.getResultList(); 
+        
+        for (Salarié a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    } 
+    public static Salarié selectSalariéByIdCompteUtilisateur(int idCompteUtilisateur){        
+        List<Salarié> liste = AccessBD.selectAllSalariés(); 
+        System.out.println("::::!!!!!!!!::::::::::: liste salaries by compte utilisateur"+liste);
 
-    /////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////Droit/////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Droit> selectAllEmbranchements(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Droit.findAll"); 
-        
-        List<Droit> liste = (List<Droit>)q.getResultList(); 
-        
-        for (Droit a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-    
-             
-    public static Droit selectEmbranchementsByid(int id){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Droit.findById"); 
-        q.setParameter("id", id); 
-        
-        Droit al = (Droit)q.getSingleResult(); 
-        return al; 
-    }
-    
-    
-        public static void deleteEmbranchement(Droit emp)
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
-        EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Embranchement WHERE id =" + emp.getIdDroit();
+        for(Salarié sal : liste){
+            System.out.println("::::!!!!!!!!:::::::::::"+sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur());
 
-        em.getTransaction().begin();
-        try {
-            Query q = em.createQuery(QueryStr);
-            int updateCount = q.executeUpdate();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
+            if (sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur()
+                    .equals(idCompteUtilisateur))return sal; 
         }
+        return null; 
     }
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////    Equipe     ////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Equipe> selectAllEquipes(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Equipe.findAll"); 
-        
-        List<Equipe> liste = (List<Equipe>)q.getResultList(); 
-        
-        for (Equipe a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Espece       //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Espece> selectAllEspeces(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Espece.findAll"); 
-        
-        List<Espece> liste = (List<Espece>)q.getResultList(); 
-        
-        for (Espece a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
         
     /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Taxinomie     //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Taxinomie> selectAllTaxinomie(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("EspèceTaxinomie.findAll"); 
-        
-        List<Taxinomie> liste = (List<Taxinomie>)q.getResultList(); 
-        
-        for (Taxinomie a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-       
-        
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Etat     //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Etat> selectAllEtats(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Etat.findAll"); 
-        
-        List<Etat> liste = (List<Etat>)q.getResultList(); 
-        
-        for (Etat a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////   Famille   ///////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Famille> selectAllFamilles(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Famille.findAll"); 
-        
-        List<Famille> liste = (List<Famille>)q.getResultList(); 
-        
-        for (Famille a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-       
-        
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Forme     //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Forme> selectAllFormes(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Forme.findAll"); 
-        
-        List<Forme> liste = (List<Forme>)q.getResultList(); 
-        
-        for (Forme a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-       
-        
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Genre     //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Genre> selectAllGenres(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Genre.findAll"); 
-        
-        List<Genre> liste = (List<Genre>)q.getResultList(); 
-        
-        for (Genre a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////   Lot de semence    /////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<LotDeSemence> selectAllLotdesemences(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Lotdesemence.findAll"); 
-        
-        List<LotDeSemence> liste = (List<LotDeSemence>)q.getResultList(); 
-        
-        for (LotDeSemence a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////     Ordre      //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Ordre> selectAllOrdres(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Ordre.findAll"); 
-        
-        List<Ordre> liste = (List<Ordre>)q.getResultList(); 
-        
-        for (Ordre a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }    
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////   Projet   ///////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-       
-    public static List<Projet> selectAllProjets(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Projet.findAll"); 
-        
-        List<Projet> liste = (List<Projet>)q.getResultList(); 
-        
-        for (Projet a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////    Regne    ////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Regne> selectAllRegnes(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Regne.findAll"); 
-        
-        List<Regne> liste = (List<Regne>)q.getResultList(); 
-        
-        for (Regne a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }     
-    
-        
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Role     //////////////////////////////////
+    //////////////////////////////////// Role /////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
      
     
@@ -514,261 +339,130 @@ public class AccessBD {
         for (Role a: liste){
             System.out.println(a.toString());
         }
+        em.close(); 
         return liste; 
-    }    
+    } 
     
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////    Salarie   ///////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Salarié> selectAllSalariés(){
+    public static Role selectRoleByID(int id) {
+        
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Salarié.findAll"); 
-        
-        List<Salarié> liste = (List<Salarié>)q.getResultList(); 
-        
-        for (Salarié a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-          
-        
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Role     //////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Section> selectAllSections(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Section.findAll"); 
-        
-        List<Section> liste = (List<Section>)q.getResultList(); 
-        
-        for (Section a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }    
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////  Semence  ////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Semence> selectAllSemences(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Semence.findAll"); 
-        
-        List<Semence> liste = (List<Semence>)q.getResultList(); 
-        
-        for (Semence a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-                 
-    public static Semence selectSemenceByid(int id){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Semence.findById"); 
-        q.setParameter("id", id); 
-        
-        Semence al = (Semence)q.getSingleResult(); 
-        return al; 
+        Query q = em.createNamedQuery("Role.findByIdRole"); 
+        q.setParameter("idRole", id); 
+        try{
+            Role role = (Role)q.getSingleResult(); 
+            em.close(); 
+            return role; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
     }
-      
-        public static void deleteSemence(Semence emp)
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
-        EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Semence WHERE id =" + emp.getIdsemence();
-
-        em.getTransaction().begin();
-        try {
-            Query q = em.createQuery(QueryStr);
-            int updateCount = q.executeUpdate();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-    }
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////   Sentinelle   //////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    
-    public static List<Sentinelle> selectAllSentinelles(){
+    public static Role selectRoleByName(String nom) {
+        
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Sentinelle.findAll"); 
-        
-        List<Sentinelle> liste = (List<Sentinelle>)q.getResultList(); 
-        
-        for (Sentinelle a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }       
-                 
-    public static Sentinelle selectSentinelleByid(int id){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Sentinelle.findById"); 
-        q.setParameter("id", id); 
-        
-        Sentinelle al = (Sentinelle)q.getSingleResult(); 
-        return al; 
-    }
-    
-        public static void deleteSentinelle(Sentinelle emp)
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
-        EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Sentinelle WHERE id =" + emp.getIdsentinelle();
-
-        em.getTransaction().begin();
-        try {
-            Query q = em.createQuery(QueryStr);
-            int updateCount = q.executeUpdate();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+        Query q = em.createNamedQuery("Role.findByNomRole"); 
+        q.setParameter("nomRole", nom); 
+        try{
+            Role role = (Role)q.getSingleResult(); 
+            em.close(); 
+            return role; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
     }
      
-    
     /////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////Site de stokage //////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-     
-    public static List<SiteDeStokage> selectAllSitedestokages(){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Sitedestokage.findAll"); 
-        
-        List<SiteDeStokage> liste = (List<SiteDeStokage>)q.getResultList(); 
-        
-        for (SiteDeStokage a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
-    }    
-    
-                 
-    public static SiteDeStokage selectSitedestokageByid(int id){
-        EntityManagerFactory emf = 
-                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        
-        Query q = em.createNamedQuery("Sitedestokage.findById"); 
-        q.setParameter("id", id); 
-        
-        SiteDeStokage al = (SiteDeStokage)q.getSingleResult(); 
-        return al; 
-    }
-            public static void deleteSitedestokage(SiteDeStokage emp)
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
-        EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Sitedestokage WHERE id =" + emp.getIdSiteDeStokage();
-
-        em.getTransaction().begin();
-        try {
-            Query q = em.createQuery(QueryStr);
-            int updateCount = q.executeUpdate();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-    }
-    
-        
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Role     //////////////////////////////////
+    //////////////////////////////////// Droit /////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<Série> selectAllSéries(){
+    public static List<Droit> selectAllDroits(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Série.findAll"); 
+        Query q = em.createNamedQuery("Droit.findAll"); 
         
-        List<Série> liste = (List<Série>)q.getResultList(); 
+        List<Droit> liste = (List<Droit>)q.getResultList(); 
         
-        for (Série a: liste){
+        for (Droit a: liste){
             System.out.println(a.toString());
         }
+        em.close(); 
         return liste; 
-    }    
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////   Tribu    ///////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-    
-    public static List<Tribu> selectAllTribus(){
+    }     
+    public static Droit selectDroitByName(String nomDroit){
+            
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Tribu.findAll"); 
-        
-        List<Tribu> liste = (List<Tribu>)q.getResultList(); 
-        
-        for (Tribu a: liste){
-            System.out.println(a.toString());
-        }
-        return liste; 
+        Query q = em.createNamedQuery("Droit.findByNomDroit"); 
+        q.setParameter("nomDroit", nomDroit); 
+        try{
+            Droit droit = (Droit)q.getSingleResult(); 
+            em.close(); 
+            return droit; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
     }
-    
-        
     /////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////  Variété     //////////////////////////////////
+    //////////////////////////////////// role_has_droit /////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
-     
+     /*
+    table has two columns: Role_idRole, Droit_idDroit , both values used for primary key. 
+    */
     
-    public static List<Variété> selectAllVariétés(){
+    public static List<Droit> selectAllDroitsByRole(Role role){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Variété.findAll"); 
+        Query q = em.createNamedQuery(
+                "select * from role_has_droit where role_idrole = "+role.getIdRole()); 
         
-        List<Variété> liste = (List<Variété>)q.getResultList(); 
+        List<Droit> liste = (List<Droit>)q.getResultList(); 
         
-        for (Variété a: liste){
+        for (Droit a: liste){
             System.out.println(a.toString());
         }
+        em.close(); 
         return liste; 
-    }    
+    } 
     
+    public static List<Role> selectAllRolesByDroit(Droit droit){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery(
+                "select * from role_has_droit where droit_iddroit = "+droit.getIdDroit()); 
+        
+        List<Role> liste = (List<Role>)q.getResultList(); 
+        
+        for (Role a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    } 
+    
+    public static Boolean roleHasDroit(Role role, String droit){
+        List <Droit> liste = selectAllDroitsByRole(role); 
+        System.out.println("DDDDDDDDDDD Liste droits DDDDDDDDDD : "+ liste);
+        
+        for (Droit d : liste){
+            if(d.getNomDroit() != null && d.getNomDroit().equals(droit))return true; 
+        }
+        return false; 
+    }
 }

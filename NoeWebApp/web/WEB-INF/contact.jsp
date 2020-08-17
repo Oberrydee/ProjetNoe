@@ -34,8 +34,9 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="" alt="logo arche"></a>
-			</div>
+					<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
+		</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
@@ -113,7 +114,7 @@
 					</address>
 					<h4>Email:</h4>
 					<address>
-						association@arche.com
+						association.arche.msia19@gmail.com
 					</address>
 				</div>
 
@@ -126,8 +127,8 @@
 	<section class="container-full top-space">
 		<div id="map"></div>
 	</section>
-
-	<footer id="footer" class="top-space">
+</body>
+<footer id="footer" class="top-space">
 
 		<div class="footer1">
 			<div class="container">
@@ -136,7 +137,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association@arche.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
 								
 							</p>	
@@ -158,12 +159,8 @@
 					<div class="col-md-6 widget">
 						<h3 class="widget-title">Nos sites</h3>
 						<div class="widget-body">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d88846.27361949241!2d6.056376121462483!3d45.90239110596232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478b8fe55861febb%3A0x6a90ac32b5ab892b!2sAnnecy!5e0!3m2!1sfr!2sfr!4v1592475970050!5m2!1sfr!2sfr" width="600"
-						height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40492.60173871522!2d3.0121410645371705!3d50.6310622520452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d579b3256e11%3A0x40af13e81646360!2sLille!5e0!3m2!1sfr!2sfr!4v1592476038098!5m2!1sfr!2sfr"
-						width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46150.16335935257!2d-1.0987385514013783!3d43.702543154473034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd56a60784c7874d%3A0x3a15cd2ac77046f9!2s40100%20Dax!5e0!3m2!1sfr!2sfr!4v1592476410551!5m2!1sfr!2sfr" 
-						width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+						<iframe src="https://www.google.com/maps/d/embed?mid=1dBuRyVNZPx4ZpUPjnZ-xxZ7JL3N3d02a&hl=fr" width="640" height="480"></iframe>
+						
 						</div>
 					</div>
 
@@ -178,8 +175,8 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
-								<a href="about">A propos de nous</a> |
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/about">A propos de nous</a> |
 								<a href="/association-arche/contact">Contact</a> |
 								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
@@ -189,8 +186,8 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
-                                                            Copyright &copy; 2020, Association Arche. Designed by MSIA 19| Group B</a> 
-                                                        </p>
+								Copyright &copy; 2020, Association Arche. Designed by <a href="http://gettemplate.com/" rel="designer">MSIA 19| Groupe B</a> 
+							</p>
 						</div>
 					</div>
 
@@ -198,4 +195,5 @@
 			</div>
 		</div>
 
-	</footer>		
+	</footer>
+</html>

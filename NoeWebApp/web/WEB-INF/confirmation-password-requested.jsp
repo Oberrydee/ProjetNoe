@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Projet Fil Rouge</title>
+	<title>Confirmation</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -33,23 +33,24 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
-			</div>
+					<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
+		</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="index.html">Accueil</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Connexion</a></li>
+					<li class="active"><a href="/association-arche/home">Accueil</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
 	<div class="container text-center">	
-		<h2 class="thin">Votre demande de réinitisalisation de mot de passe a bien été prise en compte</h2>
-		</br>
-		</br>
-		<p><a class="btn btn-action btn-lg" role="button" href="index.html">Retour</a></p>
+		<h2 class="thin">Votre demande de modification de mot de passe a bien été prise en compte. 
+                    <br>
+                    Un code vient de vous être envoyé. </h2>
+		<p><a class="btn btn-action btn-lg" role="button" href="/association-arche/home">Retour</a></p>
 	</div>
 </body>
 <footer id="footer" class="top-space">
@@ -61,7 +62,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association@arche.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
 								
 							</p>	
@@ -99,10 +100,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
-								<a href="about.html">A propos de nous</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Connexion</a></b>
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/about">A propos de nous</a> |
+								<a href="/association-arche/contact">Contact</a> |
+								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -119,6 +120,6 @@
 			</div>
 		</div>
 
-	</footer>	
+	</footer>
 </html>
 	
