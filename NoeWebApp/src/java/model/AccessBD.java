@@ -78,7 +78,7 @@ public class AccessBD {
     /////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////  Accountstobeconfirmed  ///////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
-    public static Object getAccountstobeconfirmedBycode(String code) {
+    public static Object selectAccountstobeconfirmedBycode(String code) {
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
@@ -212,7 +212,7 @@ public class AccessBD {
         
     }
     
-    public static Object getCoderesetpasswordByID(String id) {
+    public static Object selectCoderesetpasswordByID(String id) {
         
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
@@ -252,7 +252,7 @@ public class AccessBD {
         return liste; 
     }
     
-    public static Object getCompteUtilisateurByEmail(String email) {
+    public static Object selectCompteUtilisateurByEmail(String email) {
         
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
@@ -287,6 +287,182 @@ public class AccessBD {
         } finally {
             em.close();
         }
-    }   
+    } 
+     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// Salarié /////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+     
+    public static List<Salarié> selectAllSalariés(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Salari\u00e9.findAll"); 
+        
+        List<Salarié> liste = (List<Salarié>)q.getResultList(); 
+        
+        for (Salarié a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    } 
+    public static Salarié selectSalariéByIdCompteUtilisateur(int idCompteUtilisateur){        
+        List<Salarié> liste = AccessBD.selectAllSalariés(); 
+        System.out.println("::::!!!!!!!!::::::::::: liste salaries by compte utilisateur"+liste);
 
+        for(Salarié sal : liste){
+            System.out.println("::::!!!!!!!!:::::::::::"+sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur());
+
+            if (sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur()
+                    .equals(idCompteUtilisateur))return sal; 
+        }
+        return null; 
+    }
+        
+    /////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// Role /////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+    
+    public static List<Role> selectAllRoles(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Role.findAll"); 
+        
+        List<Role> liste = (List<Role>)q.getResultList(); 
+        
+        for (Role a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    } 
+    
+    public static Role selectRoleByID(int id) {
+        
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Role.findByIdRole"); 
+        q.setParameter("idRole", id); 
+        try{
+            Role role = (Role)q.getSingleResult(); 
+            em.close(); 
+            return role; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
+    }
+    public static Role selectRoleByName(String nom) {
+        
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Role.findByNomRole"); 
+        q.setParameter("nomRole", nom); 
+        try{
+            Role role = (Role)q.getSingleResult(); 
+            em.close(); 
+            return role; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
+    }
+     
+    /////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// Droit /////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+    
+    public static List<Droit> selectAllDroits(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Droit.findAll"); 
+        
+        List<Droit> liste = (List<Droit>)q.getResultList(); 
+        
+        for (Droit a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }     
+    public static Droit selectDroitByName(String nomDroit){
+            
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Droit.findByNomDroit"); 
+        q.setParameter("nomDroit", nomDroit); 
+        try{
+            Droit droit = (Droit)q.getSingleResult(); 
+            em.close(); 
+            return droit; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }        
+    }
+    /////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// role_has_droit /////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     /*
+    table has two columns: Role_idRole, Droit_idDroit , both values used for primary key. 
+    */
+    
+    public static List<Droit> selectAllDroitsByRole(Role role){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery(
+                "select * from role_has_droit where role_idrole = "+role.getIdRole()); 
+        
+        List<Droit> liste = (List<Droit>)q.getResultList(); 
+        
+        for (Droit a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    } 
+    
+    public static List<Role> selectAllRolesByDroit(Droit droit){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery(
+                "select * from role_has_droit where droit_iddroit = "+droit.getIdDroit()); 
+        
+        List<Role> liste = (List<Role>)q.getResultList(); 
+        
+        for (Role a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    } 
+    
+    public static Boolean roleHasDroit(Role role, String droit){
+        List <Droit> liste = selectAllDroitsByRole(role); 
+        System.out.println("DDDDDDDDDDD Liste droits DDDDDDDDDD : "+ liste);
+        
+        for (Droit d : liste){
+            if(d.getNomDroit() != null && d.getNomDroit().equals(droit))return true; 
+        }
+        return false; 
+    }
 }

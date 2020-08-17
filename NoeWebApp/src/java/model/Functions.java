@@ -75,14 +75,14 @@ public class Functions {
     public static String generateCodeResetPasswordUUID() {
         String id =  UUID.randomUUID().toString();
         
-        while(AccessBD.getCoderesetpasswordByID(id)!=null) id = UUID.randomUUID().toString();
+        while(AccessBD.selectCoderesetpasswordByID(id)!=null) id = UUID.randomUUID().toString();
         
         return id;
     }
     public static String generateCodePendingAccountUUID() {
         String id =  UUID.randomUUID().toString();
         
-        while(AccessBD.getAccountstobeconfirmedBycode(id)!=null) id = UUID.randomUUID().toString();
+        while(AccessBD.selectAccountstobeconfirmedBycode(id)!=null) id = UUID.randomUUID().toString();
         
         return id;
     }

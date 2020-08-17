@@ -103,4 +103,8 @@ insert into role_has_droit values (202017, 101090);
 insert into role_has_droit values (202017, 101071); 	
 insert into role_has_droit values (202020, 101081); 		
 
+-- ex insertion salarié -- 
+-- insert into salarié values (1,(select emailperso from compteutilisateur where idcompteutilisateur=318480966), null, null, null, null, null, (select nom from compteutilisateur where idcompteutilisateur = 318480966),(select prenom from compteutilisateur where idcompteutilisateur = 318480966),318480966,202018); 
+                            
+
 commit; 

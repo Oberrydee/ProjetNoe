@@ -63,8 +63,8 @@ public class Compteutilisateur implements Serializable {
     @Size(max = 20)
     @Column(name = "prenom")
     private String prenom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompteUtilisateur")
-    private List<Coderesetpassword> coderesetpasswordList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compteUtilisateuridcompteUtilisateur")
+    private List<Salarié> salariéList;
 
     public Compteutilisateur() {
     }
@@ -130,12 +130,12 @@ public class Compteutilisateur implements Serializable {
     }
 
     @XmlTransient
-    public List<Coderesetpassword> getCoderesetpasswordList() {
-        return coderesetpasswordList;
+    public List<Salarié> getSalariéList() {
+        return salariéList;
     }
 
-    public void setCoderesetpasswordList(List<Coderesetpassword> coderesetpasswordList) {
-        this.coderesetpasswordList = coderesetpasswordList;
+    public void setSalariéList(List<Salarié> salariéList) {
+        this.salariéList = salariéList;
     }
 
     @Override
