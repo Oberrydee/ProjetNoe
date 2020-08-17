@@ -70,8 +70,8 @@ public class CreateCompteUtilisateur extends HttpServlet {
         RequestDispatcher disp
              = request.getRequestDispatcher("/WEB-INF/Error.html");  
         
-        if (AccessBD.getAccountstobeconfirmedBycode(codeId)!=null){
-            Accountstobeconfirmed code = (Accountstobeconfirmed) AccessBD.getAccountstobeconfirmedBycode(codeId); 
+        if (AccessBD.selectAccountstobeconfirmedBycode(codeId)!=null){
+            Accountstobeconfirmed code = (Accountstobeconfirmed) AccessBD.selectAccountstobeconfirmedBycode(codeId); 
 
             Compteutilisateur newUser = new Compteutilisateur(); 
             newUser.setIdcompteUtilisateur(newUser.hashCode());

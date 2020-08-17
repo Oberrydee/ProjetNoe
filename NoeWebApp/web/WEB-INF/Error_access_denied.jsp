@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>AccÃ¨s refusÃ©</title>
+	<title>Accès refusé</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
@@ -29,11 +29,11 @@
 	<div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
-                            <h1>refusÃ©!<br><br></h1>
-				<h2>Droits d'accÃ¨s manquant </h2>
+                            <h1>refusé!<br><br></h1>
+				<h2>Droits d'accès manquant ${textError}</h2>
                                 
 			</div>
-			<a href="/association-arche/home">Retour Ã  la page d'accueil</a>
+			<a href="/association-arche/home">Retour à la page d'accueil</a>
 		</div>
 	</div>
 

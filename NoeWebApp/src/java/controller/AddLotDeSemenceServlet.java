@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entities.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.AccessBD;
+import model.AppStrings;
 
 /**
  *
@@ -59,17 +63,18 @@ public class AddLotDeSemenceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher pageToDisplay; 
-        
-        if (request.getParameter("access") != null && !request.getParameter("access").isEmpty()){
+        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/Error_access_denied.jsp"); 
+        //ambpambp stands for access may be possible (doubled to confuse people(...lol)
+        if (request.getParameter("ambpambp") != null && !request.getParameter("ambpambp").isEmpty()){
             
-            Integer droit = Integer.parseInt(request.getParameter("access")); 
-            pageToDisplay = request.getRequestDispatcher("/WEB-INF/ajout-lot-de-semence.jsp"); 
-
-        }else{
-            pageToDisplay = request.getRequestDispatcher("/WEB-INF/ajout-lot-de-semence.jsp"); 
+            Role role = AccessBD.selectRoleByID(Integer.parseInt(request.getParameter("ambpambp")));
+            if(AccessBD.roleHasDroit(role, AppStrings.NOM_DROIT_ECRITURE_lot_de_semence)){
+                pageToDisplay = request.getRequestDispatcher("/WEB-INF/ajout-lot-de-semence.jsp"); 
+            }
 
         }
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", request.getParameter("ambpambp"));
         pageToDisplay.forward(request, response);
     }
 

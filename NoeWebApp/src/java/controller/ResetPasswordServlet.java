@@ -91,12 +91,12 @@ public class ResetPasswordServlet extends HttpServlet {
         String mdp = request.getParameter("mdp"); 
         String mdp_conf = request.getParameter("mdp_conf"); 
         
-        if(AccessBD.getCoderesetpasswordByID(code) != null){
+        if(AccessBD.selectCoderesetpasswordByID(code) != null){
             if(Functions.checkRegEx(mdp, AppStrings.passwordRegEx)){
                 if(mdp.equals(mdp_conf)){
-                    if(!mdp.equals((((Coderesetpassword)AccessBD.getCoderesetpasswordByID(code))
+                    if(!mdp.equals((((Coderesetpassword)AccessBD.selectCoderesetpasswordByID(code))
                             .getIdCompteUtilisateur()).getMdp())){
-                        Coderesetpassword reset = (Coderesetpassword) AccessBD.getCoderesetpasswordByID(code); 
+                        Coderesetpassword reset = (Coderesetpassword) AccessBD.selectCoderesetpasswordByID(code); 
                         Compteutilisateur cpt = reset.getIdCompteUtilisateur(); 
                         AccessBD.deleteCoderesetpassword(reset);
                         AccessBD.deleteCompteutilisateur(cpt);

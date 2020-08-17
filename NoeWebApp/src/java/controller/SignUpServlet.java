@@ -128,7 +128,7 @@ public class SignUpServlet extends HttpServlet {
                 session.setAttribute("textError", "Veuilez cocher la case \"J'ai bien lu les termes et conditions\""); 
             }
             else {  
-                if (AccessBD.getCompteUtilisateurByEmail(email)!= null){
+                if (AccessBD.selectCompteUtilisateurByEmail(email)!= null){
                     session.setAttribute("textError", "Il existe un compte associé à cette adresse email"); 
                 }
                 else{
