@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>
+			App
+		</title>
+		<link rel="stylesheet" href="app.css">
+	</head>
+
+	<body>
+		<div id="blockleft">
+			<div id="profil">
+				<table class="table_profil">
+					<tr>
+						<img src="smile.png" class="smile_img">
+					</tr>
+					<tr>
+						<td>
+							Nom pr&eacute;nom
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<br>
+
+			<div id="menuapp">
+				<table class="table_menuapp">
+					<tr>
+						<td id="comptes">
+							Comptes
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Alertes
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Projets
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Sites de stokage
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Lots de semence
+						</td>
+					</tr>
+					<tr>
+						<td>
+							...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Option 7
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div id="blockright">
+			<table class="deconnexion">
+				<tr>
+					<td>
+						<button type="text">
+							D&eacute;connexion
+						</button>
+					</td>
+				</tr>
+			</table>
+
+			<h1>
+				Page d'accueil
+			</h1>
+
+			<table class="tableau_demande">
+				<tr>
+					<td colspan=4 class="colspan">
+						Tableau de demandes
+					</td>
+				</tr>
+				<tr>
+  					<td>
+  						Nature de la demande
+  					</td>
+ 					<td>
+ 						N&deg; Demande
+ 					</td>
+  					<td>
+  						Date de cr&eacute;ation 
+  					</td>
+  					<td>
+  						Statut
+  					</td>
+				</tr>
+				<tr>
+  					<td>
+  						..
+  					</td>
+ 					<td>
+ 						...
+ 					</td>
+  					<td>
+  						...
+  					</td>
+  					<td>
+  						...
+  					</td>
+				</tr>
+			</table>
+
+			<br>
+
+			<div class="boutons">
+				<button type="button" class="red">
+    				Faire une demande
+				</button>
+
+				<button type="button" class="blue">
+    				Modifier
+				</button>
+
+				<button type="button" class="yellow">
+    				Supprimer
+				</button>
+			</div>
+		</div>
+
+		<script>
+
+		if $(document).ready(function(){
+			$("#blockright").show();
+		}); 
+
+		else if $("comptes").click(function(){
+			$("blockcomptes").show();
+			$("#blockright").hide();
+		});
+		</sripit>
+
+	</body>
+</html>
