@@ -447,6 +447,13 @@ alter table `projet` add COLUMN `narrateur_idsalarie` int not null,
 alter table droit add column information varchar(100) not null ; 
 alter table droit add column droit varchar(100) not null; 
 
+<<<<<<< HEAD
 
 	
 commit; 
+=======
+alter table salarié change `Role_id Role` `Role_id_Role` int not null; 
+	
+commit; 
+  
+>>>>>>> master

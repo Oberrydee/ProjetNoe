@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -6,7 +5,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Ajout sentinelle</title>
+	<title>Connexion</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -33,8 +32,9 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="" alt="logo arche"></a>
-			</div>
+					<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
+		</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
@@ -46,16 +46,14 @@
 	</div> 
 	<!-- /.navbar -->
 
-
-
 	<header id="head" class="secondary"></header>
 
 	<!-- container -->
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="/association-arche/home">Page d'accueil</a></li>
-			<li class="active">Ajout d'alertes de sentinelles</li>
+			<li><a href="/association-arche/home">Accueil</a></li>
+			<li class="active">AccËs utilisateur</li>
 		</ol>
 
 		<div class="row">
@@ -63,54 +61,40 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title"></h1>
+					<h1 class="page-title">Connexion</h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout d'alertes de sentinelles</h3>	<hr>
-
-							<form>
+							<h3 class="thin text-center">Se connecter ‡ votre compte utilisateur</h3>
+							<hr>
+							
+							<form action="/association-arche/signin" method="post">
 								<div class="top-margin">
-									<label>Num√©ro d'alerte</label>
-									<input type="text" class="form-control">
+									<label>Email <span class="text-danger">*</span></label>
+									<input type="text" name="session_email" class="form-control" value="${session_email}">
 								</div>
 								<div class="top-margin">
-									<label>esp√®ce concern√©e</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Taxinomie <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
-								</div>
-
-								<div class="row top-margin">
-									<div class="col-sm-6">
-										<label>Urgence <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
-									</div>
-									<div class="col-sm-6">
-										<label>Sentinelle <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
-									</div>
+									<label>Mot de passe <span class="text-danger">*</span></label>
+									<input type="password" name="session_mdp" class="form-control" value="${session_mdp}">
 								</div>
 
 								<hr>
 
-								<div display="inline-block">
-								
-									<div align="left">
-									
-										<button class="btn btn-action" type="submit"><a href="confirmationSentinelle.html">Envoyer</a>
-									
-									<div align="right">
-										<button class="btn btn-action" type="submit"><a href="AnnulerAlerte.html">Annuler</a></button>	
-
-									
+								<div class="row">
+									<div class="col-lg-8">
+										<b><a href="/association-arche/request-new-password">Mot de passe oubliÈ?</a></b>
+                                                                        <div>
+                                                                            <p style="color: red">${textError}</p>
+                                                                        </div>
+									</div>
+                                                                    
+                                                            
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Connexion</button>
 									</div>
 								</div>
-								
 							</form>
 						</div>
 					</div>
@@ -122,8 +106,7 @@
 
 		</div>
 	</div>	<!-- /container -->
-	
-
+</body>
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -133,7 +116,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association@arche.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
 								
 							</p>	
@@ -155,12 +138,8 @@
 					<div class="col-md-6 widget">
 						<h3 class="widget-title">Nos sites</h3>
 						<div class="widget-body">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d88846.27361949241!2d6.056376121462483!3d45.90239110596232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478b8fe55861febb%3A0x6a90ac32b5ab892b!2sAnnecy!5e0!3m2!1sfr!2sfr!4v1592475970050!5m2!1sfr!2sfr" width="600"
-						height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40492.60173871522!2d3.0121410645371705!3d50.6310622520452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d579b3256e11%3A0x40af13e81646360!2sLille!5e0!3m2!1sfr!2sfr!4v1592476038098!5m2!1sfr!2sfr"
-						width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46150.16335935257!2d-1.0987385514013783!3d43.702543154473034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd56a60784c7874d%3A0x3a15cd2ac77046f9!2s40100%20Dax!5e0!3m2!1sfr!2sfr!4v1592476410551!5m2!1sfr!2sfr" 
-						width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+						<iframe src="https://www.google.com/maps/d/embed?mid=1dBuRyVNZPx4ZpUPjnZ-xxZ7JL3N3d02a&hl=fr" width="640" height="480"></iframe>
+						
 						</div>
 					</div>
 
@@ -175,10 +154,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
+								<a href="/association-arche/home">Accueil</a> | 
 								<a href="/association-arche/about">A propos de nous</a> |
 								<a href="/association-arche/contact">Contact</a> |
-								<b><a href="/association-arche/signup">Connexion</a></b>
+								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -195,17 +174,5 @@
 			</div>
 		</div>
 
-	</footer>	
-		
-
-
-
-
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
-</body>
+	</footer>
 </html>

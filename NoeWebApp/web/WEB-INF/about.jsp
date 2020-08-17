@@ -32,7 +32,8 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -105,8 +106,7 @@
 		</div>
 	</div>	<!-- /container -->
 	
-
-	<footer id="footer" class="top-space">
+<footer id="footer" class="top-space">
 
 		<div class="footer1">
 			<div class="container">
@@ -115,10 +115,9 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							<p>+234 23 9873237<br>
-								<a href="mailto:#">some.email@somewhere.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
+								
 							</p>	
 						</div>
 					</div>
@@ -126,7 +125,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Follow me</h3>
 						<div class="widget-body">
-							<p class="follow-me-icons clearfix">
+							<p class="follow-me-icons">
 								<a href=""><i class="fa fa-twitter fa-2"></i></a>
 								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
 								<a href=""><i class="fa fa-github fa-2"></i></a>
@@ -136,10 +135,10 @@
 					</div>
 
 					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
+						<h3 class="widget-title">Nos sites</h3>
 						<div class="widget-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+						<iframe src="https://www.google.com/maps/d/embed?mid=1dBuRyVNZPx4ZpUPjnZ-xxZ7JL3N3d02a&hl=fr" width="640" height="480"></iframe>
+						
 						</div>
 					</div>
 
@@ -154,11 +153,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Home</a> | 
-								<a href="association-arche/about">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/about">A propos de nous</a> |
 								<a href="/association-arche/contact">Contact</a> |
-								<b><a href="/association-arche/signup">Sign up</a></b>
+								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -166,18 +164,16 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
-                                                            Copyright &copy; 2020, Association Arche. Designed by MSIA 19| Group B</a> 
-                                                        </p>
+								Copyright &copy; 2020, Association Arche. Designed by <a href="http://gettemplate.com/" rel="designer">MSIA 19| Groupe B</a> 
+							</p>
 						</div>
 					</div>
 
 				</div> <!-- /row of widgets -->
 			</div>
 		</div>
-	</footer>	
-		
 
-
+	</footer>
 
 
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
