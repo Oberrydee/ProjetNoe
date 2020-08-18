@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Accountstobeconfirmed;
+import entities.AccountsToBeConfirmed;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -132,17 +132,20 @@ public class SignUpServlet extends HttpServlet {
                     session.setAttribute("textError", "Il existe un compte associé à cette adresse email"); 
                 }
                 else{
-                    Accountstobeconfirmed code = new Accountstobeconfirmed(Functions.generateCodePendingAccountUUID());
+                    AccountsToBeConfirmed code = new AccountsToBeConfirmed(Functions.generateCodePendingAccountUUID());
                     code.setEmailPersoAconf(email);
                     code.setMdpAconf(mdp);
                     code.setNomAconf(nom);
                     code.setPrenomAconf(prenom);
                     code.setNuméroTelephoneAconf(tel);
                     code.setNomUtilisateurAconf(prenom+""+nom);
-                    AccessBD.persist(code); 
-                    //confirmation for email sent page    
-                    Functions.sendConfirmaitonEmail(email,code.getCode());  
-                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/inscriptionEmailSent.jsp");           
+                    if (AccessBD.persist(code)) {
+                        //confirmation for email sent page    
+                        Functions.sendConfirmaitonEmail(email,code.getCode());  
+                        pageToDisplay = request.getRequestDispatcher("/WEB-INF/inscriptionEmailSent.jsp");    
+                    }else {
+                        pageToDisplay = request.getRequestDispatcher("/WEB-INF/Error.html");                            
+                    }
                 }
             }
             

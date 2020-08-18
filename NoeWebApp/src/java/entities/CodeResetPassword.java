@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,13 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "coderesetpassword")
+@Table(name = "CodeResetPassword")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Coderesetpassword.findAll", query = "SELECT c FROM Coderesetpassword c")
-    , @NamedQuery(name = "Coderesetpassword.findByIdCodeResetPassword", query = "SELECT c FROM Coderesetpassword c WHERE c.idCodeResetPassword = :idCodeResetPassword")
-    , @NamedQuery(name = "Coderesetpassword.findByNomCodeResetPassword", query = "SELECT c FROM Coderesetpassword c WHERE c.nomCodeResetPassword = :nomCodeResetPassword")})
-public class Coderesetpassword implements Serializable {
+    @NamedQuery(name = "CodeResetPassword.findAll", query = "SELECT c FROM CodeResetPassword c")
+    , @NamedQuery(name = "CodeResetPassword.findByIdCodeResetPassword", query = "SELECT c FROM CodeResetPassword c WHERE c.idCodeResetPassword = :idCodeResetPassword")
+    , @NamedQuery(name = "CodeResetPassword.findByNomCodeResetPassword", query = "SELECT c FROM CodeResetPassword c WHERE c.nomCodeResetPassword = :nomCodeResetPassword")
+    , @NamedQuery(name = "CodeResetPassword.findByIdCompteUtilisateur", query = "SELECT c FROM CodeResetPassword c WHERE c.idCompteUtilisateur = :idCompteUtilisateur")})
+public class CodeResetPassword implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,15 +41,21 @@ public class Coderesetpassword implements Serializable {
     @Size(max = 45)
     @Column(name = "nomCodeResetPassword")
     private String nomCodeResetPassword;
-    @JoinColumn(name = "idCompteUtilisateur", referencedColumnName = "idcompteUtilisateur")
-    @ManyToOne(optional = false)
-    private Compteutilisateur idCompteUtilisateur;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idCompteUtilisateur")
+    private int idCompteUtilisateur;
 
-    public Coderesetpassword() {
+    public CodeResetPassword() {
     }
 
-    public Coderesetpassword(String idCodeResetPassword) {
+    public CodeResetPassword(String idCodeResetPassword) {
         this.idCodeResetPassword = idCodeResetPassword;
+    }
+
+    public CodeResetPassword(String idCodeResetPassword, int idCompteUtilisateur) {
+        this.idCodeResetPassword = idCodeResetPassword;
+        this.idCompteUtilisateur = idCompteUtilisateur;
     }
 
     public String getIdCodeResetPassword() {
@@ -69,11 +74,11 @@ public class Coderesetpassword implements Serializable {
         this.nomCodeResetPassword = nomCodeResetPassword;
     }
 
-    public Compteutilisateur getIdCompteUtilisateur() {
+    public int getIdCompteUtilisateur() {
         return idCompteUtilisateur;
     }
 
-    public void setIdCompteUtilisateur(Compteutilisateur idCompteUtilisateur) {
+    public void setIdCompteUtilisateur(int idCompteUtilisateur) {
         this.idCompteUtilisateur = idCompteUtilisateur;
     }
 
@@ -87,10 +92,10 @@ public class Coderesetpassword implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Coderesetpassword)) {
+        if (!(object instanceof CodeResetPassword)) {
             return false;
         }
-        Coderesetpassword other = (Coderesetpassword) object;
+        CodeResetPassword other = (CodeResetPassword) object;
         if ((this.idCodeResetPassword == null && other.idCodeResetPassword != null) || (this.idCodeResetPassword != null && !this.idCodeResetPassword.equals(other.idCodeResetPassword))) {
             return false;
         }
@@ -99,7 +104,7 @@ public class Coderesetpassword implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Coderesetpassword[ idCodeResetPassword=" + idCodeResetPassword + " ]";
+        return "entities.CodeResetPassword[ idCodeResetPassword=" + idCodeResetPassword + " ]";
     }
     
 }

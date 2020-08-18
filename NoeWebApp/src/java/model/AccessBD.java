@@ -5,11 +5,11 @@
  */
 package model;
 
-import entities.Accountstobeconfirmed;
+import entities.AccountsToBeConfirmed;
 import entities.Alerte;
 import entities.Classe;
-import entities.Coderesetpassword;
-import entities.Compteutilisateur;
+import entities.CodeResetPassword;
+import entities.CompteUtilisateur;
 import entities.Droit;
 import entities.Equipe;
 import entities.Espece;
@@ -83,10 +83,10 @@ public class AccessBD {
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Accountstobeconfirmed.findByCode"); 
+        Query q = em.createNamedQuery("AccountsToBeConfirmed.findByCode"); 
         q.setParameter("code", code); 
         try{
-        Accountstobeconfirmed al = (Accountstobeconfirmed)q.getSingleResult(); 
+        AccountsToBeConfirmed al = (AccountsToBeConfirmed)q.getSingleResult(); 
         em.close(); 
             return al; 
         } catch(NoResultException e) {
@@ -94,10 +94,10 @@ public class AccessBD {
             return null;
         }        
     }
-    public static Object deleteAccounttobeconfirmed(Accountstobeconfirmed act){
+    public static Object deleteAccounttobeconfirmed(AccountsToBeConfirmed act){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Accountstobeconfirmed where code ='" + act.getCode()+"'";
+        String QueryStr = "DELETE From AccountsToBeConfirmed where code ='" + act.getCode()+"'";
 
         Boolean success = false; 
         
@@ -176,26 +176,26 @@ public class AccessBD {
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<Coderesetpassword> selectAllCodeResetPassword(){
+    public static List<CodeResetPassword> selectAllCodeResetPassword(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Coderesetpassword.findAll"); 
+        Query q = em.createNamedQuery("CodeResetPassword.findAll"); 
         
-        List<Coderesetpassword> liste = (List<Coderesetpassword>)q.getResultList(); 
+        List<CodeResetPassword> liste = (List<CodeResetPassword>)q.getResultList(); 
         
-        for (Coderesetpassword a: liste){
+        for (CodeResetPassword a: liste){
             System.out.println(a.toString());
         }
         em.close(); 
         return liste; 
     }
     
-    public static void deleteCoderesetpassword(Coderesetpassword reset) {
+    public static void deleteCoderesetpassword(CodeResetPassword reset) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Coderesetpassword WHERE idCodeResetPassword = '" + reset.getIdCodeResetPassword() +"'";
+        String QueryStr = "DELETE From CodeResetPassword WHERE idCodeResetPassword = '" + reset.getIdCodeResetPassword() +"'";
 
         EntityTransaction t = em.getTransaction(); 
         t.begin();
@@ -218,10 +218,10 @@ public class AccessBD {
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Coderesetpassword.findByIdCodeResetPassword"); 
+        Query q = em.createNamedQuery("CodeResetPassword.findByIdCodeResetPassword"); 
         q.setParameter("idCodeResetPassword", id); 
         try{
-            Coderesetpassword cpt = (Coderesetpassword)q.getSingleResult(); 
+            CodeResetPassword cpt = (CodeResetPassword)q.getSingleResult(); 
             em.close(); 
             return cpt; 
         } catch(NoResultException e) {
@@ -236,16 +236,16 @@ public class AccessBD {
     /////////////////////////////////////////////////////////////////////////////////////
      
     
-    public static List<Compteutilisateur> selectAllCompteutilisateurs(){
+    public static List<CompteUtilisateur> selectAllCompteutilisateurs(){
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Compteutilisateur.findAll"); 
+        Query q = em.createNamedQuery("CompteUtilisateur.findAll"); 
         
-        List<Compteutilisateur> liste = (List<Compteutilisateur>)q.getResultList(); 
+        List<CompteUtilisateur> liste = (List<CompteUtilisateur>)q.getResultList(); 
         
-        for (Compteutilisateur a: liste){
+        for (CompteUtilisateur a: liste){
             System.out.println(a.toString());
         }
         em.close(); 
@@ -258,10 +258,10 @@ public class AccessBD {
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Compteutilisateur.findByEmailPerso"); 
+        Query q = em.createNamedQuery("CompteUtilisateur.findByEmailPerso"); 
         q.setParameter("emailPerso", email); 
         try{
-            Compteutilisateur cpt = (Compteutilisateur)q.getSingleResult(); 
+            CompteUtilisateur cpt = (CompteUtilisateur)q.getSingleResult(); 
             em.close(); 
             return cpt; 
         } catch(NoResultException e) {
@@ -269,11 +269,29 @@ public class AccessBD {
             return null;
         }        
     }
-        public static void deleteCompteutilisateur(Compteutilisateur emp)
+    
+    
+    public static CompteUtilisateur selectCompteUtilisateurByID(int idCompteUtilisateur) {   
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("CompteUtilisateur.findByIdcompteUtilisateur"); 
+        q.setParameter("idcompteUtilisateur", idCompteUtilisateur); 
+        try{
+            CompteUtilisateur cpt = (CompteUtilisateur)q.getSingleResult(); 
+            em.close(); 
+            return cpt; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        }          
+    }
+        public static void deleteCompteutilisateur(CompteUtilisateur emp)
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
         EntityManager em = emf.createEntityManager();
-        String QueryStr = "DELETE From Compteutilisateur WHERE idcompteUtilisateur = " + emp.getIdcompteUtilisateur();
+        String QueryStr = "DELETE From CompteUtilisateur WHERE idcompteUtilisateur = " + emp.getIdcompteUtilisateur();
 
         EntityTransaction t = em.getTransaction(); 
         t.begin();
@@ -465,4 +483,5 @@ public class AccessBD {
         }
         return false; 
     }
+
 }

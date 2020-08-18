@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Compteutilisateur;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -74,10 +74,10 @@ public class HomeServlet extends HttpServlet {
             //getting parameters
             String session_email = session.getAttribute("session_email").toString(); 
             String session_mdp = session.getAttribute("session_mdp").toString();
-            List<Compteutilisateur> listeUtilisateurs = AccessBD.selectAllCompteutilisateurs(); 
+            List<CompteUtilisateur> listeUtilisateurs = AccessBD.selectAllCompteutilisateurs(); 
             Boolean userExists = false; 
             Boolean psswdIsCorrect = false; 
-            for (Compteutilisateur cpt : listeUtilisateurs){
+            for (CompteUtilisateur cpt : listeUtilisateurs){
                 
                 if (cpt.getEmailPerso().equals(session_email))userExists = true; 
                 else userExists = false; 

@@ -22,24 +22,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "accountstobeconfirmed")
+@Table(name = "AccountsToBeConfirmed")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Accountstobeconfirmed.findAll", query = "SELECT a FROM Accountstobeconfirmed a")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByCode", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.code = :code")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByNomUtilisateurAconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.nomUtilisateurAconf = :nomUtilisateurAconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByMdpAconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.mdpAconf = :mdpAconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByEmailPersoAconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.emailPersoAconf = :emailPersoAconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByNum\u00e9roTelephoneAconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.num\u00e9roTelephoneAconf = :num\u00e9roTelephoneAconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByNomAconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.nomAconf = :nomAconf")
-    , @NamedQuery(name = "Accountstobeconfirmed.findByPrenomAconf", query = "SELECT a FROM Accountstobeconfirmed a WHERE a.prenomAconf = :prenomAconf")})
-public class Accountstobeconfirmed implements Serializable {
+    @NamedQuery(name = "AccountsToBeConfirmed.findAll", query = "SELECT a FROM AccountsToBeConfirmed a")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByCode", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.code = :code")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByNomUtilisateurAconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.nomUtilisateurAconf = :nomUtilisateurAconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByMdpAconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.mdpAconf = :mdpAconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByEmailPersoAconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.emailPersoAconf = :emailPersoAconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByNum\u00e9roTelephoneAconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.num\u00e9roTelephoneAconf = :num\u00e9roTelephoneAconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByNomAconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.nomAconf = :nomAconf")
+    , @NamedQuery(name = "AccountsToBeConfirmed.findByPrenomAconf", query = "SELECT a FROM AccountsToBeConfirmed a WHERE a.prenomAconf = :prenomAconf")})
+public class AccountsToBeConfirmed implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "code")
     private String code;
     @Size(max = 45)
@@ -61,10 +61,10 @@ public class Accountstobeconfirmed implements Serializable {
     @Column(name = "prenomAconf")
     private String prenomAconf;
 
-    public Accountstobeconfirmed() {
+    public AccountsToBeConfirmed() {
     }
 
-    public Accountstobeconfirmed(String code) {
+    public AccountsToBeConfirmed(String code) {
         this.code = code;
     }
 
@@ -134,10 +134,10 @@ public class Accountstobeconfirmed implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Accountstobeconfirmed)) {
+        if (!(object instanceof AccountsToBeConfirmed)) {
             return false;
         }
-        Accountstobeconfirmed other = (Accountstobeconfirmed) object;
+        AccountsToBeConfirmed other = (AccountsToBeConfirmed) object;
         if ((this.code == null && other.code != null) || (this.code != null && !this.code.equals(other.code))) {
             return false;
         }
@@ -146,7 +146,7 @@ public class Accountstobeconfirmed implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Accountstobeconfirmed[ code=" + code + " ]";
+        return "entities.AccountsToBeConfirmed[ code=" + code + " ]";
     }
     
 }
