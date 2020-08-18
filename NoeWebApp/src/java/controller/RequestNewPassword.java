@@ -5,8 +5,8 @@
  */
 package controller;
 
-import entities.Coderesetpassword;
-import entities.Compteutilisateur;
+import entities.CodeResetPassword;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -92,9 +92,9 @@ public class RequestNewPassword extends HttpServlet {
         if (email!=null && !email.isEmpty()){
             if(AccessBD.selectCompteUtilisateurByEmail(email)!=null){
                 //todo: random code
-                Coderesetpassword code = new Coderesetpassword(); 
+                CodeResetPassword code = new CodeResetPassword(); 
                 code.setIdCodeResetPassword(Functions.generateCodeResetPasswordUUID()); 
-                code.setIdCompteUtilisateur((Compteutilisateur)AccessBD.selectCompteUtilisateurByEmail(email));
+                code.setIdCompteUtilisateur(((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(email)).getIdcompteUtilisateur());
                 code.setNomCodeResetPassword(null);
                 if(AccessBD.persist(code)){
                     Functions.sendCodeToResetPassword(email, code.getIdCodeResetPassword()); 

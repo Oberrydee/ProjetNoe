@@ -79,6 +79,12 @@ public class Tribu implements Serializable {
         this.taxinomieList = taxinomieList;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idtribu != null ? idtribu.hashCode() : 0);
+        return hash;
+    }
 
     @Override
     public boolean equals(Object object) {

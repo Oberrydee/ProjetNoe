@@ -5,8 +5,8 @@
  */
 package controller;
 
-import entities.Coderesetpassword;
-import entities.Compteutilisateur;
+import entities.CodeResetPassword;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -94,10 +94,11 @@ public class ResetPasswordServlet extends HttpServlet {
         if(AccessBD.selectCoderesetpasswordByID(code) != null){
             if(Functions.checkRegEx(mdp, AppStrings.passwordRegEx)){
                 if(mdp.equals(mdp_conf)){
-                    if(!mdp.equals((((Coderesetpassword)AccessBD.selectCoderesetpasswordByID(code))
-                            .getIdCompteUtilisateur()).getMdp())){
-                        Coderesetpassword reset = (Coderesetpassword) AccessBD.selectCoderesetpasswordByID(code); 
-                        Compteutilisateur cpt = reset.getIdCompteUtilisateur(); 
+                    CompteUtilisateur tmp=  AccessBD.selectCompteUtilisateurByID(
+                            ((CodeResetPassword)AccessBD.selectCoderesetpasswordByID(code)).getIdCompteUtilisateur()); 
+                    if(!mdp.equals(tmp.getMdp())){
+                        CodeResetPassword reset = (CodeResetPassword) AccessBD.selectCoderesetpasswordByID(code); 
+                        CompteUtilisateur cpt = AccessBD.selectCompteUtilisateurByID(reset.getIdCompteUtilisateur()); 
                         AccessBD.deleteCoderesetpassword(reset);
                         AccessBD.deleteCompteutilisateur(cpt);
                         cpt.setMdp(mdp);

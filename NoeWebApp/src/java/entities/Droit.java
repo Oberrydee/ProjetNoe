@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,7 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Droit.findAll", query = "SELECT d FROM Droit d")
     , @NamedQuery(name = "Droit.findByIdDroit", query = "SELECT d FROM Droit d WHERE d.idDroit = :idDroit")
-    , @NamedQuery(name = "Droit.findByNomDroit", query = "SELECT d FROM Droit d WHERE d.nomDroit = :nomDroit")})
+    , @NamedQuery(name = "Droit.findByNomDroit", query = "SELECT d FROM Droit d WHERE d.nomDroit = :nomDroit")
+    , @NamedQuery(name = "Droit.findByInformation", query = "SELECT d FROM Droit d WHERE d.information = :information")
+    , @NamedQuery(name = "Droit.findByDroit", query = "SELECT d FROM Droit d WHERE d.droit = :droit")})
 public class Droit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +48,16 @@ public class Droit implements Serializable {
     @Size(max = 45)
     @Column(name = "nomDroit")
     private String nomDroit;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "information")
+    private String information;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "Droit")
+    private String droit;
     @JoinTable(name = "Role_has_Droit", joinColumns = {
         @JoinColumn(name = "Droit_idDroit", referencedColumnName = "idDroit")}, inverseJoinColumns = {
         @JoinColumn(name = "Role_idRole", referencedColumnName = "idRole")})
@@ -56,6 +69,12 @@ public class Droit implements Serializable {
 
     public Droit(Integer idDroit) {
         this.idDroit = idDroit;
+    }
+
+    public Droit(Integer idDroit, String information, String droit) {
+        this.idDroit = idDroit;
+        this.information = information;
+        this.droit = droit;
     }
 
     public Integer getIdDroit() {
@@ -74,6 +93,22 @@ public class Droit implements Serializable {
         this.nomDroit = nomDroit;
     }
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public String getDroit() {
+        return droit;
+    }
+
+    public void setDroit(String droit) {
+        this.droit = droit;
+    }
+
     @XmlTransient
     public List<Role> getRoleList() {
         return roleList;
@@ -81,6 +116,13 @@ public class Droit implements Serializable {
 
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idDroit != null ? idDroit.hashCode() : 0);
+        return hash;
     }
 
     @Override

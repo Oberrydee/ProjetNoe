@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ADZOH-VINYO DIANA
  */
 @Entity
-@Table(name = "role")
+@Table(name = "Role")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
@@ -44,6 +45,8 @@ public class Role implements Serializable {
     @Size(max = 45)
     @Column(name = "nomRole")
     private String nomRole;
+    @ManyToMany(mappedBy = "roleList")
+    private List<Droit> droitList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleidRole")
     private List<Salarié> salariéList;
 
@@ -71,12 +74,28 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
+    public List<Droit> getDroitList() {
+        return droitList;
+    }
+
+    public void setDroitList(List<Droit> droitList) {
+        this.droitList = droitList;
+    }
+
+    @XmlTransient
     public List<Salarié> getSalariéList() {
         return salariéList;
     }
 
     public void setSalariéList(List<Salarié> salariéList) {
         this.salariéList = salariéList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idRole != null ? idRole.hashCode() : 0);
+        return hash;
     }
 
     @Override

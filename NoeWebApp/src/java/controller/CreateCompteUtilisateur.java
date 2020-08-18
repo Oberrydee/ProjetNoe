@@ -5,8 +5,8 @@
  */
 package controller;
 
-import entities.Accountstobeconfirmed;
-import entities.Compteutilisateur;
+import entities.AccountsToBeConfirmed;
+import entities.CompteUtilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -71,9 +71,9 @@ public class CreateCompteUtilisateur extends HttpServlet {
              = request.getRequestDispatcher("/WEB-INF/Error.html");  
         
         if (AccessBD.selectAccountstobeconfirmedBycode(codeId)!=null){
-            Accountstobeconfirmed code = (Accountstobeconfirmed) AccessBD.selectAccountstobeconfirmedBycode(codeId); 
+            AccountsToBeConfirmed code = (AccountsToBeConfirmed) AccessBD.selectAccountstobeconfirmedBycode(codeId); 
 
-            Compteutilisateur newUser = new Compteutilisateur(); 
+            CompteUtilisateur newUser = new CompteUtilisateur(); 
             newUser.setIdcompteUtilisateur(newUser.hashCode());
             newUser.setNomUtilisateur(code.getNomAconf()+"_"+code.getPrenomAconf());
             newUser.setNom(code.getNomAconf());

@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entities.Compteutilisateur;
+import entities.CompteUtilisateur;
 import entities.Droit;
 import entities.Role;
 import entities.Salarié;
@@ -96,11 +96,11 @@ public class SingInServlet extends HttpServlet {
         
         if (email!=null && mdp != null){
             //getting users list
-            List<Compteutilisateur> listeUsers = AccessBD.selectAllCompteutilisateurs(); 
+            List<CompteUtilisateur> listeUsers = AccessBD.selectAllCompteutilisateurs(); 
 
             Boolean userExists = false; 
             Boolean psswdIsCorrect = false; 
-            for (Compteutilisateur cpt : listeUsers){
+            for (CompteUtilisateur cpt : listeUsers){
                 if (cpt.getEmailPerso().equals(email)){
                     userExists = true;                 
                 }
@@ -117,7 +117,7 @@ public class SingInServlet extends HttpServlet {
                 session.setAttribute("session_mdp", mdp);
                 session.setAttribute("ambpambp", mdp);
                 //getting rights
-                Compteutilisateur cpt = (Compteutilisateur) AccessBD.selectCompteUtilisateurByEmail(email); 
+                CompteUtilisateur cpt = (CompteUtilisateur) AccessBD.selectCompteUtilisateurByEmail(email); 
                 System.out.println("::::!!!!!!!!:::::::::::"+cpt.getIdcompteUtilisateur());
                 Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur(cpt.getIdcompteUtilisateur());
                 System.out.println("::::!!!!!!!!:::::::::::"+salarié);
