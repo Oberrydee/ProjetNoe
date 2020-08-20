@@ -1,9 +1,11 @@
-Executer le script
+Executer le script  DONE
 
-tester la webapp
+tester la webapp DOne
 
-ajouter les fonctionnalité dans la webapp.
+ajouter les fonctionnalité dans la webapp. DONE
 
-MODIFIER SUPPRIMER 
+MODIFIER SUPPRIMER pas encore
 
-Page pour interfaces tableau allertes...
+Page pour interfaces tableau allertes... DONE
+
+Hebergement gratuit app JAVA WEB serveur glassfish 
