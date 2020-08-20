@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Projet Fil Rouge</title>
+	<title>Confirmation</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -24,7 +24,7 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
-
+<header id="head" class="secondary"></header>
 
 <body class="home">
 	<!-- Fixed navbar -->
@@ -33,93 +33,26 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="" alt="logo arche"></a>
-			</div>
+						<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
+	</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="index.html">Accueil</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Connexion</a></li>
+					<li class="active"><a href="/association-arche/home">Accueil</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
-
-
-
-	<header id="head" class="secondary"></header>
-
-	<!-- container -->
-	<div class="container">
-
-		<ol class="breadcrumb">
-			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Demande de cr√©ation de compte faite par RH</li>
-		</ol>
-
-		<div class="row">
-			
-			<!-- Article main content -->
-			<article class="col-xs-12 maincontent">
-				<header class="page-header">
-					<h1 class="page-title"></h1>
-				</header>
-				
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<h3 class="thin text-center">Demande de cr√©ation de compte faite par RH</h3>	<hr>
-
-							<form>
-								<div class="top-margin">
-									<label>Nom</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Adresse</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Num√©ro de t√©l√©phone</label>
-									<input type="text" class="form-control">
-								</div>
-
-								<div class="top-margin">
-									
-										<label>R√¥le</label>
-										<input type="text" class="form-control">
-									
-								</div>
-
-								<hr>
-
-									<div display="inline-block">
-									
-									<button class="btn btn-success btn-space" type="submit"><a href="confirmationAjoutSiteStockage.html" style="color:black;">Envoyer la demande</a>
-								
-	
-									
-									<button class="btn btn-danger btn-space" type="submit"><a href="AnnulerAjoutSiteStockage.html" style="color:black;">Annuler</a></button>
-
-									
-									</div>
-								</div>
-								
-							</form>
-						</div>
-					</div>
-
-				</div>
-				
-			</article>
-			<!-- /Article -->
-
-		</div>
-	</div>	<!-- /container -->
-	
-
-
+	<div class="container text-center">	
+		<h2 class="thin">Votre mot de passe a bien ÈtÈ modifiÈ. 
+                    <br>
+                    Vous pouvez dÈsormais vous connecter avec les informations. </h2>
+		<p><a class="btn btn-action btn-lg" role="button" href="/association-arche/home">Retour</a></p>
+	</div>
+</body>
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -129,7 +62,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association@arche.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
 								
 							</p>	
@@ -167,10 +100,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
-								<a href="about.html">A propos de nous</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Connexion</a></b>
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/about">A propos de nous</a> |
+								<a href="/association-arche/contact">Contact</a> |
+								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -187,4 +120,6 @@
 			</div>
 		</div>
 
-	</footer>	
+	</footer>
+</html>
+	

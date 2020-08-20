@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Projet Fil Rouge</title>
+	<title>Inscription</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -33,13 +33,14 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
-			</div>
+					<a class="navbar-brand" href="/association-arche/home">
+                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
+		</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="index.html">Accueil</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Connexion</a></li>
+					<li class="active"><a href="/association-arche/home">Accueil</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
+					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -54,8 +55,8 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Lots de semences</li>
+			<li><a href="/association-arche/home">Page d'accueil</a></li>
+                        <li class="active">Inscription</li>
 		</ol>
 
 		<div class="row">
@@ -63,75 +64,60 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title"></h1>
+					<h1 class="page-title">Inscription</h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande d'ajout de lot de semence</h3>	<hr>
+							<h3 class="thin text-center">CrÈer un nouveau compte</h3>							<hr>
 
-							<form>
+							<form action="/association-arche/signup" method="post">
 								<div class="top-margin">
-									<label>Num√©ro de semence</label>
-									<input type="text" class="form-control">
+									<label>Nom<span class="text-danger">*</span></label>
+									<input type="text" id="fnom" name="attemptnom" class="form-control" value="${attemptnom}">
 								</div>
 								<div class="top-margin">
-									<label>Nature de semence</label>
-									<input type="text" class="form-control">
+									<label>PrÈnom<span class="text-danger">*</span></label>
+									<input type="text" id="fprenom" name="attemptprenom" class="form-control"value="${attemptprenom}">
 								</div>
 								<div class="top-margin">
-									
-									<label for="localisation-select">Site de stockage:</label>
-
-										<select name="localisation" id="localisation-select">
-											<option value="">--Choisissez la localisation  --</option>
-											<option value="Dax">Dax</option>
-											<option value="Lille">Lille</option>
-											<option value="Annecy">Annecy</option>
-										</select>
-									
+									<label>TÈlÈphone<span class="text-danger">*</span></label>
+									<input type="text" id="ftel" name="attempttel" class="form-control" value="${attempttel}">
 								</div>
-								<div class="row top-margin">
-									<div class="col-sm-6">
-										<label>Disponibilit√© en stock</label>
-										<input type="text" class="form-control">
-									</div>
-									<div class="col-sm-6">
-										<label>Dur√©e de stockage</label>
-										<input type="text" class="form-control">
-									</div>
+								<div class="top-margin">
+									<label>Adresse e-mail <span class="text-danger">*</span></label>
+                                                                        <input type="email" id="femail" name="attemptemail" class="form-control" value="${attemptemail}">
 								</div>
 
 								<div class="row top-margin">
-									
 									<div class="col-sm-6">
-										<label>Qauntit√©</label>
-										<input type="text" class="form-control">
-						
+										<label>Mot de passe <span class="text-danger">*</span></label>
+                                                                                <input type="password" id="fpassword" name="attemptpassword" class="form-control">
 									</div>
 									<div class="col-sm-6">
-										<label>Conditions de conservation</label>
-										<input type="text" class="form-control">
-										
+										<label>Confirmer mot de passe <span class="text-danger">*</span></label>
+                                                                                <input type="password" id="fconf_password" name="attemptconf_password" class="form-control">
 									</div>
-
 								</div>
+                                                            
+                                                            <div>
+                                                                <p style="color: red">${textError}</p>
+                                                            </div>
 
 								<hr>
 
-								
-									<div display="inline-block">
-									
-									<button class="btn btn-success btn-space" type="submit"><a href="confirmationAjoutSemence.html" style="color:black;">Envoyer la demande</a>
-								
-	
-									
-									<button class="btn btn-danger btn-space" type="submit"><a href="AnnulerAjoutSemence.html" style="color:black;">Annuler</a></button>
-
-									
+								<div class="row">
+									<div class="col-lg-8">
+										<label class="checkbox" >
+											<input type="checkbox" name="termes_et_conditions" value="termes_et_conditions"> 
+											J'ai bien lu les <a href="page_terms.html">termes de conditions</a><span class="text-danger">*</span>
+										</label>                        
 									</div>
-									
+									<div class="col-lg-4 text-right">
+                                                                            <input type="submit" value="Enregistrer">
+                                                                            
+									</div>
 								</div>
 							</form>
 						</div>
@@ -144,7 +130,7 @@
 
 		</div>
 	</div>	<!-- /container -->
-	
+</body>
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -154,7 +140,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association@arche.com</a><br>
+								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
 								<br>
 								
 							</p>	
@@ -192,10 +178,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
-								<a href="about.html">A propos de nous</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Connexion</a></b>
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/about">A propos de nous</a> |
+								<a href="/association-arche/contact">Contact</a> |
+								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -212,5 +198,5 @@
 			</div>
 		</div>
 
-	</footer>	
+	</footer>
 </html>
