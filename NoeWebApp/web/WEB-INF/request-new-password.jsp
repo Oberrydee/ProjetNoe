@@ -27,18 +27,18 @@
 <header id="head" class="secondary"></header>
 
 <body class="home">
-	<!-- Fixed navbar -->
+<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-					<a class="navbar-brand" href="/association-arche/home">
-                                    <img src="assets/images/Logo.png" alt="logo arche"></a>
-		</div>
+				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/Logo.png" alt="Arche de Noe"></a>
+			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="/association-arche/home">Accueil</a></li>
+					
 					<li><a href="/association-arche/contact">Contact</a></li>
 					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
 				</ul>

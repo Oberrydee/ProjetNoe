@@ -329,13 +329,11 @@ public class AccessBD {
     } 
     public static Salarié selectSalariéByIdCompteUtilisateur(int idCompteUtilisateur){        
         List<Salarié> liste = AccessBD.selectAllSalariés(); 
-        System.out.println("::::!!!!!!!!::::::::::: liste salaries by compte utilisateur"+liste);
 
         for(Salarié sal : liste){
-            System.out.println("::::!!!!!!!!:::::::::::"+sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur());
-
+           // System.out.println("::::!!!!!!!!:::::::::::"+sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur());
             if (sal.getCompteUtilisateuridcompteUtilisateur().getIdcompteUtilisateur()
-                    .equals(idCompteUtilisateur))return sal; 
+                     == idCompteUtilisateur)return sal; 
         }
         return null; 
     }

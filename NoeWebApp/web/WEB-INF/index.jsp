@@ -42,7 +42,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="#">Accueil</a></li>
+					<li class="active"><a href="/association-arche/home">Accueil</a></li>
 					
 					<li><a href="/association-arche/contact">Contact</a></li>
 					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
