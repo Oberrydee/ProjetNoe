@@ -129,40 +129,40 @@ public class Functions {
     }
 
     public static RequestDispatcher afficherInterface(Role role, HttpServletRequest request) {
-        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/signin.jsp"); 
+        RequestDispatcher pageToDisplay;
         if (role != null){
-        switch(role.getNomRole()){
-            case AppStrings.NOM_ROLE_EMPLOYE:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-employe.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_PERSONNEL_SITE_DE_STOCKAGE:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-PST.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_ITSM:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-ITSM.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_NARRATEUR:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-narrateur.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_RECHERCHE_ET_DEVELOPPEMENT:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-RD.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_RH:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-RH.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_SENTINELLE:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-sentinelle.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_dIRECTEUR_DE_PRODUCTION:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-DP.jsp"); 
-                break; 
-            case AppStrings.NOM_ROLE_CHEF_DE_PROJET:
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-CDP.jsp"); 
-                break; 
-            default: 
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-abonne.jsp"); 
-                break; 
-        }
+            switch(role.getNomRole()){
+                case AppStrings.NOM_ROLE_EMPLOYE:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-employe.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_PERSONNEL_SITE_DE_STOCKAGE:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-PST.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_ITSM:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-ITSM.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_NARRATEUR:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-narrateur.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_RECHERCHE_ET_DEVELOPPEMENT:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-RD.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_RH:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-RH.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_SENTINELLE:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-sentinelle.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_dIRECTEUR_DE_PRODUCTION:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-DP.jsp"); 
+                    break; 
+                case AppStrings.NOM_ROLE_CHEF_DE_PROJET:
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-CDP.jsp"); 
+                    break; 
+                default: 
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-abonne.jsp"); 
+                    break; 
+            }
         }
         else pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-abonne.jsp"); 
 
