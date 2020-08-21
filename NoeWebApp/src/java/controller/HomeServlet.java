@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.Functions;
 
 /**
  *
@@ -67,6 +68,7 @@ public class HomeServlet extends HttpServlet {
         //session
         HttpSession session = request.getSession();
         session.setAttribute("textError", "" );
+        
         RequestDispatcher pageToDisplay; 
         pageToDisplay = request.getRequestDispatcher("/WEB-INF/index.jsp");
         if(session.getAttribute("session_email")!=null &&session.getAttribute("session_mdp")!=null){
@@ -74,6 +76,7 @@ public class HomeServlet extends HttpServlet {
             //getting parameters
             String session_email = session.getAttribute("session_email").toString(); 
             String session_mdp = session.getAttribute("session_mdp").toString();
+            
             List<CompteUtilisateur> listeUtilisateurs = AccessBD.selectAllCompteutilisateurs(); 
             Boolean userExists = false; 
             Boolean psswdIsCorrect = false; 
@@ -90,13 +93,20 @@ public class HomeServlet extends HttpServlet {
             if (!userExists || !psswdIsCorrect)
                 pageToDisplay = request.getRequestDispatcher("/WEB-INF/index.jsp");
             else {
-                session.setAttribute("textError", "Good" );
+                //session.setAttribute("textError", "Good" );
                 //user interface page prep
                 //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
-                pageToDisplay = request.getRequestDispatcher("/signin"); 
+                
+            
+                if (session != null && session.getAttribute("sessionConnected") != null &&
+                        (Boolean)(session.getAttribute("sessionConnected"))){
+                    pageToDisplay = Functions.connection(session_email, session_mdp, request, response, session); 
+                }
+                else pageToDisplay = request.getRequestDispatcher("/signin"); 
 
             }
         }
+        if (pageToDisplay != null)
         pageToDisplay.forward(request, response);
     }
 

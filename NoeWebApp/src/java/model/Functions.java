@@ -5,14 +5,20 @@
  */
 package model;
 
+import entities.CompteUtilisateur;
 import entities.Role;
+import entities.Salarié;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.persistence.Entity;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -166,4 +172,64 @@ public class Functions {
 
         return pageToDisplay; 
     }
+
+    public static RequestDispatcher connection(String email, String mdp, HttpServletRequest request,HttpServletResponse response, HttpSession session) throws IOException {
+        
+        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/signin.jsp"); 
+        
+        if (email!=null && mdp != null){
+            //getting users list
+            List<CompteUtilisateur> listeUsers = AccessBD.selectAllCompteutilisateurs(); 
+
+            Boolean userExists = false; 
+            Boolean psswdIsCorrect = false; 
+            for (CompteUtilisateur cpt : listeUsers){
+                if (cpt.getEmailPerso().equals(email)){
+                    userExists = true; 
+                }
+                if (cpt.getMdp().equals(mdp)){
+                    psswdIsCorrect = true;
+                }
+                if(userExists && psswdIsCorrect) break;
+            }
+
+            if (!userExists)session.setAttribute("textError", "Email invalide" );
+            else if (userExists && !psswdIsCorrect)
+                session.setAttribute("textError", "Mot de passe Incorrect" );
+            else {                
+                session.setAttribute("session_email", email);
+                session.setAttribute("session_mdp", mdp);
+                session.setAttribute("ambpambp", mdp);
+                //getting rights
+                CompteUtilisateur cpt = (CompteUtilisateur) AccessBD.selectCompteUtilisateurByEmail(email); 
+                
+                Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur(cpt.getIdcompteUtilisateur());
+                
+                if(salarié == null) {
+                    Role role = AccessBD.selectRoleByName(AppStrings.NOM_ROLE_ABONNE); 
+                    session.setAttribute("ambpambp", role.getIdRole());  
+                    session.setAttribute("textError", role.getNomRole() );
+                }
+                else{
+                    session.setAttribute("ambpambp", salarié.getRoleidRole().getIdRole());  
+                    session.setAttribute("textError", salarié.getRoleidRole().getNomRole() ); 
+                    }
+                session.setAttribute("sessionConnected", true);
+                System.out.println("SESSION CONNECTED"); 
+                response.sendRedirect(request.getContextPath()+"/home-a"); 
+                return null; 
+                }  
+                
+                //user interface page prep
+                //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
+            }
+            
+        else{
+            session.setAttribute("textError", "Veuillez entrer toutes les informations" );
+        }
+            return pageToDisplay;
+            
+    }
+
+    
 }

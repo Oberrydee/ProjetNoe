@@ -481,5 +481,38 @@ public class AccessBD {
         }
         return false; 
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////  Alerte  ///////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+     
+    
+    public static List<Projet> selectAllProjets(){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Projet.findAll"); 
+        
+        List<Projet> liste = (List<Projet>)q.getResultList(); 
+        
+        for (Projet a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }       
+    public static Projet selectProjetById(int id){
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Projet.findByIdprojet"); 
+        q.setParameter("idprojet", id); 
+        
+        Projet al = (Projet)q.getSingleResult(); 
+        em.close(); 
+        return al; 
+    }
 
 }

@@ -10,19 +10,15 @@ package model;
  * @author ADZOH-VINYO DIANA
  */
 public class AppStrings {
-    /*
     
-insert into role values (202010, 'abonne'); 		
-insert into role values (202011, 'employe'); 		
-insert into role values (202013, 'RH'); 		
-insert into role values (202014, 'R&D'); 		
-insert into role values (202015, 'directeur_de_production'); 		
-insert into role values (202016, 'personnel_site_stockage'); 		
-insert into role values (202017, 'sentinelle'); 		
-insert into role values (202018, 'ITSM'); 		
-insert into role values (202019, 'narrateur'); 		
-insert into role values (202020, 'chet_de_projet'); 	
-    */
+    public static final String SESSION_ATTRIBUTE_EMAIL = "session_email";
+    public static final String SESSION_ATTRIBUTE_MDP = "session_mdp";
+    public static final String SESSION_ATTRIBUTE_ROLE = "ambpambp";
+    public static final String SESSION_ATTRIBUTE_NOM = "session_nom";
+    public static final String SESSION_ATTRIBUTE_PRENOM = "session_prenom";
+    public static final String SESSION_ATTRIBUTE_TEXT_ERROR = "textError"; 
+    public static final String SESSION_ATTRIBUTE_SESSION_CONNECTED = "sessionConnected";
+    
     public static final String NOM_ROLE_ABONNE = "abonne"; 
     public static final String NOM_ROLE_EMPLOYE = "employe"; 
     public static final String NOM_ROLE_RH = "RH"; 

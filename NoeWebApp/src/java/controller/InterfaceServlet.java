@@ -5,7 +5,9 @@
  */
 package controller;
 
+import entities.CompteUtilisateur;
 import entities.Role;
+import entities.Salarié;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.http.HTTPException;
 import model.AccessBD;
+import model.AppStrings;
 import model.Functions;
 
 /**
@@ -37,12 +41,34 @@ public class InterfaceServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
+        displaySessionHomePage(request, response);
+     
+    }
+    private void displaySessionHomePage(HttpServletRequest request, 
+            HttpServletResponse response) throws ServletException, IOException{
+        try{            
+            RequestDispatcher pageToDisplay; 
             HttpSession session = request.getSession();
-            role = AccessBD.selectRoleByID((int) session.getAttribute("ambpambp")); 
-            System.out.println("Role dans InterfaceServlet : " + role.getIdRole()+" "+role.getNomRole());
-            //test droits
-            RequestDispatcher pageToDisplay = Functions.afficherInterface(role, request);
+            
+            Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur((
+                    (CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
+                            session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()))
+                    .getIdcompteUtilisateur()
+                    ); 
+            session.setAttribute(AppStrings.SESSION_ATTRIBUTE_NOM, salarié.getNom().toUpperCase());
+            session.setAttribute(AppStrings.SESSION_ATTRIBUTE_PRENOM, salarié.getPrénom().toUpperCase());
+            
+            Role role = AccessBD.selectRoleByID((int) session.getAttribute("ambpambp")); 
+           
+
+            if (session != null && session.getAttribute("sessionConnected") != null &&
+                        (Boolean)(session.getAttribute("sessionConnected"))){
+                //test droits
+                pageToDisplay = Functions.afficherInterface(role, request);
+            }
+            else {
+                pageToDisplay = request.getRequestDispatcher("/WEB-INF/signin.jsp"); 
+            }
             pageToDisplay.forward(request, response);
         }
         catch (Exception e){
@@ -50,7 +76,6 @@ public class InterfaceServlet extends HttpServlet {
             RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/Error.html");
             pageToDisplay.forward(request, response);
         }
-     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,6 +90,7 @@ public class InterfaceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        displaySessionHomePage(request, response);
     }
 
     /**
@@ -78,7 +104,7 @@ public class InterfaceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        SingInServlet.signinServeletFunction(request, response);
     }
 
     /**
