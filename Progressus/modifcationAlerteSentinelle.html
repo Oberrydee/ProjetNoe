@@ -46,14 +46,16 @@
 	</div> 
 	<!-- /.navbar -->
 
+
+
 	<header id="head" class="secondary"></header>
 
 	<!-- container -->
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Accueil</a></li>
-			<li class="active">Accès utilisateur</li>
+			<li><a href="index.html">Page d'accueil</a></li>
+			<li class="active">Modification d'alertes de sentinelles</li>
 		</ol>
 
 		<div class="row">
@@ -61,35 +63,53 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Connexion</h1>
+					<h1 class="page-title"></h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Se connecter à votre compte utilisateur</h3>
-							<hr>
-							
+							<h3 class="thin text-center">Demande de modification d'alertes de sentinelles</h3>	<hr>
+
 							<form>
 								<div class="top-margin">
-									<label>Nom d'utilisateur/Email <span class="text-danger" >*</span></label>
-									<input type="text" class="form-control" required="required">
+									<label>Numéro d'alerte</label>
+									<input type="text" class="form-control">
 								</div>
 								<div class="top-margin">
-									<label>Mot de passe <span class="text-danger">*</span></label>
-									<input type="password" class="form-control" required="required">
+									<label>espèce concernée</label>
+									<input type="text" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Taxinomie</label>
+									<input type="text" class="form-control">
+								</div>
+
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Urgence </label>
+										<input type="text" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>Sentinelle </label>
+										<input type="text" class="form-control">
+									</div>
 								</div>
 
 								<hr>
 
-								<div class="row">
-									<div class="col-lg-8">
-										<b><a href="passwordForgotten.html">Mot de passe oublié?</a></b>
-									</div>
-									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit"><a href="interface.html">Connexion</a></button>
+									<div display="inline-block">
+									
+									<button class="btn btn-success btn-space" type="submit"><a href="suiteModificationAlerteSentinelle.html" style="color:black;">Modifier</a>
+								
+	
+									
+									<button class="btn btn-danger btn-space" type="submit"><a href="suiteSuppressionAlerteSentinelle.html" style="color:black;">Supprimer</a></button>
+
+									
 									</div>
 								</div>
+								
 							</form>
 						</div>
 					</div>
@@ -170,4 +190,5 @@
 			</div>
 		</div>
 
-	</footer>		
+	</footer>	
+</html>
