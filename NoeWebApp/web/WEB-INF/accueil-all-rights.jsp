@@ -18,7 +18,7 @@
 
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
+		<link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/app.css">
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,7 +36,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
+				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/Logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -59,7 +59,7 @@
 					</tr>
 					<tr>
 						<td>
-							Nom prénom
+							${session_nom} ${session_prenom}
 						</td>
 						
 					</tr>
@@ -82,7 +82,7 @@
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceProjet.html">Projets</a>
+                                                    <a class="nav-link active" href="/association-arche/get-projects">Projets</a>
 						</li>
 						
 						<li class="nav-item">
@@ -280,3 +280,4 @@
 
 		</div>
 </div>
+

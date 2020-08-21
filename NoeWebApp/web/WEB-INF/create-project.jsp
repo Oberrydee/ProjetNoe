@@ -1,3 +1,11 @@
+<%@page import="entities.Projet"%>
+<%@page import="entities.Etat"%>
+<%@page import="entities.Espece"%>
+<%@page import="entities.Alerte"%>
+<%@page import="model.AccessBD"%>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -5,7 +13,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Connexion</title>
+	<title>Projet Fil Rouge</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -26,24 +34,26 @@
 
 
 <body class="home">
-    <!-- Fixed navbar -->
+	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/Logo.png" alt="Arche de Noe"></a>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="/association-arche/home">Accueil</a></li>
-					
-					<li><a href="/association-arche/contact">Contact</a></li>
-					<li><a class="btn" href="/association-arche/signin">Connexion</a></li>
+					<li class="active"><a href="index.html">Accueil</a></li>
+					<li><a href="contact.html">Contact</a></li>
+					<li><a class="btn" href="signin.html">Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
+	<!-- /.navbar -->
+
+
 
 	<header id="head" class="secondary"></header>
 
@@ -51,8 +61,8 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="/association-arche/home">Accueil</a></li>
-			<li class="active">AccËs utilisateur</li>
+			<li><a href="index.html">Page d'accueil</a></li>
+			<li class="active">Cr√©ation de projet</li>
 		</ol>
 
 		<div class="row">
@@ -60,38 +70,66 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Connexion</h1>
+					<h1 class="page-title"></h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Se connecter ‡ votre compte utilisateur</h3>
-							<hr>
-							
-							<form action="/association-arche/home-a" method="post">
+							<h3 class="thin text-center">Demande de cr√©ation de projet faite par les managers</h3>	<hr>
+
+                                                        <form action = "/association-arche/create-project" method="post">
+                                                            
 								<div class="top-margin">
-									<label>Email <span class="text-danger">*</span></label>
-									<input type="text" name="session_email" class="form-control" value="${session_email}">
+									<label>Nom du projet</label>
+									<input type="text" name="nom_projet" class="form-control">
 								</div>
-								<div class="top-margin">
-									<label>Mot de passe <span class="text-danger">*</span></label>
-									<input type="password" name="session_mdp" class="form-control" value="${session_mdp}">
+                                                                <div class="top-margin">
+									<label>Espece</label>
+                                                                        <%%>
+									<select name="choix-espece" class="form-control">
+                                                                            <%%>
+                                                                        </select>
+								</div>
+                                                                <div class="top-margin">
+									<label>Email du demandeur</label>
+									<input type="text" name="email_demandeur" class="form-control">
+								</div>
+                                                                <div class="top-margin">
+									<label>Email du narrateur</label>
+									<input type="text" name="email_narrateur" class="form-control">
+								</div>
+                                                                <div class="top-margin">
+									<label>ID Alerte</label>
+									<input type="text" name="alerte" class="form-control">
+								</div>
+                                                                <div class="top-margin">
+									<label>Etat</label>
+									<input type="text" name="etat" class="form-control">
 								</div>
 
+								<div class="top-margin">
+									
+									<div class="col-sm-6">
+										<label>Date de d√©but de projet
+										
+										</label>
+                                                                <input type="date" name="date-debut-projet">
+
+								</div>
 								<hr>
 
-								<div class="row">
-									<div class="col-lg-8">
-										<b><a href="/association-arche/request-new-password">Mot de passe oubliÈ?</a></b>
-                                                                        <div>
-                                                                            <p style="color: red">${textError}</p>
-                                                                        </div>
-									</div>
-                                                                    
-                                                            
-									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">Connexion</button>
+                                                                <div display="inline-block">
+									
+										<button class="btn btn-success btn-space" type="submit">
+                                                                                    <a href="confirmationCompteParManager.html" style="color:black;">
+                                                                                        Envoyer la demande</a>
+								
+										<button class="btn btn-danger btn-space" type="submit">
+                                                                                    <a href="AnnulerCreationCompteParManager.html" style="color:black;">
+                                                                                        Annuler</a></button>
+
+									
 									</div>
 								</div>
 							</form>
@@ -105,7 +143,8 @@
 
 		</div>
 	</div>	<!-- /container -->
-</body>
+	
+
 <footer id="footer" class="top-space">
 
 		<div class="footer1">
@@ -115,7 +154,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-								<a href="mailto:#">association.arche.msia19@gmail.com</a><br>
+								<a href="mailto:#">association@arche.com</a><br>
 								<br>
 								
 							</p>	
@@ -153,10 +192,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="/association-arche/home">Accueil</a> | 
-								<a href="/association-arche/about">A propos de nous</a> |
-								<a href="/association-arche/contact">Contact</a> |
-								<b><a href="/association-arche/signin">Connexion</a></b>
+								<a href="#">Accueil</a> | 
+								<a href="about.html">A propos de nous</a> |
+								<a href="contact.html">Contact</a> |
+								<b><a href="signup.html">Connexion</a></b>
 							</p>
 						</div>
 					</div>
@@ -173,5 +212,4 @@
 			</div>
 		</div>
 
-	</footer>
-</html>
+</footer>	

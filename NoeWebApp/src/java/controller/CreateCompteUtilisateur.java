@@ -7,6 +7,7 @@ package controller;
 
 import entities.AccountsToBeConfirmed;
 import entities.CompteUtilisateur;
+import entities.Salarié;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.AccessBD;
+import model.AppStrings;
 
 /**
  *
@@ -82,7 +84,14 @@ public class CreateCompteUtilisateur extends HttpServlet {
             newUser.setNuméroTelephone(code.getNuméroTelephoneAconf());
             newUser.setMdp(code.getMdpAconf());
 
-            if(AccessBD.persist(newUser)) {
+            Salarié salarié = new Salarié(); 
+            salarié.setIdSalarié(salarié.hashCode()); 
+            salarié.setCompteUtilisateuridcompteUtilisateur(newUser);
+            salarié.setNom(newUser.getNom());
+            salarié.setPrénom(newUser.getPrenom());
+            salarié.setRoleidRole(AccessBD.selectRoleByName(AppStrings.NOM_ROLE_ABONNE));
+            
+            if(AccessBD.persist(newUser) && AccessBD.persist(salarié)) {
                 if (!(Boolean)AccessBD.deleteAccounttobeconfirmed(code)) 
                     System.out.println("AccountToBeConfirmed code failed to be deleted");
                 else disp = request.getRequestDispatcher("/WEB-INF/confirmationinscription.jsp"); 

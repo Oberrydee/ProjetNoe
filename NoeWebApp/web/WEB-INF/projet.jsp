@@ -1,11 +1,20 @@
 <!DOCTYPE html>
+
+<%@page import="entities.Projet"%>
+<%@page import="entities.Etat"%>
+<%@page import="entities.Espece"%>
+<%@page import="entities.Alerte"%>
+<%@page import="model.AccessBD"%>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="assets\css\app.css">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<meta name="author"      content="Ibtissame FRIKS (GetTemplate.com)">
+	<meta name="author"      content="Ibtissame FRIKS">
 	
 	<title>Projet Fil Rouge</title>
 
@@ -25,6 +34,8 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
+
+
 <body class="home">
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
@@ -94,7 +105,7 @@
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceTaxinomie">Taxinomie</a>
+							<a class="nav-link active" href="interfaceTaxinomie.html">Taxinomie</a>
 						</li>
 					</ul>
 							
@@ -113,253 +124,65 @@
 				<!-- </tr> -->
 			<!-- </table> -->
 
-			<h1>
-			  Candidatures de projets de sauvetage
+                        <h1>
+			  Projets de sauvetage
 			</h1>
-			
-
+        <%
+            List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
+            if(listeProjets != null && !listeProjets.isEmpty() ){
+                
+                %>
 			<table class="tableau_demande" colspan=7 class="colspan">
 				</br>
 				</br>
-				
 				<tr>
-					<td>
-						Nom
-					</td>
-  					<td>
-  						Localisation
-  					</td>
- 					<td>
- 						Espèce
- 					</td>
-  					<td>
-  						Demandeur 
-  					</td>
-  					<td>
-  						Alerte associée
-  					</td>
-					<td>
-  						Narrateur
-  					</td>
-					<td>
-  						Date de début
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-					    Candidature 1
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-						Candidature 2 					
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-						Candidature 3
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-					    Candidature 4
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-						Candidature 5
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-						Candidature 6
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-					    Candidature 7
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-						Candidature 8
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-						Candidature 9
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-					<td>
-  						
-  					</td>
-				</tr>
-			</table>
+				<td>ID</td><td>Espèce</td><td>Demandeur</td><td>Alerte associée</td><td>Narrateur</td><td>Statut</td><td>Date de début</td>
+				</tr>                
+                <%
+                
+                for(Projet projet:listeProjets){
+                %>
+
+                    <tr>
+                            <td>Projet <%=projet.getIdprojet()%></td>
+                            <td> <%=projet.getAlerteIdalerte().getEspeceIdespece().getIdespece()%></td>
+                            <td> <%=projet.getDemandeurIdsalarie().getNom()%></td>
+                            <td> <%=projet.getAlerteIdalerte().getIdalerte()%></td>
+                            <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
+                            <td> <%=projet.getEtatIdetat().getDescription()%></td>
+                            <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
+                            <td> 
+                                <a href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
+                                   Annuler
+                                </a>
+                                </br>
+                                <a href = /association-arche/modify-project?id=<%=projet.getIdprojet()%> >
+                                   Modifier
+                                </a> 
+                                </br>
+                                <a href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
+                                   Supprimer
+                                </a>
+                            </td>
+                    </tr>	
+            <%
+                }
+            }
+else {
+                %>
+         <div display="inline-block" align="center">
+             <br>
+                <p>Rien à afficher</p>	
+         </div>
+                <%
+                    }
+%>
 
 			<br>
          <div display="inline-block" align="center">
-			<button class="btn btn-success btn-space" type="submit"><a href="demandeFonctionalité.html" style="color:black;">Faire la demande</a>
-			<button class="btn btn-secondary btn-space" type="submit"><a href="annulerFonctionnalité.html" style="color:black;">Annuler la demande</a>
-			<button class="btn btn-danger btn-space" type="submit"><a href="supprimerFonctionalité.html" style="color:black;">Supprimer la demande</a>
-		
-
+			<button class="btn btn-success " type="submit"><a href="/association-arche/create-project" style="color:black;">Nouvelle demande</a>
+                            <br>
 		</div>
+                        </br></br>
 </div>
 
