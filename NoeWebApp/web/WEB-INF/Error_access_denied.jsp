@@ -8,13 +8,15 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<title>Accès refusé</title>
+<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
-	<!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
-
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="assets/css/error.css" />
-
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>

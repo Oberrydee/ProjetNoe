@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.AccessBD;
 import model.AppStrings;
+import model.Functions;
 
 /**
  *
@@ -102,13 +103,14 @@ public class SingInServlet extends HttpServlet {
             Boolean psswdIsCorrect = false; 
             for (CompteUtilisateur cpt : listeUsers){
                 if (cpt.getEmailPerso().equals(email)){
-                    userExists = true;                 
+                    userExists = true; 
                 }
                 if (cpt.getMdp().equals(mdp)){
                     psswdIsCorrect = true;
                 }
                 if(userExists && psswdIsCorrect) break;
             }
+
             if (!userExists)session.setAttribute("textError", "Email invalide" );
             else if (userExists && !psswdIsCorrect)
                 session.setAttribute("textError", "Mot de passe Incorrect" );
@@ -118,27 +120,30 @@ public class SingInServlet extends HttpServlet {
                 session.setAttribute("ambpambp", mdp);
                 //getting rights
                 CompteUtilisateur cpt = (CompteUtilisateur) AccessBD.selectCompteUtilisateurByEmail(email); 
-                System.out.println("::::!!!!!!!!:::::::::::"+cpt.getIdcompteUtilisateur());
+                
                 Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur(cpt.getIdcompteUtilisateur());
-                System.out.println("::::!!!!!!!!:::::::::::"+salarié);
-
+                
                 if(salarié == null) {
                     Role role = AccessBD.selectRoleByName(AppStrings.NOM_ROLE_ABONNE); 
-                    session.setAttribute("ambpambp", role.getIdRole());
-                session.setAttribute("textError", role.getNomRole() );
-                }else{
-                    session.setAttribute("ambpambp", salarié.getRoleidRole().getIdRole());  
-                session.setAttribute("textError", salarié.getRoleidRole().getNomRole() );                  
+                    session.setAttribute("ambpambp", role.getIdRole());  
+                    session.setAttribute("textError", role.getNomRole() );
                 }
+                else{
+                    session.setAttribute("ambpambp", salarié.getRoleidRole().getIdRole());  
+                    session.setAttribute("textError", salarié.getRoleidRole().getNomRole() ); 
+                    }
+                
+                pageToDisplay = request.getRequestDispatcher("/home-a");
+                }  
                 
                 //user interface page prep
                 //pageToDisplay = request.getRequestDispatcher("/WEB-INF/?.jsp"); 
             }
-            pageToDisplay.forward(request, response);
-            }
+            
         else{
             session.setAttribute("textError", "Veuillez entrer toutes les informations" );
         }
+            pageToDisplay.forward(request, response);
 
     }
 

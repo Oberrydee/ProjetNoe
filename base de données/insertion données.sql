@@ -98,9 +98,56 @@ insert into Role_has_Droit values (202017, 101090);
 insert into Role_has_Droit values (202017, 101071); 	
 insert into Role_has_Droit values (202020, 101081); 		
 
+-- insertion comptes utilisateurs
+
+insert into compteUtilisateur values(46, 'test', 'test', "RH", "mdpRH", "test", "test");
+insert into compteUtilisateur values(47, 'test', 'test', "RD", "mdpRD", "test", "test");
+insert into compteUtilisateur values(48, 'test', 'test', "DP", "mdpDP", "test", "test");
+insert into compteUtilisateur values(49, 'test', 'test', "employe", "employe", "test", "test");
+insert into compteUtilisateur values(50, 'test', 'test', "PST", "mdpPST", "test", "test");
+insert into compteUtilisateur values(51, 'test', 'test', "narrateur", "narrateur", "test", "test");
+insert into compteUtilisateur values(52, 'test', 'test', "sentinelle", "sentinelle", "test", "test");
+insert into compteUtilisateur values(53, 'test', 'test', "CDP", "mdpCDP", "test", "test");
+insert into compteUtilisateur values(7536, 'test', 'test', "ITSM", "mdpITSM", "test", "test");  
+
 -- ex insertion salarié -- 
--- insert into salarié values (1,(select emailperso from compteutilisateur where idcompteutilisateur=318480966), null, null, null, null, null, (select nom from compteutilisateur where idcompteutilisateur = 318480966),(select prenom from compteutilisateur where idcompteutilisateur = 318480966),318480966,202018); 
--- insert into table (1, test, test, votre email, votre num, test test);                             
+			
+insert into Salarié values (49,(select emailperso from compteUtilisateur where idcompteUtilisateur=49), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 49),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 49),49,202011); 
+	
+insert into Salarié values (46,(select emailperso from compteUtilisateur where idcompteUtilisateur=46), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 46),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 46),46,202013); 
+                      
+insert into Salarié values (47,(select emailperso from compteUtilisateur where idcompteUtilisateur=47), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 47),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 47),47,202014); 
+                      
+insert into Salarié values (48,(select emailperso from compteUtilisateur where idcompteUtilisateur=48), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 48),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 48),48,202015); 
+                      
+insert into Salarié values (50,(select emailperso from compteUtilisateur where idcompteUtilisateur=50), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 50),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 50),50,202016);
+                      
+insert into Salarié values (51,(select emailperso from compteUtilisateur where idcompteUtilisateur=51), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 51),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 51),51,202019);  
+                      
+insert into Salarié values (52,(select emailperso from compteUtilisateur where idcompteUtilisateur=52), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 52),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 52),52,202017); 
+                      
+insert into Salarié values (53,(select emailperso from compteUtilisateur where idcompteUtilisateur=53), 
+	null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 53),
+	(select prenom from compteUtilisateur where idcompteUtilisateur = 53),53,202020); 	
+	
+insert into Salarié values (7536,(select emailperso from compteUtilisateur where idcompteUtilisateur=7536), 
+null, null, null, null, null, (select nom from compteUtilisateur where idcompteUtilisateur = 7536),
+(select prenom from compteUtilisateur where idcompteUtilisateur = 7536),7536,202018); 
+
 
 commit; 
 
