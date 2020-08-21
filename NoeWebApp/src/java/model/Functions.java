@@ -6,13 +6,11 @@
 package model;
 
 import entities.Role;
-import entities.Salarié;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
