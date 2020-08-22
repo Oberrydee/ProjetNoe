@@ -5,29 +5,20 @@
  */
 package controller.projet;
 
-import entities.Alerte;
-import entities.CompteUtilisateur;
-import entities.Espece;
-import entities.Etat;
-import entities.Projet;
-import entities.Salarié;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AccessBD;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "CreateProjectServlet", urlPatterns = {"/create-project"})
-public class CreateProjectServlet extends HttpServlet {
+@WebServlet(name = "GetProjectsTostart", urlPatterns = {"/get-project-to-start"})
+public class GetProjectsTostart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +37,10 @@ public class CreateProjectServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateProjectServlet</title>");            
+            out.println("<title>Servlet GetProjectsTostart</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateProjectServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetProjectsTostart at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,8 +58,7 @@ public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-project.jsp"); 
-        disp.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -82,28 +72,7 @@ public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nom = request.getAttribute("nom_alerte").toString(); 
-        //todo
-        Espece espèce = (Espece)AccessBD.selectEspeceByID((int)request.getAttribute("espece")); 
-        Salarié demandeur = AccessBD.selectSalariéByIdCompteUtilisateur(
-                ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
-                        request.getAttribute("email_demandeur").toString())).getIdcompteUtilisateur()); 
-        Salarié narrateur = AccessBD.selectSalariéByIdCompteUtilisateur(
-                ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
-                        request.getAttribute("email_narrateur").toString())).getIdcompteUtilisateur()); 
-        Alerte alerte = AccessBD.selectALertsById((int)request.getAttribute("alerte")); 
-        Etat etat = (Etat)AccessBD.selectEtatByDescription(request.getAttribute("etat").toString()); 
-        Date date = (Date)request.getAttribute("date_debut_projet"); 
-        
-        
-        Projet projet = new Projet(); 
-        projet.setNom(nom);
-        projet.setAlerteIdalerte(alerte);
-        projet.setDemandeurIdsalarie(demandeur);
-        projet.setNarrateurIdsalarie(narrateur);
-        projet.setEtatIdetat(etat);
-        projet.setDateDebut(date);
-        
+        processRequest(request, response);
     }
 
     /**

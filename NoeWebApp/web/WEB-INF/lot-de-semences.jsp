@@ -1,13 +1,9 @@
-<!DOCTYPE html>
 
-<%@page import="entities.Projet"%>
-<%@page import="entities.Etat"%>
-<%@page import="entities.Espece"%>
-<%@page import="entities.Alerte"%>
+<%@page import="entities.LotDeSemence"%>
+<%@page import="entities.Salle"%>
 <%@page import="model.AccessBD"%>
+<%@page import="entities.SiteDeStokage"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -16,7 +12,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Ibtissame FRIKS">
 	
-	<title>Projets</title>
+	<title>Lots</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -49,7 +45,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="index.html">Accueil</a></li>
 					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">DÃ©connexion</a></li>
+					<li><a class="btn" href="signin.html">Déconnexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -125,53 +121,45 @@
 			<!-- </table> -->
 
         <%
-            List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
-            if(listeProjets != null && !listeProjets.isEmpty() ){
+            List<LotDeSemence> listeLotDeSemences  = (List<LotDeSemence>)AccessBD.selectAllLotsDeSemences();
+            if(listeLotDeSemences  != null && !listeLotDeSemences .isEmpty() ){
                 
                 %>
 			<table class="tableau_demande" colspan=7 class="colspan">
 				</br>
 				</br>
 				<tr>
-				<td>ID</td><td>EspÃ¨ce</td><td>Demandeur</td><td>Alerte associÃ©e</td><td>Narrateur</td><td>Statut</td><td>Date de dÃ©but</td>
-				</tr>                
+				<td>Identifiant</td><td>Site de stockage</td><td>Disponibilité</td>
+                                <td>Durée de stockage</td><td>Quantité(en casiers)</td><td>Conditions de conservation</td>
+                                </tr>                
                 <%
                 
-                for(Projet projet:listeProjets){
+                for (LotDeSemence lot : listeLotDeSemences ){
                 %>
 
                     <tr>
-                            <td>Projet <%=projet.getIdprojet()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getEspeceIdespece().getIdespece()%></td>
-                            <td> <%=projet.getDemandeurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getIdalerte()%></td>
-                            <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getEtatIdetat().getDescription()%></td>
-                            <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
+                            <td>Lot <%=lot.getIdLotDeSemence()%></td>
+                            <td>Site  <%=lot.getSiteDeStockageSiteDeStockage().getIdSiteDeStokage()%></td>
+                            <td> <%=lot.getDisponibiliteEnStock()%></td>
+                            <td> <%=lot.getDureeDeStockageEnMois()%></td>
+                            <td> <%=lot.getQuantiteEnNbDeCaisses()%></td>
+                            <td> <a href="#" ><%=lot.getSalleidSalle().getDescription()%></a></td>
                             <td> 
-                                <a href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
-                                   Annuler
-                                </a>
-                                </br>
-                                <a href = /association-arche/modify-project?id=<%=projet.getIdprojet()%> >
-                                   Modifier
-                                </a> 
-                                </br>
-                                <a href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
+                                <a style="color:red;" href = /association-arche/delete-lot?id=<%=lot.getIdLotDeSemence()%> >
                                    Supprimer
                                 </a>
+                                </br>
+                                <a href = /association-arche/modify-lot?id=<%=lot.getIdLotDeSemence()%> >
+                                   Modifier
+                                </a> 
                             </td>
                     </tr>	
             <%
                 }
-            }%>
-
+                        }%>
 
          <div display="inline-block" align="center">
-                            <br>
-			<button class="btn btn-success " type="submit">
-                            <a href="/association-arche/create-project" style="color:white;">
-                                Nouveau projet</a>
+			<button class="btn btn-success " type="submit"><a href="/association-arche/create-lot" style="color:white;">Nouveau Lot</a>
                             <br>
 		</div>
                         </br>

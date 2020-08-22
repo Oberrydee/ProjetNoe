@@ -62,14 +62,13 @@ public class AccessBD {
                 em.persist(object); 
                 t.commit(); 
                 success = true;
+                em.close();
             //}
         }
         catch(Exception e){
             e.printStackTrace();
             if(em.getTransaction().isActive()) em.getTransaction().rollback();
-        }
-        finally{
-            em.close();
+            em.close(); 
         }
         return success; 
     }
@@ -149,6 +148,40 @@ public class AccessBD {
         Alerte al = (Alerte)q.getSingleResult(); 
         em.close(); 
         return al; 
+    }       
+    public static Boolean deleteALert(Alerte alerte){
+        Boolean success = false; 
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        String QueryStr = "delete from alerte where idalerte = '"+alerte.getIdalerte(); 
+        
+        em.getTransaction().begin();
+        try{
+            Query q = em.createQuery(QueryStr); 
+            int updateCount = q.executeUpdate(); 
+            em.getTransaction().commit();
+            success = true;
+            em.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            em.getTransaction().rollback();
+            em.close();
+        }
+        return success; 
+    }
+    public static Boolean modifyAlert(Alerte alerte){
+        Boolean success = false; 
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        if(deleteALert(alerte)){
+            if(persist(alerte)) success = true; 
+        }       
+        
+        return success; 
     }
     /////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////// Classe /////////////////////////////////////////
@@ -514,5 +547,191 @@ public class AccessBD {
         em.close(); 
         return al; 
     }
+    ////////////////////////////////////////////////////////////////////////////////////
+    //              Espece
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+     public static List<Espece> selectAllEspeces(){
+                EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Espece.findAll"); 
+        
+        List<Espece> liste = (List<Espece>)q.getResultList(); 
+        
+        for (Espece a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }
+    public static Espece selectEspeceByID(int idespece) {
+            EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Espece.findByIdespece"); 
+        q.setParameter("idespece", idespece); 
+        
+        try{
+            Espece al = (Espece)q.getSingleResult(); 
+            em.close(); 
+            return al;
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    
+    }
+    public static Espece selectEspeceByName(String nom_espece) {
+            EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Espece.findByNom"); 
+        q.setParameter("nom", nom_espece); 
+        
+        try{
+            Espece al = (Espece)q.getSingleResult(); 
+            em.close(); 
+            return al; 
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    
+    }
+    ////////////////////////////////////////////////////////////////////////////////////
+    //              Etat
+    ////////////////////////////////////////////////////////////////////////////////////
+    public static Etat selectEtatByDescription(String description) {
+            EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Espece.findByDescription"); 
+        q.setParameter("description", description); 
+        
+        try{
+        Etat al = (Etat)q.getSingleResult(); 
+            em.close(); 
+            return al; 
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    
+    }
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //              Taxinomie
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    public static Taxinomie selectTaxinomieByName(String nomTaxinomie) {
+                EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Taxinomie.findByNom"); 
+        q.setParameter("nom", nomTaxinomie); 
+        
+        try{
+        Taxinomie al = (Taxinomie)q.getSingleResult(); 
+            em.close(); 
+            return al; 
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //              SiteDeStokage
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    public static List<SiteDeStokage> selectAllSiteDeStokages(){
+                EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("SiteDeStokage.findAll"); 
+        
+        List<SiteDeStokage> liste = (List<SiteDeStokage>)q.getResultList(); 
+        
+        for (SiteDeStokage a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////
+    //              LotDeSemence
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    public static List<LotDeSemence> selectAllLotsDeSemences(){
+                EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("LotDeSemence.findAll"); 
+        
+        List<LotDeSemence> liste = (List<LotDeSemence>)q.getResultList(); 
+        
+        for (LotDeSemence a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////
+    //              LotDeSemence
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    public static List<Taxinomie> selectAllTaxinomies(){
+                EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Taxinomie.findAll"); 
+        
+        List<Taxinomie> liste = (List<Taxinomie>)q.getResultList(); 
+        
+        for (Taxinomie a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }
+////////////////////////////////////////////////////////////////////////////////////
+    //              sentinelle
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    public static List<Sentinelle> selectAllSentinelles() {
+         EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Sentinelle.findAll"); 
+        
+        List<Sentinelle> liste = (List<Sentinelle>)q.getResultList(); 
+        
+        for (Sentinelle a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }
+    
 }

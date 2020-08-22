@@ -1,3 +1,4 @@
+<%@page import="model.AccessBD"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Ibtissame FRIKS">
 	
-	<title>Projet Fil Rouge</title>
+	<title>Accueil</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -60,6 +61,10 @@
 					<tr>
 						<td>
 							${session_nom} ${session_prenom}
+                                                        </br>
+                                                        <p style="color:blue">
+                                                            ${ambpambp}
+                                                        </p>
 						</td>
 						
 					</tr>
@@ -74,11 +79,11 @@
 					<ul class="nav flex-column">
 						<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link active" href="interface.html">Comptes</a>
+							<a class="nav-link active" href="/association-arche/get-comptes">Comptes</a>
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceAlertes.html">Altertes</a>
+							<a class="nav-link active" href="/association-arche/get-alerts">Alertes</a>
 						</li>
 						
 						<li class="nav-item">
@@ -86,19 +91,23 @@
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceCandidatureProjet.html">Candidatures de projets de sauvetage</a>
+							<a class="nav-link active" href="/association-arche/get-projetcs-to-start">Candidatures de projets de sauvetage</a>
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceSiteStockage.html">Sites de stockages</a>
+							<a class="nav-link active" href="/association-arche/sites">Sites de stockages</a>
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceLotSemence.html">Lots de semence</a>
+							<a class="nav-link active" href="/association-arche/get-lots">Lots de semence</a>
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link active" href="interfaceTaxinomie.html">Taxinomie</a>
+							<a class="nav-link active" href="/association-arche/get-tax">Taxinomie</a>
+						</li>
+						
+						<li class="nav-item">
+							<a class="nav-link active" href="/association-arche/get-emp">Employés</a>
 						</li>
 					</ul>
 							
@@ -118,15 +127,11 @@
 			<!-- </table> -->
 
 			<h1>
-			  Page d'accueil</h1>
+			  Accueil Demandes</h1>
 			
 
 			<table class="tableau_demande">
-				<tr>
-					<td colspan=4 class="colspan">
-						Tableau de demandes
-					</td>
-				</tr>
+                            
 				<tr>
   					
  					<td>
@@ -171,113 +176,33 @@
   						
   					</td>
 				</tr>
-				<tr>
-  					<td>
-  						Demande 3
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-  						Demande 4
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-  						Demande 5
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-  						Demande 6
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-  						Demande 7
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-  						Demande 8
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-				<tr>
-  					<td>
-  						Demande 9
-  					</td>
- 					<td>
- 						
- 					</td>
-  					<td>
-  						
-  					</td>
-  					<td>
-  						
-  					</td>
-				</tr>
-			</table>
 
 			<br>
-         <div display="inline-block" align="center">
-			<button class="btn btn-success btn-space" type="submit"><a href="demandeFonctionalité.html" style="color:black;">Faire la demande</a>
-			<button class="btn btn-secondary btn-space" type="submit"><a href="annulerFonctionnalité.html" style="color:black;">Annuler la demande</a>
-			<button class="btn btn-danger btn-space" type="submit"><a href="supprimerFonctionalité.html" style="color:black;">Supprimer la demande</a>
-		
-
-		</div>
+                        </table>
+                           
+	<div display="inline-block" align="center">	
+            <label for="localisation-select">Veuillez choisir une demande :</label>
+            </br>
+        </div>
+                           
+	<div display="inline-block" align="center">	
+                <select name="nature_demande" id="natureDemande-select">
+                        <option value="">-- Choisissez la demande  --</option>
+                        <option value="">Demande de création de compte</option>
+                        <option value="">Demande de création de projet</option>
+                        <option value="">Demande de candidatures aux projets de sauvetage</option>
+                        <option value="">Demande d'ajout d'alertes de sentinelle</option>
+                        <option value="">Demande d'ajout de lot de semence</option>
+                        <option value="">Demande d'ajout de taxinomie</option>
+                </select>
+            </br></br>
+        </div>
+        <div display="inline-block" align="center">
+                            
+             <button class="btn btn-success btn-space" type="submit">
+                <a href="demandeFonctionalité.html" style="color:white;">Faire une demande</a>
+                <br>
+            </div>
+                        </br>
 </div>
 

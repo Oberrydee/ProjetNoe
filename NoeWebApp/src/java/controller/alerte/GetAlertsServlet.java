@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.alerte;
 
-import entities.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -14,16 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.AccessBD;
-import model.AppStrings;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "AddLotDeSemenceServlet", urlPatterns = {"/ajout-lot-de-semence"})
-public class AddLotDeSemenceServlet extends HttpServlet {
+@WebServlet(name = "GetAlertsServlet", urlPatterns = {"/get-alerts"})
+public class GetAlertsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +38,10 @@ public class AddLotDeSemenceServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddLotDeSemenceServlet</title>");            
+            out.println("<title>Servlet GetAlertsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddLotDeSemenceServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetAlertsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,19 +59,8 @@ public class AddLotDeSemenceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher pageToDisplay = request.getRequestDispatcher("/WEB-INF/Error_access_denied.jsp"); 
-        //ambpambp stands for access may be possible (doubled to confuse people(...lol)
-        if (request.getParameter("ambpambp") != null && !request.getParameter("ambpambp").isEmpty()){
-            
-            Role role = AccessBD.selectRoleByID(Integer.parseInt(request.getParameter("ambpambp")));
-            if(AccessBD.roleHasDroit(role, AppStrings.NOM_DROIT_ECRITURE_lot_de_semence)){
-                pageToDisplay = request.getRequestDispatcher("/WEB-INF/ajout-lot-de-semence.jsp"); 
-            }
-
-        }
-        HttpSession session = request.getSession(); 
-        session.setAttribute("textError", request.getParameter("ambpambp"));
-        pageToDisplay.forward(request, response);
+        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/alerts.jsp"); 
+        disp.forward(request, response);
     }
 
     /**

@@ -62,7 +62,7 @@
 
 		<ol class="breadcrumb">
 			<li><a href="index.html">Page d'accueil</a></li>
-			<li class="active">Création de projet</li>
+			<li class="active">Création d'alerte</li>
 		</ol>
 
 		<div class="row">
@@ -76,56 +76,45 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande de création de projet faite par les managers</h3>	<hr>
+							<h3 class="thin text-center">Demande de création d'alerte faite par une sentinelle</h3>	<hr>
 
-                                                        <form action = "/association-arche/create-project" method="post">
+                                                        <form action = "/association-arche/create-alert" method="post">
                                                             
-								<div class="top-margin">
-									<label>Nom du projet</label>
-									<input type="text" name="nom_projet" class="form-control">
-								</div>
-                                                                <div class="top-margin">
-									<label>Espece</label>
-									<input name="espece" class="form-control">
-								</div>
-                                                                <div class="top-margin">
-									<label>Email du demandeur</label>
-									<input type="text" name="email_demandeur" class="form-control">
-								</div>
-                                                                <div class="top-margin">
-									<label>Email du narrateur</label>
-									<input type="text" name="email_narrateur" class="form-control">
-								</div>
-                                                                <div class="top-margin">
-									<label>ID Alerte</label>
-									<input type="text" name="alerte" class="form-control">
-								</div>
-                                                                <div class="top-margin">
-									<label>Etat</label>
-									<input type="text" name="etat" class="form-control">
-								</div>
-
-								<div class="top-margin">
-									
-									<div class="col-sm-6">
-										<label>Date de début de projet</label>
-                                                                <input type="date" name="date_debut_projet">
+                                                                <div >
+                                                                    <label>Espece : </label>
+                                                                <select name="espece" id="natureDemande-select">
+                                                                    <option value="<%=
+                                                                        ((Espece)AccessBD.selectEspeceByName("INCONNU")).getNom()%>">INCONNU</option>
+                                                    <%
+                                                        List<Espece> listeEspeces = AccessBD.selectAllEspeces(); 
+                                                        for(Espece espece : listeEspeces){%>
+                                                        <option value="<%=espece.getNom()%>"><%=espece.getNom()%></option>
+                                                        <%    
+                                                        }
+                                                        %>
+                                                                    
+                                                        
+                                                                </select>
+                                                                </div>
+                                                        <br>
+                                                                <div >
+                                                                  
+                                                                    <label>Urgence : </label>
+                                                                <select name="urgence" id="natureDemande-select">
+                                                                        <option value="3">Aucune</option>
+                                                                        <option value="2">Neutre</option>
+                                                                        <option value="1">Urgent</option>
+                                                                        <option value="0">Très urgent</option>
+                                                                </select>
 
 								</div>
 								<hr>
 
                                                                 <div display="inline-block">
-									
-										<button class="btn btn-success btn-space" type="submit">
-                                                                                    <a href="confirmationCompteParManager.html" style="color:black;">
-                                                                                        Envoyer la demande</a>
-								
-										<button class="btn btn-danger btn-space" type="submit">
-                                                                                    <a href="AnnulerCreationCompteParManager.html" style="color:black;">
-                                                                                        Annuler</a></button>
-
-									
-									</div>
+                                                                    <button class="btn btn-success btn-space" type="submit" style="color:white;">
+                                                                        Créer l'alerte
+                                                                    </button>
+                                                                         </div>
 								</div>
 							</form>
 						</div>
