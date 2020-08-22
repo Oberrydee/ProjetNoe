@@ -76,7 +76,7 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande de création d'alerte faite par une sentinelle</h3>	<hr>
+							<h3 class="thin text-center">Demande de création d'alerte</h3>	<hr>
 
                                                         <form action = "/association-arche/create-alert" method="post">
                                                             

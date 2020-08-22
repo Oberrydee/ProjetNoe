@@ -169,10 +169,11 @@
 
          <div display="inline-block" align="center">
                             <br>
-			<button class="btn btn-success " type="submit">
-                            <a href="/association-arche/create-project" style="color:white;">
-                                Nouveau projet</a>
+    <form action="/association-arche/create-project">
+			<button class="btn btn-success " type="submit" style="color:white;">Nouveau project
+                        </button>
                             <br>
+    </form>
 		</div>
                         </br>
 </div>
