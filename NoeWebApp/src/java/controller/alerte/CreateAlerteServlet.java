@@ -3,31 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.projet;
+package controller.alerte;
 
 import entities.Alerte;
 import entities.CompteUtilisateur;
+import entities.Embranchement;
 import entities.Espece;
-import entities.Etat;
-import entities.Projet;
+import entities.Regne;
 import entities.Salarié;
+import entities.Sentinelle;
+import entities.Taxinomie;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.AppStrings;
 
 /**
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "CreateProjectServlet", urlPatterns = {"/create-project"})
-public class CreateProjectServlet extends HttpServlet {
+@WebServlet(name = "CreateAlerteServlet", urlPatterns = {"/create-alert"})
+public class CreateAlerteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +51,10 @@ public class CreateProjectServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateProjectServlet</title>");            
+            out.println("<title>Servlet CreateAlerteServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateProjectServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateAlerteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,8 +71,10 @@ public class CreateProjectServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-project.jsp"); 
+            throws ServletException, IOException {   HttpSession session = request.getSession(); 
+        
+        session.setAttribute("textError", "");
+        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-alert.jsp"); 
         disp.forward(request, response);
     }
 
@@ -82,28 +89,43 @@ public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nom = request.getAttribute("nom_alerte").toString(); 
-        //todo
-        Espece espèce = (Espece)AccessBD.selectEspeceByID((int)request.getAttribute("espece")); 
-        Salarié demandeur = AccessBD.selectSalariéByIdCompteUtilisateur(
-                ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
-                        request.getAttribute("email_demandeur").toString())).getIdcompteUtilisateur()); 
-        Salarié narrateur = AccessBD.selectSalariéByIdCompteUtilisateur(
-                ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
-                        request.getAttribute("email_narrateur").toString())).getIdcompteUtilisateur()); 
-        Alerte alerte = AccessBD.selectALertsById((int)request.getAttribute("alerte")); 
-        Etat etat = (Etat)AccessBD.selectEtatByDescription(request.getAttribute("etat").toString()); 
-        Date date = (Date)request.getAttribute("date_debut_projet"); 
+        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/confirmation-creation-alerte.jsp");
+        HttpSession session = request.getSession(); 
         
+        String nom_espece = request.getParameter("espece"); 
+        Espece espece = AccessBD.selectEspeceByName(nom_espece); 
         
-        Projet projet = new Projet(); 
-        projet.setNom(nom);
-        projet.setAlerteIdalerte(alerte);
-        projet.setDemandeurIdsalarie(demandeur);
-        projet.setNarrateurIdsalarie(narrateur);
-        projet.setEtatIdetat(etat);
-        projet.setDateDebut(date);
+        Alerte alerte = new Alerte();         
+        alerte.setIdalerte(alerte.hashCode());
+        alerte.setEspeceIdespece(espece);         
+        alerte.setUrgence(Integer.parseInt(request.getParameter("urgence")));
+        List <Sentinelle> list = AccessBD.selectAllSentinelles(); 
+        Sentinelle sentinelle = null; 
+        for (Sentinelle s : list){
+            Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur(
+                    ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
+                            session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()))
+            .getIdcompteUtilisateur());
+            System.out.println("Role salarie : " +s.getSalariéidSalarié().getRoleidRole().getNomRole()); 
+            System.out.println("role session : " +salarié.getRoleidRole().getNomRole()); 
+            System.out.println("Salarié email : " +s.getSalariéidSalarié().getEmailPro()); 
+            System.out.println("session email : " +session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()); 
+            if (s.getSalariéidSalarié().getRoleidRole().getNomRole().equals(AppStrings.NOM_ROLE_SENTINELLE)){
+                sentinelle = s; 
+                break; 
+            }
+        }
+        if (sentinelle == null){
+            disp = request.getRequestDispatcher("/WEB-INF/Error_access_denied.html"); 
+        }
+        else{
+            alerte.setSentinelleIdsentinelle(sentinelle);
+            if (!AccessBD.persist(alerte)){
+            disp = request.getRequestDispatcher("/WEB-INF/Error.html"); 
+            }
+        }
         
+        disp.forward(request, response);
     }
 
     /**

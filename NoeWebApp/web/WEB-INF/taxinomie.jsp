@@ -1,13 +1,7 @@
-<!DOCTYPE html>
 
-<%@page import="entities.Projet"%>
-<%@page import="entities.Etat"%>
-<%@page import="entities.Espece"%>
-<%@page import="entities.Alerte"%>
 <%@page import="model.AccessBD"%>
+<%@page import="entities.Taxinomie"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -16,7 +10,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Ibtissame FRIKS">
 	
-	<title>Projets</title>
+	<title>Taxinomie</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -49,7 +43,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="index.html">Accueil</a></li>
 					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Déconnexion</a></li>
+					<li><a class="btn" href="/association-arche/signout">D�connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -125,53 +119,47 @@
 			<!-- </table> -->
 
         <%
-            List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
-            if(listeProjets != null && !listeProjets.isEmpty() ){
+            List<Taxinomie> listeTaxinomies = (List<Taxinomie>)AccessBD.selectAllTaxinomies();
+            if(listeTaxinomies != null && !listeTaxinomies. isEmpty() ){
                 
                 %>
 			<table class="tableau_demande" colspan=7 class="colspan">
 				</br>
 				</br>
 				<tr>
-				<td>ID</td><td>Espèce</td><td>Demandeur</td><td>Alerte associée</td><td>Narrateur</td><td>Statut</td><td>Date de début</td>
-				</tr>                
+				<td>Nom</td><td>Regne</td><td>Classe</td>
+                                <td>Esp�ces</td><td>Embranchement</td><td>ordre</td><td>Genre</td>
+                                </tr>                
                 <%
                 
-                for(Projet projet:listeProjets){
+                for (Taxinomie tax : listeTaxinomies){
                 %>
 
                     <tr>
-                            <td>Projet <%=projet.getIdprojet()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getEspeceIdespece().getIdespece()%></td>
-                            <td> <%=projet.getDemandeurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getIdalerte()%></td>
-                            <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getEtatIdetat().getDescription()%></td>
-                            <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
+                            <td> <%=tax.getNom()%></td>
+                            <td> <%=tax.getRegneIdregne().getNom()%></td>
+                            <td> <%=tax.getClasseIdclasse().getNom()%></td>
+                            <td>   <a href="#"> Voir </a></td>
+                            <td> <%=tax.getEmbranchementIdembranchement().getNom()%></td>
+                            <td> <%=tax.getOrdreIdordre().getNom()%></td>
+                            <td> <%=tax.getGenreIdgenre().getNom()%></td>
+                            
                             <td> 
-                                <a href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
-                                   Annuler
-                                </a>
-                                </br>
-                                <a href = /association-arche/modify-project?id=<%=projet.getIdprojet()%> >
-                                   Modifier
-                                </a> 
-                                </br>
-                                <a href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
+                                <a style="color:red;" href = /association-tax/delete-site?id=<%=tax.getIdtaxinomie()%> >
                                    Supprimer
                                 </a>
+                                </br>
+                                <a href = /association-arche/modify-tax?id=<%=tax.getIdtaxinomie()%> >
+                                   Modifier
+                                </a> 
                             </td>
                     </tr>	
             <%
                 }
             }%>
 
-
          <div display="inline-block" align="center">
-                            <br>
-			<button class="btn btn-success " type="submit">
-                            <a href="/association-arche/create-project" style="color:white;">
-                                Nouveau projet</a>
+			<button class="btn btn-success " type="submit"><a href="/association-arche/create-site" style="color:white;">Nouvelle taxinomie </a>
                             <br>
 		</div>
                         </br>

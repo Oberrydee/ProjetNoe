@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<%@page import="entities.Projet"%>
+<%@page import="entities.CompteUtilisateur"%>
 <%@page import="entities.Etat"%>
 <%@page import="entities.Espece"%>
 <%@page import="entities.Alerte"%>
@@ -16,7 +16,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Ibtissame FRIKS">
 	
-	<title>Projets</title>
+	<title>Comptes</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -125,8 +125,8 @@
 			<!-- </table> -->
 
         <%
-            List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
-            if(listeProjets != null && !listeProjets.isEmpty() ){
+            List<CompteUtilisateur> listeComptes = (List<CompteUtilisateur>)AccessBD.selectAllCompteutilisateurs();
+            if(listeComptes != null && !listeComptes.isEmpty() ){
                 
                 %>
 			<table class="tableau_demande" colspan=7 class="colspan">
@@ -137,27 +137,23 @@
 				</tr>                
                 <%
                 
-                for(Projet projet:listeProjets){
+                for(CompteUtilisateur compte:listeComptes){
                 %>
 
                     <tr>
-                            <td>Projet <%=projet.getIdprojet()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getEspeceIdespece().getIdespece()%></td>
-                            <td> <%=projet.getDemandeurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getIdalerte()%></td>
-                            <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getEtatIdetat().getDescription()%></td>
-                            <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
-                            <td> 
-                                <a href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
-                                   Annuler
-                                </a>
-                                </br>
-                                <a href = /association-arche/modify-project?id=<%=projet.getIdprojet()%> >
+                            <td>Compte <%=compte.getIdcompteUtilisateur()%></td>
+                            <td> <%=compte.getNom()%></td>
+                            <td> <%=compte.getPrenom()%></td>
+                            <td> <%=compte.getNomUtilisateur()%></td>
+                            <td> <%=compte.getNuméroTelephone()%></td>
+                            <td> <%=compte.getEmailPerso()%></td>
+                            <td> <%=compte.getEmailPerso()%></td>
+                            <td>
+                                <a href = /association-arche/modify-account?id=<%=compte.getIdcompteUtilisateur()%> >
                                    Modifier
                                 </a> 
                                 </br>
-                                <a href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
+                                <a href = /association-arche/delete-account?id=<%=compte.getIdcompteUtilisateur()%> >
                                    Supprimer
                                 </a>
                             </td>
@@ -165,13 +161,9 @@
             <%
                 }
             }%>
-
-
          <div display="inline-block" align="center">
-                            <br>
 			<button class="btn btn-success " type="submit">
-                            <a href="/association-arche/create-project" style="color:white;">
-                                Nouveau projet</a>
+                            <a href="/association-arche/create-project" style="color:white;">Nouveau compte</a>
                             <br>
 		</div>
                         </br>

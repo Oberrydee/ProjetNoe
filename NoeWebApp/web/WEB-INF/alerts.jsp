@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <%@page import="entities.Projet"%>
+<%@page import="entities.Salarié"%>
 <%@page import="entities.Etat"%>
 <%@page import="entities.Espece"%>
 <%@page import="entities.Alerte"%>
@@ -16,7 +17,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Ibtissame FRIKS">
 	
-	<title>Projets</title>
+	<title>Alertes</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -113,51 +114,31 @@
 					</div>
 		</div>
 
-		<div id="blockright">
-			<!-- <table class="deconnexion"> -->
-				<!-- <tr> -->
-					<!-- <td> -->
-						<!-- <button type="text"> -->
-							<!-- D&eacute;connexion -->
-						<!-- </button> -->
-					<!-- </td> -->
-				<!-- </tr> -->
+		<div id="blockright">>
 			<!-- </table> -->
-
         <%
-            List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
-            if(listeProjets != null && !listeProjets.isEmpty() ){
+            List<Alerte> listeAlertes = (List<Alerte>)AccessBD.selectAllALerts();
+            if(listeAlertes != null && !listeAlertes.isEmpty() ){
                 
                 %>
 			<table class="tableau_demande" colspan=7 class="colspan">
 				</br>
 				</br>
 				<tr>
-				<td>ID</td><td>Espèce</td><td>Demandeur</td><td>Alerte associée</td><td>Narrateur</td><td>Statut</td><td>Date de début</td>
-				</tr>                
+                                    <td>N° Alerte</td><td>Espèce</td><td>Urgence</td><td>Sentinelle</td><td>Actions</td>
+				</tr>
                 <%
                 
-                for(Projet projet:listeProjets){
+                for(Alerte alerte : listeAlertes){
                 %>
 
                     <tr>
-                            <td>Projet <%=projet.getIdprojet()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getEspeceIdespece().getIdespece()%></td>
-                            <td> <%=projet.getDemandeurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getAlerteIdalerte().getIdalerte()%></td>
-                            <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
-                            <td> <%=projet.getEtatIdetat().getDescription()%></td>
-                            <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
-                            <td> 
-                                <a href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
-                                   Annuler
-                                </a>
-                                </br>
-                                <a href = /association-arche/modify-project?id=<%=projet.getIdprojet()%> >
-                                   Modifier
-                                </a> 
-                                </br>
-                                <a href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
+                            <td> <%=alerte.getIdalerte()%></td>
+                            <td> <%=alerte.getEspeceIdespece().getNom()%></td>
+                            <td> <%=alerte.getUrgence()%></td>
+                            <td> <%=alerte.getSentinelleIdsentinelle().getSalariéidSalarié().getNom()%> <%=alerte.getSentinelleIdsentinelle().getSalariéidSalarié().getPrénom()%></td>
+                          <td> 
+                                <a style= "red" href = /association-arche/delete-alerte?id=<%=alerte.getIdalerte()%>
                                    Supprimer
                                 </a>
                             </td>
@@ -166,13 +147,13 @@
                 }
             }%>
 
-
-         <div display="inline-block" align="center">
+<div display="inline-block" align="center">
+    
+    <form action="/association-arche/create-alert">
+			<button class="btn btn-success " type="submit" style="color:white;">Nouvelle alerte
+                        </button>
                             <br>
-			<button class="btn btn-success " type="submit">
-                            <a href="/association-arche/create-project" style="color:white;">
-                                Nouveau projet</a>
-                            <br>
+    </form>
 		</div>
                         </br>
 </div>
