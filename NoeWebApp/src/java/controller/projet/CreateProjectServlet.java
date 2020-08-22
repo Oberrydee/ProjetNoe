@@ -7,6 +7,7 @@ package controller.projet;
 
 import entities.Alerte;
 import entities.CompteUtilisateur;
+import entities.Equipe;
 import entities.Espece;
 import entities.Etat;
 import entities.Projet;
@@ -20,7 +21,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.AccessBD;
+import model.AppStrings;
 
 /**
  *
@@ -67,6 +70,8 @@ public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-project.jsp"); 
         disp.forward(request, response);
     }
@@ -82,28 +87,85 @@ public class CreateProjectServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nom = request.getAttribute("nom_alerte").toString(); 
-        //todo
-        Espece espèce = (Espece)AccessBD.selectEspeceByID((int)request.getAttribute("espece")); 
-        Salarié demandeur = AccessBD.selectSalariéByIdCompteUtilisateur(
-                ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
-                        request.getAttribute("email_demandeur").toString())).getIdcompteUtilisateur()); 
-        Salarié narrateur = AccessBD.selectSalariéByIdCompteUtilisateur(
-                ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
-                        request.getAttribute("email_narrateur").toString())).getIdcompteUtilisateur()); 
-        Alerte alerte = AccessBD.selectALertsById((int)request.getAttribute("alerte")); 
-        Etat etat = (Etat)AccessBD.selectEtatByDescription(request.getAttribute("etat").toString()); 
-        Date date = (Date)request.getAttribute("date_debut_projet"); 
+        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-project.jsp"); 
+
+        Boolean creationPossible = false; 
         
-        
-        Projet projet = new Projet(); 
-        projet.setNom(nom);
+        HttpSession session = request.getSession(); 
+        session.setAttribute("textError", "");
+        //ID
+        Projet projet = new Projet(0); 
+        //alerte associée
+        Alerte alerte = AccessBD.selectALertsById(Integer.parseInt(request.getParameter("alerte"))); 
         projet.setAlerteIdalerte(alerte);
-        projet.setDemandeurIdsalarie(demandeur);
-        projet.setNarrateurIdsalarie(narrateur);
-        projet.setEtatIdetat(etat);
-        projet.setDateDebut(date);
+        //etat
+        Etat etat = AccessBD.selectEtatByDescription(request.getParameter("etat"));
+            projet.setEtatIdetat(etat);
+         
         
+        //demandeur
+        Salarié demandeur = AccessBD.selectSalariéByIdCompteUtilisateur(
+                    ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
+                            session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()))
+            .getIdcompteUtilisateur()); 
+        projet.setDemandeurIdsalarie(demandeur);
+        
+        //nom
+        if (request.getParameter("nom_projet") != null && !request.getParameter("nom_projet").isEmpty()){
+            projet.setNom(request.getParameter("nom_projet"));
+        }else {
+            session.setAttribute("textError", "Veuillez renseigner le nom du projet");
+        }    
+        //narrteur
+        if(request.getParameter("email_narrateur") != null && !request.getParameter("email_narrateur").isEmpty()){
+            String email = request.getParameter("email_narrateur");   
+            System.out.println("String email = " + email); 
+            CompteUtilisateur cpt = ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(email));
+            System.out.println("AccessBD.selectCompteUtilisateurByEmail(email) = " + AccessBD.selectCompteUtilisateurByEmail(email)); 
+            System.out.println("CompteUtilisateur cpt = " + cpt); 
+            if (cpt != null) {
+                int id = cpt.getIdcompteUtilisateur();
+                Salarié narrateur = AccessBD.selectSalariéByIdCompteUtilisateur(id); 
+                projet.setNarrateurIdsalarie(narrateur);
+            }else{
+                projet.setNarrateurIdsalarie(null);
+            }
+
+        }else{
+            session.setAttribute("textError", "Narrateur invalide");
+        }
+        
+        //date debut
+        if (request.getAttribute("date_debut_projet") != null){
+            Date dateDebut = (Date)request.getAttribute("date_debut_projet");
+            projet.setDateDebut(dateDebut);
+        } else {
+            session.setAttribute("textError", "Veuillez renseigner la date du projet");
+        }
+        
+        // Tests finaux
+        if (projet.getNarrateurIdsalarie() == null){
+            session.setAttribute("textError", "Narrateur invalide");            
+        }
+        else if(projet.getDateDebut() != null){
+            session.setAttribute("textError", "Veuillez renseigner la date du projet");            
+        }
+        else{
+            session.setAttribute("textError", "");
+            Equipe equipe = new Equipe(0); 
+            equipe.setNom("Equipe projet "+projet.getNom());
+            projet.setEquipeIdequipe(equipe);
+            
+            if(AccessBD.persist(equipe)) {
+                creationPossible = true;
+            }             
+        }
+        
+        if(creationPossible){
+            if(AccessBD.persist(projet)) 
+                disp = request.getRequestDispatcher("/WEB-INF/confirmation-creation-projet.jsp");
+        }
+        disp.forward(request, response);
     }
 
     /**

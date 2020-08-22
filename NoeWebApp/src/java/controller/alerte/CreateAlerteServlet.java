@@ -102,6 +102,7 @@ public class CreateAlerteServlet extends HttpServlet {
         List <Sentinelle> list = AccessBD.selectAllSentinelles(); 
         Sentinelle sentinelle = null; 
         for (Sentinelle s : list){
+            /*
             Salarié salarié = AccessBD.selectSalariéByIdCompteUtilisateur(
                     ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(
                             session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()))
@@ -110,6 +111,7 @@ public class CreateAlerteServlet extends HttpServlet {
             System.out.println("role session : " +salarié.getRoleidRole().getNomRole()); 
             System.out.println("Salarié email : " +s.getSalariéidSalarié().getEmailPro()); 
             System.out.println("session email : " +session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()); 
+            */
             if (s.getSalariéidSalarié().getRoleidRole().getNomRole().equals(AppStrings.NOM_ROLE_SENTINELLE)){
                 sentinelle = s; 
                 break; 

@@ -143,11 +143,17 @@ public class AccessBD {
         EntityManager em = emf.createEntityManager(); 
         
         Query q = em.createNamedQuery("Alerte.findByIdalerte"); 
-        q.setParameter("id", id); 
-        
+        q.setParameter("idalerte", id); 
+        try{
         Alerte al = (Alerte)q.getSingleResult(); 
         em.close(); 
         return al; 
+        }
+        catch(NoResultException e){
+            e.printStackTrace();
+            em.close(); 
+            return null; 
+        }
     }       
     public static Boolean deleteALert(Alerte alerte){
         Boolean success = false; 
@@ -292,7 +298,9 @@ public class AccessBD {
         EntityManager em = emf.createEntityManager(); 
         
         Query q = em.createNamedQuery("CompteUtilisateur.findByEmailPerso"); 
+        System.out.println("(AccessBD.selectCptUByEmail) Query = "+q);
         q.setParameter("emailPerso", email); 
+        System.out.println("(AccessBD.selectCptUByEmail) Query + parameter = "+q.getParameterValue("emailPerso"));
         try{
             CompteUtilisateur cpt = (CompteUtilisateur)q.getSingleResult(); 
             em.close(); 
@@ -542,10 +550,15 @@ public class AccessBD {
         
         Query q = em.createNamedQuery("Projet.findByIdprojet"); 
         q.setParameter("idprojet", id); 
-        
+        try{
         Projet al = (Projet)q.getSingleResult(); 
         em.close(); 
-        return al; 
+        return al; }
+        catch(NoResultException e){
+            e.printStackTrace();
+            em.close();
+            return null; 
+        }
     }
     ////////////////////////////////////////////////////////////////////////////////////
     //              Espece
@@ -614,7 +627,7 @@ public class AccessBD {
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
         
-        Query q = em.createNamedQuery("Espece.findByDescription"); 
+        Query q = em.createNamedQuery("Etat.findByDescription"); 
         q.setParameter("description", description); 
         
         try{
@@ -733,5 +746,24 @@ public class AccessBD {
         em.close(); 
         return liste; 
     }
+////////////////////////////////////////////////////////////////////////////////////
+    //              Etat
+    ////////////////////////////////////////////////////////////////////////////////////
     
+    public static List<Etat> selectAllEtats() {
+         EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Etat.findAll"); 
+        
+        List<Etat> liste = (List<Etat>)q.getResultList(); 
+        
+        for (Etat a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste; 
+    }
+        
 }

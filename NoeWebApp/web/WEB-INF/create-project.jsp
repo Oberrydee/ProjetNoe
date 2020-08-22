@@ -76,54 +76,60 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Demande de création de projet faite par les managers</h3>	<hr>
+							<h3 class="thin text-center">Demande de création de projet</h3>	<hr>
 
                                                         <form action = "/association-arche/create-project" method="post">
                                                             
-								<div class="top-margin">
+                                                                <div class="top-margin">
 									<label>Nom du projet</label>
 									<input type="text" name="nom_projet" class="form-control">
 								</div>
                                                                 <div class="top-margin">
-									<label>Espece</label>
-									<input name="espece" class="form-control">
-								</div>
-                                                                <div class="top-margin">
-									<label>Email du demandeur</label>
-									<input type="text" name="email_demandeur" class="form-control">
-								</div>
-                                                                <div class="top-margin">
 									<label>Email du narrateur</label>
-									<input type="text" name="email_narrateur" class="form-control">
+									<input type="email" name="email_narrateur" class="form-control">
 								</div>
                                                                 <div class="top-margin">
-									<label>ID Alerte</label>
-									<input type="text" name="alerte" class="form-control">
+                                                                        <label>Identifiant de l'alerte associée : </label>
+                                                                <select name="alerte" id="natureDemande-select">                                                                    
+                                                    <%
+                                                        List<Alerte> listeAlertes = AccessBD.selectAllALerts(); 
+                                                        for(Alerte alerte : listeAlertes){%>
+                                                        <option value="<%=alerte.getIdalerte()%>">Alerte n°<%=alerte.getIdalerte()%></option>
+                                                        <%    
+                                                        }
+                                                        %>
+                                                                    
+                                                                </select>
 								</div>
                                                                 <div class="top-margin">
-									<label>Etat</label>
-									<input type="text" name="etat" class="form-control">
+									<label>Etat : </label>
+                                                                        <select name="etat" id="natureDemande-select">                                                                    
+                                                    <%
+                                                        List<Etat> listeEtats = AccessBD.selectAllEtats(); 
+                                                        for(Etat etat : listeEtats){%>
+                                                        <option value="<%=etat.getDescription()%>"><%=etat.getDescription()%></option>
+                                                        <%    
+                                                        }
+                                                        %>
+                                                                        </select>
 								</div>
 
-								<div class="top-margin">
+								<div inline-block>
 									
-									<div class="col-sm-6">
 										<label>Date de début de projet</label>
                                                                 <input type="date" name="date_debut_projet">
 
+                                                           <div>
+                                                                            <p style="color: red">${textError}</p>
+                                                                        </div>
+                                                                </br></br>
 								</div>
 								<hr>
 
                                                                 <div display="inline-block">
-									
-										<button class="btn btn-success btn-space" type="submit">
-                                                                                    <a href="confirmationCompteParManager.html" style="color:black;">
-                                                                                        Envoyer la demande</a>
-								
-										<button class="btn btn-danger btn-space" type="submit">
-                                                                                    <a href="AnnulerCreationCompteParManager.html" style="color:black;">
-                                                                                        Annuler</a></button>
-
+                                                                    
+										<button class="btn btn-success btn-space" type="submit" style="color:white;">
+                                                                                    Envoyer la demande</button>
 									
 									</div>
 								</div>
