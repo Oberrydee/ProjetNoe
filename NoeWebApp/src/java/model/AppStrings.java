@@ -11,6 +11,12 @@ package model;
  */
 public class AppStrings {
     
+    public static final String ETAT_A_INITIER = "A initier"; 
+    public static final String ETAT_EN_COURS = "En cours"; 
+    public static final String ETAT_TERMINE = "Terminé"; 
+    public static final String ETAT_SUSPENDU = "Suspendu"; 
+    public static final String ETAT_ANNULE = "Annulé"; 
+    
     public static final String SESSION_ATTRIBUTE_EMAIL = "session_email";
     public static final String SESSION_ATTRIBUTE_MDP = "session_mdp";
     public static final String SESSION_ATTRIBUTE_ROLE = "ambpambp";
@@ -50,9 +56,11 @@ public class AppStrings {
     public static final String NOM_DROIT_AFFICHAGE_site_de_stockage = "site_de_stockage_read"; 
     public static final String NOM_DROIT_ECRITURE_site_de_stockage = "site_de_stockage_write"; 
     public static final String emailRegEx = "^\\S+@\\S+\\.\\S+$";
-    //String phoneRegEx = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$";
-    public static final String phoneRegEx = "((?:\\+|00)[17](?: |\\-)?|(?:\\+|00)[1-9]\\d{0,2}(?: |\\-)?|(?:\\+|00)1\\-\\d{3}(?: |\\-)?)?(0\\d|\\([0-9]{3}\\)|[1-9]{0,3})(?:((?: |\\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\\-)[0-9]{3}(?: |\\-)[0-9]{4})|([0-9]{7}))";        
-    public static final String passwordRegEx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^,\"\'&*-]).{8,}$"; 
+    //String REGEX_PHONE_NUMBER = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$";
+    public static final String REGEX_PHONE_NUMBER = "((?:\\+|00)[17](?: |\\-)?|(?:\\+|00)[1-9]\\d{0,2}(?: |\\-)?|(?:\\+|00)1\\-\\d{3}(?: |\\-)?)?(0\\d|\\([0-9]{3}\\)|[1-9]{0,3})(?:((?: |\\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\\-)[0-9]{3}(?: |\\-)[0-9]{4})|([0-9]{7}))";        
+    public static final String REGEX_PASSWORD = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^,\"\'&*-]).{8,}$"; 
+    public static final String REGEX_CODE_POSTAL = "\\d{2}[ ]?\\d{3}"; 
+    
     public static final String PASSWORD_REQUIERMENTS = 
                 "Le mot de passe doit avoir: "
                  +  "        au moins une lettre majuscule,\n" +

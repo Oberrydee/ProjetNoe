@@ -119,10 +119,7 @@ public class CreateProjectServlet extends HttpServlet {
         //narrteur
         if(request.getParameter("email_narrateur") != null && !request.getParameter("email_narrateur").isEmpty()){
             String email = request.getParameter("email_narrateur");   
-            System.out.println("String email = " + email); 
             CompteUtilisateur cpt = ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(email));
-            System.out.println("AccessBD.selectCompteUtilisateurByEmail(email) = " + AccessBD.selectCompteUtilisateurByEmail(email)); 
-            System.out.println("CompteUtilisateur cpt = " + cpt); 
             if (cpt != null) {
                 int id = cpt.getIdcompteUtilisateur();
                 Salarié narrateur = AccessBD.selectSalariéByIdCompteUtilisateur(id); 
@@ -151,14 +148,25 @@ public class CreateProjectServlet extends HttpServlet {
             session.setAttribute("textError", "Veuillez renseigner la date du projet");            
         }
         else{
-            session.setAttribute("textError", "");
-            Equipe equipe = new Equipe(0); 
-            equipe.setNom("Equipe projet "+projet.getNom());
-            projet.setEquipeIdequipe(equipe);
             
-            if(AccessBD.persist(equipe)) {
-                creationPossible = true;
-            }             
+            Boolean projetAssociéExistant = false; 
+            for (Projet p : AccessBD.selectAllProjets()){
+                if(projet.getAlerteIdalerte().equals(p.getAlerteIdalerte())){
+                    projetAssociéExistant = true; 
+                    session.setAttribute("textError", "Il existe dejà un projet associé à cette alerte");   
+                    break; 
+                }
+            }
+            if(!projetAssociéExistant){
+                session.setAttribute("textError", "");
+                Equipe equipe = new Equipe(0); 
+                equipe.setNom("Equipe projet "+projet.getNom());
+                projet.setEquipeIdequipe(equipe);
+
+                if(AccessBD.persist(equipe)) {
+                    creationPossible = true;
+                }
+            }
         }
         
         if(creationPossible){

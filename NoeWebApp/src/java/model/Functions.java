@@ -94,6 +94,9 @@ public class Functions {
         
         return id;
     }
+    public static String generatePassword() {
+        return  UUID.randomUUID().toString();
+    }
 
     public static void sendCodeToResetPassword(String to, String code) {
         Properties props = new Properties();
@@ -208,11 +211,9 @@ public class Functions {
                 if(salarié == null) {
                     Role role = AccessBD.selectRoleByName(AppStrings.NOM_ROLE_ABONNE); 
                     session.setAttribute("ambpambp", role.getIdRole());  
-                    session.setAttribute("textError", role.getNomRole() );
                 }
                 else{
                     session.setAttribute("ambpambp", salarié.getRoleidRole().getIdRole());  
-                    session.setAttribute("textError", salarié.getRoleidRole().getNomRole() ); 
                     }
                 session.setAttribute("sessionConnected", true);
                 System.out.println("SESSION CONNECTED"); 

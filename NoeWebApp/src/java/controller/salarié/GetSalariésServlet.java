@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.projet;
+package controller.salarié;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ADZOH-VINYO DIANA
  */
-@WebServlet(name = "GetProjectsTostart", urlPatterns = {"/get-projects-to-start"})
-public class GetProjectsTostart extends HttpServlet {
+@WebServlet(name = "GetSalariésServlet", urlPatterns = {"/get-emp"})
+public class GetSalariésServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class GetProjectsTostart extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetProjectsTostart</title>");            
+            out.println("<title>Servlet GetSalariésServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GetProjectsTostart at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetSalariésServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +59,7 @@ public class GetProjectsTostart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/projet-to-start.jsp"); 
+        RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/salarie.jsp"); 
         disp.forward(request, response);
     }
 
