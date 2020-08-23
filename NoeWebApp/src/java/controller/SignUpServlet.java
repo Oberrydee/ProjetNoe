@@ -108,14 +108,14 @@ public class SignUpServlet extends HttpServlet {
         //default page if anything goes wrong   
         pageToDisplay = request.getRequestDispatcher("/WEB-INF/signup.jsp"); 
         
-        if(!Functions.checkRegEx(tel, AppStrings.phoneRegEx)){
+        if(!Functions.checkRegEx(tel, AppStrings.REGEX_PHONE_NUMBER)){
             session.setAttribute("textError", AppStrings.INVALID_PARAM_DISP("Numero de telephone") );
         }
         else if(!Functions.checkRegEx(email, AppStrings.emailRegEx))    
         {
             session.setAttribute("textError", AppStrings.INVALID_PARAM_DISP("Addresse email") );            
         }        
-        else if (!Functions.checkRegEx(mdp, AppStrings.passwordRegEx)){
+        else if (!Functions.checkRegEx(mdp, AppStrings.REGEX_PASSWORD)){
             session.setAttribute("textError", AppStrings.PASSWORD_REQUIERMENTS );            
         }
         else if(!mdp.equals(null) 

@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.AppStrings"%>
 <!DOCTYPE html>
 
 <%@page import="entities.Projet"%>
@@ -82,30 +84,27 @@
 					<ul class="nav flex-column">
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-comptes">Comptes</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-alerts">Alertes</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
                                                     <a class="nav-link active" href="/association-arche/get-projects">Projets</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-projetcs-to-start">Candidatures de projets de sauvetage</a>
+							<a class="nav-link active" href="/association-arche/get-projects-to-start">Candidatures de projets de sauvetage</a>
 						</li>
-
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/sites">Sites de stockages</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-lots">Lots de semence</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-tax">Taxinomie</a>
+						</li>						
+						<li class="nav-item">
+							<a class="nav-link active" href="/association-arche/get-emp">Employés</a>
 						</li>
 					</ul>
 							
@@ -127,7 +126,12 @@
         <%
             List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
             if(listeProjets != null && !listeProjets.isEmpty() ){
-                
+                ArrayList<Projet> projectsStarted = new ArrayList<Projet>(); 
+                for( Projet p : listeProjets){
+                    if(!p.getEtatIdetat().getDescription().equals(AppStrings.ETAT_A_INITIER))
+                        projectsStarted.add(p); 
+                }
+                if(projectsStarted != null && !projectsStarted.isEmpty()){
                 %>
 			<table class="tableau_demande" colspan=7 class="colspan">
 				</br>
@@ -138,6 +142,7 @@
                 <%
                 
                 for(Projet projet:listeProjets){
+                    if(!projet.getEtatIdetat().getDescription().equals(AppStrings.ETAT_A_INITIER)){
                 %>
 
                     <tr>
@@ -148,22 +153,13 @@
                             <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
                             <td> <%=projet.getEtatIdetat().getDescription()%></td>
                             <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
-                            <td> 
-                                <a href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
-                                   Annuler
-                                </a>
-                                </br>
-                                <a href = /association-arche/modify-project?id=<%=projet.getIdprojet()%> >
-                                   Modifier
-                                </a> 
-                                </br>
-                                <a href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
-                                   Supprimer
-                                </a>
-                            </td>
+                       
                     </tr>	
             <%
                 }
+                }
+            }
+
             }%>
 
 

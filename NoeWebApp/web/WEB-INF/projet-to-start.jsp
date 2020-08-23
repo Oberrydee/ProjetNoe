@@ -1,15 +1,23 @@
-<%@page import="model.AccessBD"%>
+<%@page import="model.AppStrings"%>
 <!DOCTYPE html>
+
+<%@page import="entities.Projet"%>
+<%@page import="entities.Etat"%>
+<%@page import="entities.Espece"%>
+<%@page import="entities.Alerte"%>
+<%@page import="model.AccessBD"%>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <html lang="fr">
 <head>
-
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="assets\css\app.css">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author"      content="Ibtissame FRIKS">
 	
-	<title>Accueil</title>
+	<title>Projets</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -19,8 +27,7 @@
 
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-		<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="assets/css/main.css">
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -37,13 +44,13 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/Logo.png" alt="Arche de Noe"></a>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="/association-arche/home">Accueil</a></li>
-					<li><a href="/association-arche/contact">Contact</a></li>
-					<li><a class="btn" href="/association-arche/signout">DÈconnexion</a></li>
+					<li class="active"><a href="index.html">Accueil</a></li>
+					<li><a href="contact.html">Contact</a></li>
+					<li><a class="btn" href="signin.html">D√©connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -51,7 +58,6 @@
 	<!-- /.navbar -->
 	<header id="head" class="secondary"></header>
 
-	
 		<div id="blockleft">
 			<div id="profil">
 				<table class="table_profil">
@@ -61,12 +67,10 @@
 					<tr>
 						<td>
 							${session_nom} ${session_prenom}
-                                                        </br>
-                                                        <p style="color:blue">
-                                                            ${ambpambp}
-                                                        </p>
 						</td>
-						
+						<!-- <td> -->
+							<!-- Ibtissame FRIKS -->
+						<!-- </td> -->
 					</tr>
 				</table>
 			</div>
@@ -77,7 +81,6 @@
 				<table class="table_menuapp">
 					
 					<ul class="nav flex-column">
-						<ul class="nav flex-column">
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-comptes">Comptes</a>
 						</li>						
@@ -100,7 +103,7 @@
 							<a class="nav-link active" href="/association-arche/get-tax">Taxinomie</a>
 						</li>						
 						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-emp">EmployÈs</a>
+							<a class="nav-link active" href="/association-arche/get-emp">Employ√©s</a>
 						</li>
 					</ul>
 							
@@ -119,47 +122,55 @@
 				<!-- </tr> -->
 			<!-- </table> -->
 
-			<h1>
-			  Accueil Demandes</h1>
-                        <table class="tableau_demande">
-                            <tr>
- 					<td>N∞ Demande</td>
-					<td>Nature de la demande</td>
-  					<td>Date de cration </td>
-  					<td>Statut</td>
-				</tr>
-                            <tr>
- 					<td>Demande 1</td>
-					<td></td>
-  					<td></td>
-  					<td></td>
-				</tr>
-			<br>
-                        </table>
-                           
-	<div display="inline-block" align="center">	
-            <label for="localisation-select">Veuillez choisir une demande :</label>
-            </br>
-        </div>
-                           
-	<div display="inline-block" align="center">	
-                <select name="nature_demande" id="natureDemande-select">
-                        <option value="">-- Choisissez la demande  --</option>
-                        <option value="">Demande de crÈation de compte</option>
-                        <option value="">Demande de crÈation de projet</option>
-                        <option value="">Demande de candidatures aux projets de sauvetage</option>
-                        <option value="">Demande d'ajout d'alertes de sentinelle</option>
-                        <option value="">Demande d'ajout de lot de semence</option>
-                        <option value="">Demande d'ajout de taxinomie</option>
-                </select>
-            </br></br>
-        </div>
-        <div display="inline-block" align="center">
-                            
-             <button class="btn btn-success btn-space" type="submit">
-                <a href="demandeFonctionalitÈ.html" style="color:white;">Faire une demande</a>
-                <br>
-            </div>
+        <%
+            List<Projet> listeProjets = (List<Projet>)AccessBD.selectAllProjets();
+            if(listeProjets != null && !listeProjets.isEmpty() ){
+                
+                %>
+			<table class="tableau_demande" colspan=7 class="colspan">
+				</br>
+				</br>
+				<tr>
+				<td>ID</td><td>Esp√®ce</td><td>Demandeur</td><td>Alerte associ√©e</td><td>Narrateur</td><td>Statut</td><td>Date de d√©but</td>
+				</tr>                
+                <%
+                
+                for(Projet projet:listeProjets){
+                    if(projet.getEtatIdetat().getDescription().equals(AppStrings.ETAT_A_INITIER)){
+                %>
+
+                    <tr>
+                            <td>Projet <%=projet.getIdprojet()%></td>
+                            <td> <%=projet.getAlerteIdalerte().getEspeceIdespece().getIdespece()%></td>
+                            <td> <%=projet.getDemandeurIdsalarie().getNom()%></td>
+                            <td> <%=projet.getAlerteIdalerte().getIdalerte()%></td>
+                            <td> <%=projet.getNarrateurIdsalarie().getNom()%></td>
+                            <td> <%=projet.getEtatIdetat().getDescription()%></td>
+                            <td> <%=(projet.getDateDebut())==null? " " : projet.getDateDebut().toString()%></td>
+                            <td> 
+                                <a style="color:greenyellow;" href = /association-arche/cancel-project?id=<%=projet.getIdprojet()%> >
+                                   Valider
+                                </a>
+                                </br>
+                                <a style="color:red;" href = /association-arche/delete-project?id=<%=projet.getIdprojet()%> >
+                                   Refuser
+                                </a>
+                            </td>
+                    </tr>	
+            <%
+                }
+                }
+            }%>
+
+
+         <div display="inline-block" align="center">
+                            <br>
+    <form action="/association-arche/create-project">
+			<button class="btn btn-success " type="submit" style="color:white;">Nouveau project
+                        </button>
+                            <br>
+    </form>
+		</div>
                         </br>
 </div>
 

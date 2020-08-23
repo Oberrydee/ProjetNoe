@@ -82,30 +82,27 @@
 					<ul class="nav flex-column">
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-comptes">Comptes</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-alerts">Alertes</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
                                                     <a class="nav-link active" href="/association-arche/get-projects">Projets</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-projetcs-to-start">Candidatures de projets de sauvetage</a>
+							<a class="nav-link active" href="/association-arche/get-projects-to-start">Candidatures de projets de sauvetage</a>
 						</li>
-
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/sites">Sites de stockages</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-lots">Lots de semence</a>
-						</li>
-						
+						</li>						
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-tax">Taxinomie</a>
+						</li>						
+						<li class="nav-item">
+							<a class="nav-link active" href="/association-arche/get-emp">Employés</a>
 						</li>
 					</ul>
 							
@@ -123,17 +120,15 @@
 					<!-- </td> -->
 				<!-- </tr> -->
 			<!-- </table> -->
-
+                        <h1>Comptes utilisateurs</h1>
         <%
             List<CompteUtilisateur> listeComptes = (List<CompteUtilisateur>)AccessBD.selectAllCompteutilisateurs();
             if(listeComptes != null && !listeComptes.isEmpty() ){
                 
                 %>
-			<table class="tableau_demande" colspan=7 class="colspan">
-				</br>
-				</br>
+                <br><table class="tableau_demande" colspan=7 class="colspan">
 				<tr>
-				<td>ID</td><td>Espèce</td><td>Demandeur</td><td>Alerte associée</td><td>Narrateur</td><td>Statut</td><td>Date de début</td>
+				<td>ID</td><td>Nom</td><td>Prenom</td><td>Numero</td><td>Date de début</td>
 				</tr>                
                 <%
                 
@@ -144,9 +139,7 @@
                             <td>Compte <%=compte.getIdcompteUtilisateur()%></td>
                             <td> <%=compte.getNom()%></td>
                             <td> <%=compte.getPrenom()%></td>
-                            <td> <%=compte.getNomUtilisateur()%></td>
                             <td> <%=compte.getNuméroTelephone()%></td>
-                            <td> <%=compte.getEmailPerso()%></td>
                             <td> <%=compte.getEmailPerso()%></td>
                             <td>
                                 <a href = /association-arche/modify-account?id=<%=compte.getIdcompteUtilisateur()%> >
@@ -161,11 +154,8 @@
             <%
                 }
             }%>
-         <div display="inline-block" align="center">
-			<button class="btn btn-success " type="submit">
-                            <a href="/association-arche/create-project" style="color:white;">Nouveau compte</a>
-                            <br>
-		</div>
+            
                         </br>
+                        </table>
 </div>
 
