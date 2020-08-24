@@ -110,7 +110,7 @@
 									<div class="col-lg-8">
 										<label class="checkbox" >
 											<input type="checkbox" name="termes_et_conditions" value="termes_et_conditions"> 
-											J'ai bien lu les <a href="page_terms.html">termes de conditions</a><span class="text-danger">*</span>
+											J'ai bien lu les <a href="./page_terms.html">termes de conditions</a><span class="text-danger">*</span>
 										</label>                        
 									</div>
 									<div class="col-lg-4 text-right">
