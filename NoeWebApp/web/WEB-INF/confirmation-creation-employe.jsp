@@ -98,7 +98,6 @@
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="/association-arche/home">Accueil</a> | 
-								<a href="/association-arche/about">A propos de nous</a> |
 								<a href="/association-arche/contact">Contact</a> |
 								<b><a href="/association-arche/signin">Connexion</a></b>
 							</p>
