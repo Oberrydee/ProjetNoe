@@ -66,7 +66,7 @@ public class CreateNewSalarieServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-salarie.jsp"); 
-        disp.forward(request, response);
+        disp.forward(request, response); 
     }
 
     /**
@@ -80,12 +80,11 @@ public class CreateNewSalarieServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(); 
+            session.setAttribute("textError", "test" ); 
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-salarie.jsp"); 
         
-        HttpSession session = request.getSession(); 
-            session.setAttribute("textError", "" ); 
         
-        try{
         Salarié salarié = new Salarié(0); 
         
         String nom = request.getParameter("nom");    
@@ -150,11 +149,6 @@ public class CreateNewSalarieServlet extends HttpServlet {
                 }
 
             }
-        }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            disp = request.getRequestDispatcher("/WEB-INF/Error.html"); 
         }
         disp.forward(request, response);
         

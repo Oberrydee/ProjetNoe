@@ -147,14 +147,14 @@
 
                                                                 </br></br>
 								</div>
-								<hr>
-
                                                                 <div class="top-margin">
                                                                     
 										<button class="btn btn-success btn-space" type="submit" style="color:white;">
                                                                                     Envoyer la demande</button>
 									
 									</div>
+								<hr>
+
 								</div>
 							</form>
 						</div>
