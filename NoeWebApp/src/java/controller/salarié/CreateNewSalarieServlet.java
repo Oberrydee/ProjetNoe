@@ -81,7 +81,7 @@ public class CreateNewSalarieServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(); 
-            session.setAttribute("textError", "test" ); 
+        
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-salarie.jsp"); 
         
         
@@ -112,9 +112,12 @@ public class CreateNewSalarieServlet extends HttpServlet {
             CompteUtilisateur cpt = ((CompteUtilisateur)AccessBD.selectCompteUtilisateurByEmail(email));
             if (cpt != null) {
                 int id = cpt.getIdcompteUtilisateur();
+                System.out.println("id = "+id);
                 Salarié tmp = AccessBD.selectSalariéByIdCompteUtilisateur(id);
                 // il y en a un associé, stop process
-                if (tmp.getRoleidRole().getNomRole().equals(AppStrings.NOM_ROLE_ABONNE)){
+                if (tmp.getRoleidRole() != null 
+                        & tmp.getRoleidRole().getNomRole() != null 
+                        & tmp.getRoleidRole().getNomRole().equals(AppStrings.NOM_ROLE_ABONNE)){
                 session.setAttribute("textError", "Il existe deja un compte utilisateur abonné associé à cette adresse. "
                         + "Veillez à le supprimer avant de continuer.");
                 }
@@ -124,7 +127,8 @@ public class CreateNewSalarieServlet extends HttpServlet {
                 }
             }else{
                 //il n'y en a pas, on en cree un 
-                CompteUtilisateur compte = new CompteUtilisateur(0);
+                CompteUtilisateur compte = new CompteUtilisateur(); 
+                compte.setIdcompteUtilisateur(compte.hashCode());
                 compte.setEmailPerso(email);
                 compte.setMdp(Functions.generatePassword());
                 compte.setNom(nom);
@@ -146,6 +150,12 @@ public class CreateNewSalarieServlet extends HttpServlet {
                     if(AccessBD.persist(salarié)){
                         disp = request.getRequestDispatcher("/WEB-INF/confirmation-creation-employe.jsp"); 
                     }
+                    else{
+                        disp = request.getRequestDispatcher("/WEB-INF/Error.html"); 
+                        AccessBD.deleteCompteutilisateur(compte);
+                    }
+                }else{
+                    disp = request.getRequestDispatcher("/WEB-INF/Error.html"); 
                 }
 
             }

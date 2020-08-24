@@ -167,7 +167,7 @@ public class Functions {
                     pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-CDP.jsp"); 
                     break; 
                 default: 
-                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-all-rights.jsp"); 
+                    pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-all-rights.jsp");
                     break; 
             }
         }

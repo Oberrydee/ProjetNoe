@@ -40,13 +40,13 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
+				<a class="navbar-brand" href="/association-arche/home"><img src="assets/images/logo.png" alt="Arche de Noe"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="index.html">Accueil</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">Deconnexion</a></li>
+					<li class="active"><a href="/association-arche/home">Accueil</a></li>
+					<li><a href="/association-arche/contact">Contact</a></li>
+					<li><a class="btn" href="/association-arche/signout">Deconnexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -61,7 +61,7 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Page d'accueil</a></li>
+			<li><a href="/association-arche/home">Page d'accueil</a></li>
 			<li class="active">Création d'alerte</li>
 		</ol>
 
@@ -176,10 +176,8 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Accueil</a> | 
-								<a href="about.html">A propos de nous</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Connexion</a></b>
+								<a href="/association-arche/home">Accueil</a> | 
+								<a href="/association-arche/contact">Contact</a> |
 							</p>
 						</div>
 					</div>

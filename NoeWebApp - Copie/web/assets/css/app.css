@@ -1,0 +1,80 @@
+h1{
+	text-align: center;
+}
+
+table {
+  	border-collapse: collapse;
+ 	text-align: center;
+}
+
+table, th, td {
+  	border: 1px solid black;
+}
+
+td{
+	padding-top: 10px;
+  	padding-right: 3px;
+  	padding-bottom: 10px;
+  	padding-left: 8px;
+}
+
+#blockleft {
+	float: left;
+	width: 24%;
+	border-bottom-style: hidden;
+}
+
+.smile_img{
+	margin-left: auto;
+    margin-right: auto;
+    margin: auto;
+    display: block;
+    width: 70%;
+    padding-bottom: 10px;
+}
+
+#profil{
+	width: 100%;
+	border: solid 1px black;
+	background-color: lightgrey;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.table_profil{
+	margin:auto;
+}
+
+#menuapp{
+	width: 100%;
+	border: solid 1px black;
+	border-top-style: hidden;
+	border-bottom-style: hidden;
+	background-color: lightgrey;
+}
+
+.table_menuapp{
+	border-right-style: hidden;
+	border-left-style: hidden;
+	width: 100%;
+	margin: auto;
+}
+
+#blockright {
+	float: right;
+	width: 74%;
+	border: solid 1px black;
+	background-color: lightgrey;
+
+}
+
+
+.tableau_demande{
+	width: 99%;
+	margin: auto;
+}
+
+.colspan{
+	text-align: center;
+}
+
