@@ -359,7 +359,7 @@ public class Email {
              + " Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">\n" +
 "              <p style=\"margin: 0;\">"
              +"Vous avez fait une demande de réinitialisation de mot de passe"
-             + "Cliquez sur ce bouton ci dessous et entrez le code \""+ code
+             + "Cliquez sur ce lien ci dessous et entrez le code \""+ code
              + "\". Si vous n'êtes pas à l'origine de cet email, veuillez le supprimer.</p>\n" +
 "            </td>\n" +
 "          </tr>\n" +
