@@ -53,7 +53,10 @@ public class InterfaceServlet extends HttpServlet {
                             session.getAttribute(AppStrings.SESSION_ATTRIBUTE_EMAIL).toString()))
                     .getIdcompteUtilisateur()
                     ); 
-            session.setAttribute(AppStrings.SESSION_ATTRIBUTE_NOM, salarié.getNom().toUpperCase());
+            session.setAttribute(
+                    AppStrings.SESSION_ATTRIBUTE_NOM, 
+                    salarié.getNom()
+                            .toUpperCase());
             session.setAttribute(AppStrings.SESSION_ATTRIBUTE_PRENOM, salarié.getPrénom().toUpperCase());
             
             Role role = AccessBD.selectRoleByID((int) session.getAttribute("ambpambp")); 

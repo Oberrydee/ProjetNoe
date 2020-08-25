@@ -96,7 +96,7 @@ public class CreateSiteDeStockageServlet extends HttpServlet {
         }
         else{
             SiteDeStokage site = new SiteDeStokage(); 
-            site.setIdSiteDeStokage(site.hashCode());
+            site.setIdSiteDeStokage(0);
             site.setLocalisation(localisation);
             if (AccessBD.persist(site)){
                 disp = request.getRequestDispatcher("/WEB-INF/confirmation-creation-site.jsp"); 

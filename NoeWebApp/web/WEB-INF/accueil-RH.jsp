@@ -80,25 +80,7 @@
 						<ul class="nav flex-column">
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-comptes">Comptes</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-alerts">Alertes</a>
-						</li>						
-						<li class="nav-item">
-                                                    <a class="nav-link active" href="/association-arche/get-projects">Projets</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-projects-to-start">Candidatures de projets de sauvetage</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/sites">Sites de stockages</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-lots">Lots de semence</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-tax">Taxinomie</a>
-						</li>						
+						</li>									
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/get-emp">Employés</a>
 						</li>
@@ -133,9 +115,6 @@
                 <select onchange="window.location=this.options[this.selectedIndex].value" class="form-control">
                         <option value="">-- Choisissez la demande  --</option>
                         <option value="/association-arche/create-salarie">Demande de création de compte</option>
-                        <option value="/association-arche/create-project">Demande de création de projet</option>
-                        <option value="/association-arche/create-alert">Demande d'ajout d'alertes</option>
-                        <option value="/association-arche/create-lot">Demande d'ajout de lot de semence</option>
                         <option value="/association-arche/create-site">Demande d'ajout de site de stockage</option>
                 </select>
         </div>

@@ -86,10 +86,7 @@
 						</li>						
 						<li class="nav-item">
                                                     <a class="nav-link active" href="/association-arche/get-projects">Projets</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-projects-to-start">Candidatures de projets de sauvetage</a>
-						</li>
+						</li>		
 						<li class="nav-item">
 							<a class="nav-link active" href="/association-arche/sites">Sites de stockages</a>
 						</li>						

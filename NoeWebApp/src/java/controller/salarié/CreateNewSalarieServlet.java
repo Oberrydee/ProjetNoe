@@ -5,6 +5,7 @@
  */
 package controller.salarié;
 
+import entities.CodeResetPassword;
 import entities.CompteUtilisateur;
 import entities.Salarié;
 import java.io.IOException;
@@ -85,7 +86,8 @@ public class CreateNewSalarieServlet extends HttpServlet {
         RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/create-salarie.jsp"); 
         
         
-        Salarié salarié = new Salarié(0); 
+        Salarié salarié = new Salarié(); 
+        salarié.setIdSalarié(salarié.hashCode());
         
         String nom = request.getParameter("nom");    
         String prenom = request.getParameter("prenom");    
@@ -136,7 +138,9 @@ public class CreateNewSalarieServlet extends HttpServlet {
                 compte.setNomUtilisateur(nom+" "+prenom);
                 compte.setNuméroTelephone(numero_de_telephone);
                 if(AccessBD.persist(compte)){
-                    salarié.setCompteUtilisateuridcompteUtilisateur(compte);
+                    salarié.setCompteUtilisateuridcompteUtilisateur(
+                            (CompteUtilisateur) 
+                                    AccessBD.selectCompteUtilisateurByEmail(compte.getEmailPerso()));
                     salarié.setEmailPro(email);
                     salarié.setNom(nom);
                     salarié.setPrénom(prenom);
@@ -149,6 +153,19 @@ public class CreateNewSalarieServlet extends HttpServlet {
                     
                     if(AccessBD.persist(salarié)){
                         disp = request.getRequestDispatcher("/WEB-INF/confirmation-creation-employe.jsp"); 
+                        CodeResetPassword code = new CodeResetPassword(); 
+                        code.setIdCodeResetPassword(Functions.generateCodeResetPasswordUUID()); 
+                        code.setIdCompteUtilisateur(((CompteUtilisateur)AccessBD.
+                                selectCompteUtilisateurByEmail(email)).getIdcompteUtilisateur());
+                        code.setNomCodeResetPassword(null);
+                        if(AccessBD.persist(code)){
+                            Functions.sendCodeInitilizePassword(email, code.getIdCodeResetPassword()); 
+                        }
+                        else{
+                            AccessBD.deleteSalarié(AccessBD.selectSalariéByEmailPro(salarié.getEmailPro())); 
+                            AccessBD.deleteCompteutilisateur((CompteUtilisateur) AccessBD.selectCompteUtilisateurByEmail(salarié.getEmailPro()));
+                            disp = request.getRequestDispatcher("/WEB-INF/Error.html");   
+                        }
                     }
                     else{
                         disp = request.getRequestDispatcher("/WEB-INF/Error.html"); 

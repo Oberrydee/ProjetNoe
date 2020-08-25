@@ -77,29 +77,8 @@
 					
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-comptes">Comptes</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-alerts">Alertes</a>
-						</li>						
-						<li class="nav-item">
-                                                    <a class="nav-link active" href="/association-arche/get-projects">Projets</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-projects-to-start">Candidatures de projets de sauvetage</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/sites">Sites de stockages</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-lots">Lots de semence</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-tax">Taxinomie</a>
-						</li>						
-						<li class="nav-item">
-							<a class="nav-link active" href="/association-arche/get-emp">Employés</a>
-						</li>
+							<a class="nav-link active" href="/association-arche/home-a">Accueil</a>
+						</li>	
 					</ul>
 							
 				</table>
