@@ -105,7 +105,7 @@
                                                             
                                                                 <div class="top-margin">
                                                                         <label>Site : </label>
-                                                                <select name="site" id="natureDemande-select">  
+                                                                <select name="site" id="natureDemande-select" class="form-control">  
                                                                     <option value="DAX">DAX</option>
                                                                     <option value="LILLE">LILLE</option>
                                                                     <option value="ANNECY">ANNECY</option>
@@ -130,7 +130,7 @@
 								</div>
                                                                 <div class="top-margin">
 									<label>Role </label>
-                                                                        <select name="role" id="natureDemande-select">  
+                                                                        <select  class="form-control" name="role" id="natureDemande-select">  
                                                                             <option value="<%=AppStrings.NOM_ROLE_EMPLOYE%>">Aucun</option>
                                                                             <option value="<%=AppStrings.NOM_ROLE_RH%>">Ressources Humaines</option>
                                                                             <option value="<%=AppStrings.NOM_ROLE_RECHERCHE_ET_DEVELOPPEMENT%>">Recherche et Développement</option>
@@ -145,14 +145,14 @@
 								</div>
                                                                         
 
-                                                                </br></br>
-								</div>
-                                                                <div class="top-margin">
+                                                                            </br><br>
+                                                                <div display="inline-block">
                                                                     
 										<button class="btn btn-success btn-space" type="submit" style="color:white;">
                                                                                     Envoyer la demande</button>
 									
 									</div>
+								</div>
 								<hr>
 
 								</div>

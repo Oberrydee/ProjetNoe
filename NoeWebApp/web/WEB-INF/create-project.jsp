@@ -90,7 +90,7 @@
 								</div>
                                                                 <div class="top-margin">
                                                                         <label>Identifiant de l'alerte associée : </label>
-                                                                <select name="alerte" id="natureDemande-select">                                                                    
+                                                                <select  class="form-control" name="alerte" id="natureDemande-select">                                                                    
                                                     <%
                                                         List<Alerte> listeAlertes = AccessBD.selectAllALerts(); 
                                                         for(Alerte alerte : listeAlertes){%>
@@ -103,7 +103,7 @@
 								</div>
                                                                 <div class="top-margin">
 									<label>Etat : </label>
-                                                                        <select name="etat" id="natureDemande-select">                                                                    
+                                                                        <select  class="form-control" name="etat" id="natureDemande-select">                                                                    
                                                     <%
                                                         List<Etat> listeEtats = AccessBD.selectAllEtats(); 
                                                         for(Etat etat : listeEtats){%>
@@ -114,10 +114,10 @@
                                                                         </select>
 								</div>
 
-								<div inline-block>
+								<div class="top-margin">
 									
 										<label>Date de début de projet</label>
-                                                                <input type="date" name="date_debut_projet">
+                                                                <input type="date" class="form-control" name="date_debut_projet">
 
                                                            <div>
                                                                             <p style="color: red">${textError}</p>

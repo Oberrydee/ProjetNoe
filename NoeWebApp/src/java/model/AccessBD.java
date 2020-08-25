@@ -23,6 +23,7 @@ import entities.Projet;
 import entities.Regne;
 import entities.Role;
 import entities.Salarié;
+import entities.Salle;
 import entities.Section;
 import entities.Semence;
 import entities.Sentinelle;
@@ -160,7 +161,7 @@ public class AccessBD {
         EntityManagerFactory emf = 
                 Persistence.createEntityManagerFactory("NoeWebAppPU"); 
         EntityManager em = emf.createEntityManager(); 
-        String QueryStr = "delete from alerte where idalerte = '"+alerte.getIdalerte(); 
+        String QueryStr = "delete from Alerte where idalerte = '"+alerte.getIdalerte()+"'"; 
         
         em.getTransaction().begin();
         try{
@@ -688,6 +689,26 @@ public class AccessBD {
         return liste; 
     }
     
+    public static SiteDeStokage selectSiteDeStokageByID(int idSiteDeStokage) {
+            EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("SiteDeStokage.findByIdSiteDeStokage"); 
+        q.setParameter("idSiteDeStokage", idSiteDeStokage); 
+        
+        try{
+            SiteDeStokage al = (SiteDeStokage)q.getSingleResult(); 
+            em.close(); 
+            return al;
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////
     //              LotDeSemence
     ////////////////////////////////////////////////////////////////////////////////////
@@ -765,5 +786,84 @@ public class AccessBD {
         em.close(); 
         return liste; 
     }
+   
+////////////////////////////////////////////////////////////////////////////////////
+    //              Salle
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    public static List<Salle> selectAllSalles(){
+         EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
         
+        Query q = em.createNamedQuery("Salle.findAll"); 
+        
+        List<Salle> liste = (List<Salle>)q.getResultList(); 
+        
+        for (Salle a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste;         
+    }
+    
+    public static Salle selectSalleByID(int idSalle) {
+            EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Salle.findByIdSalle"); 
+        q.setParameter("idSalle", idSalle); 
+        
+        try{
+            Salle al = (Salle)q.getSingleResult(); 
+            em.close(); 
+            return al;
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    
+    }
+    
+    ///////////////////////////////////////////////////////
+    // Semences
+    ///////////////////////////////////////////////////////////
+    public static List<Semence> selectAllsSemences(){
+         EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Semence.findAll"); 
+        
+        List<Semence> liste = (List<Semence>)q.getResultList(); 
+        
+        for (Semence a: liste){
+            System.out.println(a.toString());
+        }
+        em.close(); 
+        return liste;           
+    }
+    
+    public static Semence selectSemenceByID(int idsemence) {
+            EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Semence.findByIdsemence"); 
+        q.setParameter("idsemence", idsemence); 
+        
+        try{
+            Semence al = (Semence)q.getSingleResult(); 
+            em.close(); 
+            return al;
+        }
+        catch(NoResultException e){
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -149,10 +149,12 @@
                 }
                      }%>
 
+                     <form action="/association-arche/create-site">
          <div display="inline-block" align="center">
-			<button class="btn btn-success " type="submit"><a href="/association-arche/create-site" style="color:white;">Nouveau site</a>
+			<button class="btn btn-success " type="submit" style="color:white;">Nouveau site</button>
                             <br>
 		</div>
                         </br>
+                     </form>
 </div>
 

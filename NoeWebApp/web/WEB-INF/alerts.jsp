@@ -111,7 +111,7 @@
 					</div>
 		</div>
 
-		<div id="blockright">>
+		<div id="blockright">
 			<!-- </table> -->
         <%
             List<Alerte> listeAlertes = (List<Alerte>)AccessBD.selectAllALerts();
@@ -122,7 +122,9 @@
 				</br>
 				</br>
 				<tr>
-                                    <td>N° Alerte</td><td>Espèce</td><td>Urgence</td><td>Sentinelle</td><td>Actions</td>
+                                    <td>N° Alerte</td>
+                                    <td>Espèce</td>
+                                    <td>Urgence</td><td>Sentinelle</td><td>Actions</td>
 				</tr>
                 <%
                 
@@ -134,8 +136,10 @@
                             <td> <%=alerte.getEspeceIdespece().getNom()%></td>
                             <td> <%=alerte.getUrgence()%></td>
                             <td> <%=alerte.getSentinelleIdsentinelle().getSalariéidSalarié().getNom()%> <%=alerte.getSentinelleIdsentinelle().getSalariéidSalarié().getPrénom()%></td>
-                          <td> 
-                                <a style= "red" href = /association-arche/delete-alerte?id=<%=alerte.getIdalerte()%>
+                        
+                            <td>
+                                <a style="color : lightcoral" href = /association-arche/delete-alert?id=<%=alerte.getIdalerte()%> >
+                                                                 <!--data-confirm="Supprimer l'alerte?"--> 
                                    Supprimer
                                 </a>
                             </td>

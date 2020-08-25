@@ -141,15 +141,6 @@
                             <td> <%=compte.getPrenom()%></td>
                             <td> <%=compte.getNuméroTelephone()%></td>
                             <td> <%=compte.getEmailPerso()%></td>
-                            <td>
-                                <a href = /association-arche/modify-account?id=<%=compte.getIdcompteUtilisateur()%> >
-                                   Modifier
-                                </a> 
-                                </br>
-                                <a href = /association-arche/delete-account?id=<%=compte.getIdcompteUtilisateur()%> >
-                                   Supprimer
-                                </a>
-                            </td>
                     </tr>	
             <%
                 }
