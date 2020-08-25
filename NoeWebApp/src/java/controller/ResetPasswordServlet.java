@@ -7,6 +7,7 @@ package controller;
 
 import entities.CodeResetPassword;
 import entities.CompteUtilisateur;
+import entities.Salarié;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -100,10 +101,16 @@ public class ResetPasswordServlet extends HttpServlet {
                         CodeResetPassword reset = (CodeResetPassword) AccessBD.selectCoderesetpasswordByID(code); 
                         CompteUtilisateur cpt = AccessBD.selectCompteUtilisateurByID(reset.getIdCompteUtilisateur()); 
                         AccessBD.deleteCoderesetpassword(reset);
+                        Salarié salarie = AccessBD.selectSalariéByIdCompteUtilisateur(cpt.getIdcompteUtilisateur()); 
+                        AccessBD.deleteSalarié(salarie);
                         AccessBD.deleteCompteutilisateur(cpt);
                         cpt.setMdp(mdp);
                         if(AccessBD.persist(cpt)) {
-                            pageToDisplay = request.getRequestDispatcher("/WEB-INF/confirmation-password-reset.jsp"); 
+                            if (AccessBD.persist(salarie)){
+                                pageToDisplay = request.getRequestDispatcher("/WEB-INF/confirmation-password-reset.jsp");
+                            } else {
+                                 pageToDisplay = request.getRequestDispatcher("Error.html");
+                            }
                         }else{
                             pageToDisplay = request.getRequestDispatcher("Error.html");                         
                         }
@@ -121,6 +128,7 @@ public class ResetPasswordServlet extends HttpServlet {
         }else{
             session.setAttribute("textError", AppStrings.INVALID_PARAM_DISP("code")); 
         }        
+        
         pageToDisplay.forward(request, response);
         
     }

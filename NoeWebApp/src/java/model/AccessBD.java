@@ -379,6 +379,44 @@ public class AccessBD {
         }
         return null; 
     }
+    
+    public static Salarié selectSalariéByEmailPro(String email){
+        
+        EntityManagerFactory emf = 
+                Persistence.createEntityManagerFactory("NoeWebAppPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        
+        Query q = em.createNamedQuery("Salari\u00e9.findByEmailPro"); 
+        q.setParameter("emailPro", email); 
+        try{
+            Salarié salarié = (Salarié)q.getSingleResult(); 
+            em.close(); 
+            return salarié; 
+        } catch(NoResultException e) {
+            em.close(); 
+            return null;
+        } 
+    }
+    
+    public static void deleteSalarié (Salarié salarié){
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("NoeWebAppPU");
+        EntityManager em = emf.createEntityManager();
+        String QueryStr = "DELETE From Salari\u00e9 WHERE idSalari\u00e9 = " + salarié.getIdSalarié();
+
+        EntityTransaction t = em.getTransaction(); 
+        t.begin();
+        try {
+            Query q = em.createQuery(QueryStr);
+            int updateCount = q.executeUpdate();
+            t.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            t.rollback();
+        } finally {
+            em.close();
+        }
+    }
         
     /////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////// Role /////////////////////////////////////////
