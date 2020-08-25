@@ -155,10 +155,13 @@
                 }
                         }%>
 
+                        <form action="/association-arche/create-lot">
          <div display="inline-block" align="center">
-			<button class="btn btn-success " type="submit"><a href="/association-arche/create-lot" style="color:white;">Nouveau Lot</a>
+			<button class="btn btn-success " type="submit" style="color:white;">Nouveau Lot
+                        </button>
                             <br>
 		</div>
                         </br>
+                        </form>
 </div>
 

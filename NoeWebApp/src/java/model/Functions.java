@@ -171,7 +171,7 @@ public class Functions {
                     break; 
             }
         }
-        else pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-all-rights.jsp"); 
+        else pageToDisplay = request.getRequestDispatcher("/WEB-INF/accueil-abonne.jsp"); 
 
         return pageToDisplay; 
     }

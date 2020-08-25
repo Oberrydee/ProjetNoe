@@ -82,7 +82,7 @@
                                                             
                                                                 <div >
                                                                     <label>Espece : </label>
-                                                                <select name="espece" id="natureDemande-select">
+                                                                <select  class="form-control" name="espece" id="natureDemande-select">
                                                                     <option value="<%=
                                                                         ((Espece)AccessBD.selectEspeceByName("INCONNU")).getNom()%>">INCONNU</option>
                                                     <%
@@ -100,7 +100,7 @@
                                                                 <div >
                                                                   
                                                                     <label>Urgence : </label>
-                                                                <select name="urgence" id="natureDemande-select">
+                                                                <select  class="form-control" name="urgence" id="natureDemande-select">
                                                                         <option value="3">Aucune</option>
                                                                         <option value="2">Neutre</option>
                                                                         <option value="1">Urgent</option>

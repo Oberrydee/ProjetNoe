@@ -60,6 +60,7 @@ public class AppStrings {
     public static final String REGEX_PHONE_NUMBER = "((?:\\+|00)[17](?: |\\-)?|(?:\\+|00)[1-9]\\d{0,2}(?: |\\-)?|(?:\\+|00)1\\-\\d{3}(?: |\\-)?)?(0\\d|\\([0-9]{3}\\)|[1-9]{0,3})(?:((?: |\\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\\-)[0-9]{3}(?: |\\-)[0-9]{4})|([0-9]{7}))";        
     public static final String REGEX_PASSWORD = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^,\"\'&*-]).{8,}$"; 
     public static final String REGEX_CODE_POSTAL = "\\d{2}[ ]?\\d{3}"; 
+    public static final String REGEX_NUMbER = "^\\d+$" ;
     
     public static final String PASSWORD_REQUIERMENTS = 
                 "Le mot de passe doit avoir: "
